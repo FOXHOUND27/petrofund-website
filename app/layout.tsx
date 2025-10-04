@@ -4,6 +4,7 @@ import { Ubuntu_Sans } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 const ubuntuSans = Ubuntu_Sans({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
         <Suspense fallback={<div>Loading...</div>}>
           <Navbar />
           {children}
+          <Footer />
         </Suspense>
       </body>
     </html>

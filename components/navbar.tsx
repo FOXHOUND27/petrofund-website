@@ -335,7 +335,7 @@ export default function Navbar() {
                       whileTap={{ scale: 0.95 }}
                       className="w-full bg-primary text-white px-8 py-3 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-base"
                     >
-                      Donate
+                      Login
                     </motion.button>
                   </Link>
                 </motion.div>
