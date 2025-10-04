@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -61,9 +62,12 @@ export default function Navbar() {
               transition={{ duration: 0.2 }}
             >
               <div className="w-[100px] h-[80px] md:w-[150px] md:h-[100px] flex items-center justify-center">
-                <span className="text-primary font-bold text-xl md:text-2xl">
-                  PETROFUND
-                </span>
+                <Image
+                  src="/Logo/PetroLogo.png"
+                  width={200}
+                  height={60}
+                  alt="Petrofund Logo"
+                />
               </div>
             </motion.div>
           </Link>
