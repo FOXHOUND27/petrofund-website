@@ -13,9 +13,10 @@ const ubuntuSans = Ubuntu_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.app",
+  title: "Petrofund – Empowering Namibia’s Future in Oil & Gas",
+  description:
+    "Petrofund provides scholarships and training opportunities for Namibians to pursue careers in the oil and gas industry. Our mission is to empower the next generation of professionals with education, skills, and hands-on experience in the petroleum sector.",
+  generator: "Petrofund",
 };
 
 export default function RootLayout({

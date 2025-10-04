@@ -53,7 +53,7 @@ export default function Navbar() {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="bg-white shadow-xl rounded-full px-4 md:px-8 w-[95%] flex justify-between items-center relative"
+          className="bg-white shadow-xl rounded-full px-4 md:px-8 w-[98%] flex justify-between items-center relative"
         >
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
@@ -64,7 +64,7 @@ export default function Navbar() {
               <div className="w-[100px] h-[80px] md:w-[150px] md:h-[100px] flex items-center justify-center">
                 <Image
                   src="/Logo/PetroLogo.png"
-                  width={200}
+                  width={300}
                   height={60}
                   alt="Petrofund Logo"
                 />
@@ -73,14 +73,14 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation Links - Centered */}
-          <ul className="hidden lg:flex justify-center items-center gap-6 xl:gap-8 py-4 text-[15px] xl:text-[16px] font-medium text-primary absolute left-1/2 -translate-x-1/2">
+          <ul className="hidden lg:flex justify-center items-center gap-4 xl:gap-8 py-4 text-[15px] xl:text-[16px] font-medium text-primary absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link, index) => (
               <motion.li
                 key={link.href}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.4 }}
-                className="relative group"
+                className="relative group font-semibold"
               >
                 <Link
                   href={link.href}
@@ -97,10 +97,10 @@ export default function Navbar() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: navLinks.length * 0.1, duration: 0.4 }}
-              className="relative"
+              className="relative font-semibold"
             >
               <button
-                className="hover:text-accent transition-colors duration-300 flex items-center gap-1 focus:outline-none"
+                className="hover:text-accent font-semibold transition-colors duration-300 flex items-center gap-1 focus:outline-none"
                 onClick={() => setMediaSubMenuOpen((open) => !open)}
                 onBlur={() => setTimeout(() => setMediaSubMenuOpen(false), 150)}
                 aria-haspopup="true"
@@ -131,7 +131,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute left-1/2 -translate-x-1/2 mt-4 bg-white shadow-lg rounded-lg py-2 flex flex-col gap-1 min-w-[180px]"
+                    className="absolute left-1/2 -translate-x-1/2 mt-11 bg-white shadow-lg rounded-lg py-2 flex flex-col gap-1 min-w-[180px]"
                   >
                     {mediaSubMenuItems.map((item) => (
                       <Link
@@ -155,7 +155,7 @@ export default function Navbar() {
             >
               <Link
                 href="/contact"
-                className="hover:text-accent transition-colors duration-300 relative whitespace-nowrap"
+                className="hover:text-accent font-semibold transition-colors duration-300 relative whitespace-nowrap"
               >
                 Contact Us
                 <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
