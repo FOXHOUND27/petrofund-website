@@ -53,7 +53,7 @@ export default function Navbar() {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="bg-white shadow-xl rounded-full px-4 md:px-8 w-[97%] flex justify-between items-center relative"
+          className="bg-white shadow-xl rounded-full px-4 md:px-8 w-[95%] flex justify-between items-center relative"
         >
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
