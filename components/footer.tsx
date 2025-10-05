@@ -31,7 +31,7 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      className="bg-[#4F3996] mt-[800px] text-white py-12 md:py-16 lg:py-20 px-5 md:px-8 lg:px-12 rounded-tl-[40px] md:rounded-tl-[60px] lg:rounded-tl-[85px] shadow-[inset_0_4px_6px_rgba(0,0,0,0.1)] transition-all duration-700"
+      className="bg-[#4F3996] text-white py-12 md:py-16 lg:py-20 px-5 md:px-8 lg:px-12 rounded-tl-[40px] md:rounded-tl-[60px] lg:rounded-tl-[85px] shadow-[inset_0_4px_6px_rgba(0,0,0,0.1)] transition-all duration-700"
     >
       <div
         className={`max-w-7xl mx-auto transition-all duration-1000 ${
@@ -70,19 +70,19 @@ const Footer = () => {
                 Contact us
               </h3>
               <div className="space-y-2">
-                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:text-[#F47C20]">
+                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
                   Elizabeth N Shimwafeni
                 </h2>
-                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:text-[#F47C20]">
+                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
                   Telephone: +264 61 400 443
                 </h2>
-                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:text-[#F47C20]">
+                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
                   Fax Number: 0886510721
                 </h2>
-                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:text-[#F47C20]">
+                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
                   Email: eshimwafeni@namcor.com.na
                 </h2>
-                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:text-[#F47C20]">
+                <h2 className="text-sm md:text-base font-semibold transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
                   Website: www.petrofund.org
                 </h2>
               </div>
@@ -134,6 +134,74 @@ const Footer = () => {
                   Gallery
                 </h2>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 md:mt-16 pt-8 border-t border-white/20">
+          <div className="flex flex-col items-center gap-6">
+            <h1 className="text-lg md:text-xl font-bold tracking-wide transition-colors duration-300 hover:text-[#F47C20]">
+              Connect With Us
+            </h1>
+
+            {/* Social Media Links */}
+            <div className="flex justify-center items-center gap-4 md:gap-6">
+              <a
+                href="#"
+                className="group relative transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                aria-label="Facebook"
+              >
+                <div className="absolute inset-0 bg-[#F47C20] rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+                <Image
+                  src="/Icons/Facebook Circled.png"
+                  width={45}
+                  height={45}
+                  alt="Facebook Icon"
+                  className="relative w-10 h-10 md:w-12 md:h-12 transition-all duration-300 group-hover:brightness-110"
+                />
+              </a>
+              <a
+                href="#"
+                className="group relative transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                aria-label="X (Twitter)"
+              >
+                <div className="absolute inset-0 bg-[#F47C20] rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+                <Image
+                  src="/Icons/X.png"
+                  width={45}
+                  height={45}
+                  alt="X Icon"
+                  className="relative w-10 h-10 md:w-12 md:h-12 transition-all duration-300 group-hover:brightness-110"
+                />
+              </a>
+              <a
+                href="#"
+                className="group relative transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                aria-label="LinkedIn"
+              >
+                <div className="absolute inset-0 bg-[#F47C20] rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+                <Image
+                  src="/Icons/LinkedIn.png"
+                  width={45}
+                  height={45}
+                  alt="LinkedIn Icon"
+                  className="relative w-10 h-10 md:w-12 md:h-12 transition-all duration-300 group-hover:brightness-110"
+                />
+              </a>
+              <a
+                href="#"
+                className="group relative transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                aria-label="Instagram"
+              >
+                <div className="absolute inset-0 bg-[#F47C20] rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+                <Image
+                  src="/Icons/Instagram.png"
+                  width={45}
+                  height={45}
+                  alt="Instagram Icon"
+                  className="relative w-10 h-10 md:w-12 md:h-12 transition-all duration-300 group-hover:brightness-110"
+                />
+              </a>
             </div>
           </div>
         </div>
