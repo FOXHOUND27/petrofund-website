@@ -1,9 +1,9 @@
-import Image from "next/image";
+import LargeHero from "@/components/largeHero";
 
 export default function Home() {
   return (
-    <div>
-      <h1>Dalglish Lisulo</h1>
-    </div>
+    <>
+      <LargeHero />
+    </>
   );
 }
