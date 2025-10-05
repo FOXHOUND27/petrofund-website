@@ -323,7 +323,7 @@ export default function Navbar() {
                   </motion.li>
                 </ul>
 
-                {/* Donate Button - Mobile */}
+                {/* Login Button - Mobile */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
