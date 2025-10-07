@@ -4,7 +4,7 @@ import { ArrowUpRight, ChevronRight, MoveUpRight } from "lucide-react";
 
 const LargeHero = () => {
   return (
-    <section className="relative bottom-25 w-full h-[600px] sm:h-[600px] md:h-[700px] lg:h-[800px] xl:h-[900px] overflow-hidden">
+    <section className="relative bottom-25  w-full h-[600px] sm:h-[700px] md:h-[700px] lg:h-[800px] xl:h-[900px] overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 bottom-25">
         <Image
