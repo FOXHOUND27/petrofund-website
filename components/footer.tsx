@@ -31,7 +31,7 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      className="bg-[#4F3996] mt-[1000px] text-white py-12 md:py-16 lg:py-20 px-5 md:px-8 lg:px-12 rounded-tl-[40px] md:rounded-tl-[60px] lg:rounded-tl-[85px] shadow-[inset_0_4px_6px_rgba(0,0,0,0.1)] transition-all duration-700"
+      className="bg-[#4F3996] text-white py-12 md:py-16 lg:py-20 px-5 md:px-8 lg:px-12 rounded-tl-[40px] md:rounded-tl-[60px] lg:rounded-tl-[85px] shadow-[inset_0_4px_6px_rgba(0,0,0,0.1)] transition-all duration-700"
     >
       <div
         className={`max-w-7xl mx-auto transition-all duration-1000 ${

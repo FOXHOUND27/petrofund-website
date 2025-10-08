@@ -32,7 +32,7 @@ const MainHero: React.FC<MainHeroProps> = ({ imageSrc, title, subtitle }) => {
           <h1 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-balance">
             {title}
           </h1>
-          <h2 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl mt-3 sm:mt-4 md:mt-6 font-light leading-relaxed text-pretty animate-in slide-in-from-bottom-6 fade-in duration-1000 delay-500">
+          <h2 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl mt-2 sm:mt-2 md:mt-6 font-light leading-relaxed text-pretty animate-in slide-in-from-bottom-6 fade-in duration-1000 delay-500">
             {subtitle}
           </h2>
         </div>
