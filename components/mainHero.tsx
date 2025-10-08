@@ -1,5 +1,4 @@
-import { ArrowUpRight, ChevronRight } from "lucide-react";
-import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 interface MainHeroProps {
@@ -9,17 +8,28 @@ interface MainHeroProps {
 }
 
 const MainHero: React.FC<MainHeroProps> = ({ imageSrc, title, subtitle }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <section className="relative bottom-25 w-full h-[600px] sm:h-[700px] md:h-[700px] lg:h-[800px] xl:h-[900px] overflow-hidden">
+      {/* Skeleton / Placeholder */}
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px]" />
+      )}
+
       {/* Background Image */}
       <div className="absolute inset-0 bottom-25">
         <Image
           src={imageSrc}
           alt={title || "Hero Image"}
           fill
-          priority
-          className="object-cover rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px] animate-in fade-in zoom-in-95 duration-1000"
+          onLoadingComplete={() => setIsLoaded(true)}
+          className={`object-cover rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px] transition-opacity duration-700 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
           sizes="100vw"
+          priority={false}
+          loading="lazy"
         />
       </div>
 
