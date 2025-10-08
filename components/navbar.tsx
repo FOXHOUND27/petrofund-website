@@ -9,16 +9,16 @@ import Image from "next/image";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [aboutSubMenuOpen, setAboutSubMenuOpen] = useState(false);
   const [mediaSubMenuOpen, setMediaSubMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setMenuOpen(false);
+    setAboutSubMenuOpen(false);
     setMediaSubMenuOpen(false);
   }, [pathname]);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
@@ -45,17 +45,19 @@ export default function Navbar() {
     { href: "/media/gallery", label: "Gallery" },
   ];
 
+  const aboutSubMenuItems = [
+    { href: "/about/message-from-ceo", label: "Message from CEO" },
+  ];
+
   return (
     <>
       <nav className="flex justify-center items-center sticky top-4 z-50 px-2 md:px-2">
-        {/* Desktop Navigation */}
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="bg-white shadow-xl rounded-full px-4 md:px-8 w-[95%] flex justify-between items-center relative"
         >
-          {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -72,27 +74,95 @@ export default function Navbar() {
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation Links - Centered */}
-          <ul className="hidden lg:flex justify-center items-center gap-4 xl:gap-8 py-4 text-[15px] xl:text-[16px] font-medium text-primary absolute left-1/2 -translate-x-1/2">
-            {navLinks.map((link, index) => (
-              <motion.li
-                key={link.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.4 }}
-                className="relative group font-semibold"
-              >
-                <Link
-                  href={link.href}
-                  className="hover:text-accent transition-colors duration-300 relative whitespace-nowrap"
-                >
-                  {link.label}
-                  <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
-                </Link>
-              </motion.li>
-            ))}
+          <ul className="hidden lg:flex justify-center items-center gap-4 xl:gap-8 py-4 text-[15px] xl:text-[16px] font-medium absolute left-1/2 -translate-x-1/2">
+            {navLinks.map((link, index) => {
+              if (link.label === "About") return null;
 
-            {/* Media Dropdown */}
+              return (
+                <motion.li
+                  key={link.href}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.4 }}
+                  className="relative group font-semibold"
+                >
+                  <Link
+                    href={link.href}
+                    className={`transition-colors duration-300 relative whitespace-nowrap ${
+                      pathname === link.href
+                        ? "text-[#F47C20]"
+                        : "text-[#4F3996] hover:text-[#F47C20]"
+                    }`}
+                  >
+                    {link.label}
+                    <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
+                  </Link>
+                </motion.li>
+              );
+            })}
+
+            <motion.li
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 * 0.1, duration: 0.4 }}
+              className="relative font-semibold"
+            >
+              <button
+                className={`font-semibold transition-colors duration-300 flex items-center gap-1 focus:outline-none ${
+                  pathname.startsWith("/about")
+                    ? "text-[#F47C20]"
+                    : "text-[#4F3996] hover:text-[#F47C20]"
+                }`}
+                onClick={() => setAboutSubMenuOpen((open) => !open)}
+                onBlur={() => setTimeout(() => setAboutSubMenuOpen(false), 150)}
+                aria-haspopup="true"
+                aria-expanded={aboutSubMenuOpen}
+              >
+                About
+                <motion.svg
+                  animate={{ rotate: aboutSubMenuOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </motion.svg>
+              </button>
+
+              <AnimatePresence>
+                {aboutSubMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute left-1/2 -translate-x-1/2 mt-11 bg-white shadow-lg rounded-lg py-2 flex flex-col gap-1 min-w-[200px]"
+                  >
+                    {aboutSubMenuItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`block px-6 py-3 rounded transition-colors duration-200 ${
+                          pathname === item.href
+                            ? "bg-[#F47C20] text-white"
+                            : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.li>
+
             <motion.li
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -100,7 +170,11 @@ export default function Navbar() {
               className="relative font-semibold"
             >
               <button
-                className="hover:text-accent font-semibold transition-colors duration-300 flex items-center gap-1 focus:outline-none"
+                className={`font-semibold transition-colors duration-300 flex items-center gap-1 focus:outline-none ${
+                  pathname.startsWith("/media")
+                    ? "text-[#F47C20]"
+                    : "text-[#4F3996] hover:text-[#F47C20]"
+                }`}
                 onClick={() => setMediaSubMenuOpen((open) => !open)}
                 onBlur={() => setTimeout(() => setMediaSubMenuOpen(false), 150)}
                 aria-haspopup="true"
@@ -137,7 +211,11 @@ export default function Navbar() {
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="block px-6 py-3 rounded hover:bg-primary hover:text-white transition-colors duration-200"
+                        className={`block px-6 py-3 rounded transition-colors duration-200 ${
+                          pathname === item.href
+                            ? "bg-[#F47C20] text-white"
+                            : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                        }`}
                       >
                         {item.label}
                       </Link>
@@ -155,15 +233,18 @@ export default function Navbar() {
             >
               <Link
                 href="/contact"
-                className="hover:text-accent font-semibold transition-colors duration-300 relative whitespace-nowrap"
+                className={`font-semibold transition-colors duration-300 relative whitespace-nowrap ${
+                  pathname === "/contact"
+                    ? "text-[#F47C20]"
+                    : "text-[#4F3996] hover:text-[#F47C20]"
+                }`}
               >
                 Contact Us
-                <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
+                <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
               </Link>
             </motion.li>
           </ul>
 
-          {/* Donate Button - Desktop */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -181,11 +262,10 @@ export default function Navbar() {
             </Link>
           </motion.div>
 
-          {/* Mobile Menu Button */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden text-primary p-2 rounded-full hover:bg-secondary transition-colors duration-200"
+            className="lg:hidden text-[#4F3996] p-2 rounded-full hover:bg-secondary transition-colors duration-200"
             aria-label="Toggle menu"
           >
             {menuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -193,11 +273,9 @@ export default function Navbar() {
         </motion.div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {menuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -207,7 +285,6 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
             />
 
-            {/* Mobile Menu Panel */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -216,37 +293,109 @@ export default function Navbar() {
               className="fixed top-0 right-0 bottom-0 w-[80%] max-w-sm bg-white shadow-2xl z-50 lg:hidden overflow-y-auto"
             >
               <div className="p-6">
-                {/* Close Button */}
                 <div className="flex justify-end mb-8">
                   <motion.button
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setMenuOpen(false)}
-                    className="text-primary p-2 rounded-full hover:bg-secondary transition-colors duration-200"
+                    className="text-[#4F3996] p-2 rounded-full hover:bg-secondary transition-colors duration-200"
                     aria-label="Close menu"
                   >
                     <X size={28} />
                   </motion.button>
                 </div>
 
-                {/* Mobile Navigation Links */}
                 <ul className="flex flex-col gap-2">
-                  {navLinks.map((link, index) => (
-                    <motion.li
-                      key={link.href}
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05, duration: 0.3 }}
-                    >
-                      <Link
-                        href={link.href}
-                        className="block px-4 py-3 text-base font-medium text-primary hover:bg-secondary hover:text-accent rounded-lg transition-colors duration-200"
-                      >
-                        {link.label}
-                      </Link>
-                    </motion.li>
-                  ))}
+                  {navLinks.map((link, index) => {
+                    if (link.label === "About") return null;
 
-                  {/* Media Submenu - Mobile */}
+                    return (
+                      <motion.li
+                        key={link.href}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05, duration: 0.3 }}
+                      >
+                        <Link
+                          href={link.href}
+                          className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                            pathname === link.href
+                              ? "bg-[#F47C20] text-white"
+                              : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                          }`}
+                        >
+                          {link.label}
+                        </Link>
+                      </motion.li>
+                    );
+                  })}
+
+                  <motion.li
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: 1 * 0.05,
+                      duration: 0.3,
+                    }}
+                  >
+                    <button
+                      onClick={() => setAboutSubMenuOpen(!aboutSubMenuOpen)}
+                      className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                        pathname.startsWith("/about")
+                          ? "bg-[#F47C20] text-white"
+                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                      }`}
+                    >
+                      About
+                      <motion.svg
+                        animate={{ rotate: aboutSubMenuOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </motion.svg>
+                    </button>
+
+                    <AnimatePresence>
+                      {aboutSubMenuOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden pl-4"
+                        >
+                          {aboutSubMenuItems.map((item, idx) => (
+                            <motion.div
+                              key={item.href}
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.05, duration: 0.2 }}
+                            >
+                              <Link
+                                href={item.href}
+                                className={`block px-4 py-3 text-base rounded-lg transition-colors duration-200 ${
+                                  pathname === item.href
+                                    ? "bg-[#F47C20] text-white"
+                                    : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                                }`}
+                              >
+                                {item.label}
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.li>
+
                   <motion.li
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -257,7 +406,11 @@ export default function Navbar() {
                   >
                     <button
                       onClick={() => setMediaSubMenuOpen(!mediaSubMenuOpen)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-base font-medium text-primary hover:bg-secondary hover:text-accent rounded-lg transition-colors duration-200"
+                      className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                        pathname.startsWith("/media")
+                          ? "bg-[#F47C20] text-white"
+                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                      }`}
                     >
                       Media
                       <motion.svg
@@ -295,7 +448,11 @@ export default function Navbar() {
                             >
                               <Link
                                 href={item.href}
-                                className="block px-4 py-3 text-base text-primary hover:bg-secondary hover:text-accent rounded-lg transition-colors duration-200"
+                                className={`block px-4 py-3 text-base rounded-lg transition-colors duration-200 ${
+                                  pathname === item.href
+                                    ? "bg-[#F47C20] text-white"
+                                    : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                                }`}
                               >
                                 {item.label}
                               </Link>
@@ -316,14 +473,17 @@ export default function Navbar() {
                   >
                     <Link
                       href="/contact"
-                      className="block px-4 py-3 text-base font-medium text-primary hover:bg-secondary hover:text-accent rounded-lg transition-colors duration-200"
+                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                        pathname === "/contact"
+                          ? "bg-[#F47C20] text-white"
+                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                      }`}
                     >
                       Contact Us
                     </Link>
                   </motion.li>
                 </ul>
 
-                {/* Login Button - Mobile */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
