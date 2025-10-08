@@ -105,36 +105,50 @@ export default function Navbar() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 * 0.1, duration: 0.4 }}
-              className="relative font-semibold"
+              className="relative font-semibold group"
             >
-              <button
-                className={`font-semibold transition-colors duration-300 flex items-center gap-1 focus:outline-none ${
-                  pathname.startsWith("/about")
-                    ? "text-[#F47C20]"
-                    : "text-[#4F3996] hover:text-[#F47C20]"
-                }`}
-                onClick={() => setAboutSubMenuOpen((open) => !open)}
-                onBlur={() => setTimeout(() => setAboutSubMenuOpen(false), 150)}
-                aria-haspopup="true"
-                aria-expanded={aboutSubMenuOpen}
-              >
-                About
-                <motion.svg
-                  animate={{ rotate: aboutSubMenuOpen ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-4 h-4 ml-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              <div className="flex items-center gap-1">
+                <Link
+                  href="/about"
+                  className={`font-semibold transition-colors duration-300 relative whitespace-nowrap ${
+                    pathname === "/about"
+                      ? "text-[#F47C20]"
+                      : "text-[#4F3996] hover:text-[#F47C20]"
+                  }`}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </motion.svg>
-              </button>
+                  About
+                  <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
+                </Link>
+                <button
+                  className={`transition-colors duration-300 focus:outline-none ${
+                    pathname.startsWith("/about")
+                      ? "text-[#F47C20]"
+                      : "text-[#4F3996] hover:text-[#F47C20]"
+                  }`}
+                  onClick={() => setAboutSubMenuOpen((open) => !open)}
+                  onBlur={() =>
+                    setTimeout(() => setAboutSubMenuOpen(false), 150)
+                  }
+                  aria-haspopup="true"
+                  aria-expanded={aboutSubMenuOpen}
+                >
+                  <motion.svg
+                    animate={{ rotate: aboutSubMenuOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </motion.svg>
+                </button>
+              </div>
 
               <AnimatePresence>
                 {aboutSubMenuOpen && (
@@ -167,36 +181,50 @@ export default function Navbar() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: navLinks.length * 0.1, duration: 0.4 }}
-              className="relative font-semibold"
+              className="relative font-semibold group"
             >
-              <button
-                className={`font-semibold transition-colors duration-300 flex items-center gap-1 focus:outline-none ${
-                  pathname.startsWith("/media")
-                    ? "text-[#F47C20]"
-                    : "text-[#4F3996] hover:text-[#F47C20]"
-                }`}
-                onClick={() => setMediaSubMenuOpen((open) => !open)}
-                onBlur={() => setTimeout(() => setMediaSubMenuOpen(false), 150)}
-                aria-haspopup="true"
-                aria-expanded={mediaSubMenuOpen}
-              >
-                Media
-                <motion.svg
-                  animate={{ rotate: mediaSubMenuOpen ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-4 h-4 ml-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              <div className="flex items-center gap-1">
+                <Link
+                  href="/media"
+                  className={`font-semibold transition-colors duration-300 relative whitespace-nowrap ${
+                    pathname === "/media"
+                      ? "text-[#F47C20]"
+                      : "text-[#4F3996] hover:text-[#F47C20]"
+                  }`}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </motion.svg>
-              </button>
+                  Media
+                  <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
+                </Link>
+                <button
+                  className={`transition-colors duration-300 focus:outline-none ${
+                    pathname.startsWith("/media")
+                      ? "text-[#F47C20]"
+                      : "text-[#4F3996] hover:text-[#F47C20]"
+                  }`}
+                  onClick={() => setMediaSubMenuOpen((open) => !open)}
+                  onBlur={() =>
+                    setTimeout(() => setMediaSubMenuOpen(false), 150)
+                  }
+                  aria-haspopup="true"
+                  aria-expanded={mediaSubMenuOpen}
+                >
+                  <motion.svg
+                    animate={{ rotate: mediaSubMenuOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </motion.svg>
+                </button>
+              </div>
 
               <AnimatePresence>
                 {mediaSubMenuOpen && (
@@ -337,31 +365,42 @@ export default function Navbar() {
                       duration: 0.3,
                     }}
                   >
-                    <button
-                      onClick={() => setAboutSubMenuOpen(!aboutSubMenuOpen)}
-                      className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
-                        pathname.startsWith("/about")
-                          ? "bg-[#F47C20] text-white"
-                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
-                      }`}
-                    >
-                      About
-                      <motion.svg
-                        animate={{ rotate: aboutSubMenuOpen ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href="/about"
+                        className={`flex-1 px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                          pathname === "/about"
+                            ? "bg-[#F47C20] text-white"
+                            : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                        }`}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </motion.svg>
-                    </button>
+                        About
+                      </Link>
+                      <button
+                        onClick={() => setAboutSubMenuOpen(!aboutSubMenuOpen)}
+                        className={`px-3 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                          pathname.startsWith("/about")
+                            ? "bg-[#F47C20] text-white"
+                            : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                        }`}
+                      >
+                        <motion.svg
+                          animate={{ rotate: aboutSubMenuOpen ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </motion.svg>
+                      </button>
+                    </div>
 
                     <AnimatePresence>
                       {aboutSubMenuOpen && (
@@ -370,7 +409,7 @@ export default function Navbar() {
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="overflow-hidden pl-4"
+                          className="overflow-hidden pl-4 mt-2"
                         >
                           {aboutSubMenuItems.map((item, idx) => (
                             <motion.div
@@ -404,31 +443,42 @@ export default function Navbar() {
                       duration: 0.3,
                     }}
                   >
-                    <button
-                      onClick={() => setMediaSubMenuOpen(!mediaSubMenuOpen)}
-                      className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
-                        pathname.startsWith("/media")
-                          ? "bg-[#F47C20] text-white"
-                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
-                      }`}
-                    >
-                      Media
-                      <motion.svg
-                        animate={{ rotate: mediaSubMenuOpen ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href="/media"
+                        className={`flex-1 px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                          pathname === "/media"
+                            ? "bg-[#F47C20] text-white"
+                            : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                        }`}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </motion.svg>
-                    </button>
+                        Media
+                      </Link>
+                      <button
+                        onClick={() => setMediaSubMenuOpen(!mediaSubMenuOpen)}
+                        className={`px-3 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                          pathname.startsWith("/media")
+                            ? "bg-[#F47C20] text-white"
+                            : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                        }`}
+                      >
+                        <motion.svg
+                          animate={{ rotate: mediaSubMenuOpen ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </motion.svg>
+                      </button>
+                    </div>
 
                     <AnimatePresence>
                       {mediaSubMenuOpen && (
@@ -437,7 +487,7 @@ export default function Navbar() {
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="overflow-hidden pl-4"
+                          className="overflow-hidden pl-4 mt-2"
                         >
                           {mediaSubMenuItems.map((item, idx) => (
                             <motion.div
