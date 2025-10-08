@@ -47,7 +47,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="flex justify-center items-center sticky top-4 z-50 px-2 md:px-4">
+      <nav className="flex justify-center items-center sticky top-4 z-50 px-2 md:px-2">
         {/* Desktop Navigation */}
         <motion.div
           initial={{ y: -100, opacity: 0 }}
