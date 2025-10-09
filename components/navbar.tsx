@@ -13,6 +13,9 @@ export default function Navbar() {
   const [mediaSubMenuOpen, setMediaSubMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   useEffect(() => {
     setMenuOpen(false);
     setAboutSubMenuOpen(false);
@@ -29,6 +32,40 @@ export default function Navbar() {
       document.body.style.overflow = "unset";
     };
   }, [menuOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Always show navbar at the top of the page
+      if (currentScrollY < 10) {
+        setIsVisible(true);
+      }
+      // Hide when scrolling down, show when scrolling up
+      else if (currentScrollY > lastScrollY) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Show navbar when mouse is near the top (within 100px)
+      if (e.clientY < 100) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [lastScrollY]);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -47,6 +84,7 @@ export default function Navbar() {
 
   const aboutSubMenuItems = [
     { href: "/about/message-from-ceo", label: "Message from CEO" },
+    { href: "/about/company-profile", label: "Company Profile" },
   ];
 
   return (
@@ -54,8 +92,11 @@ export default function Navbar() {
       <nav className="flex justify-center items-center sticky top-4 z-50 px-2 md:px-2">
         <motion.div
           initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          animate={{
+            y: isVisible ? 0 : -150, // Added conditional animation based on visibility
+            opacity: isVisible ? 1 : 0,
+          }}
+          transition={{ duration: 0.3, ease: "easeOut" }} // Faster transition for better UX
           className="bg-white shadow-xl rounded-full px-4 md:px-8 w-[95%] flex justify-between items-center relative"
         >
           <Link href="/" className="flex-shrink-0">
