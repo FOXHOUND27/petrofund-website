@@ -15,7 +15,7 @@ const MainHero: React.FC<MainHeroProps> = ({ imageSrc, title, subtitle }) => {
     <section className="relative bottom-25 w-full h-[600px] sm:h-[700px] md:h-[700px] lg:h-[800px] xl:h-[900px] overflow-hidden">
       {/* Skeleton / Placeholder */}
       {!isLoaded && (
-        <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px]" />
+        <div className="absolute inset-0 bottom-25 bg-gray-300 animate-pulse rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px]" />
       )}
 
       {/* Background Image */}
