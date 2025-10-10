@@ -1,4 +1,5 @@
 import MainHero from "@/components/mainHero";
+import Operators from "@/components/operators";
 import React from "react";
 
 const Page = () => {
@@ -9,6 +10,7 @@ const Page = () => {
         title="Pel Operators"
         subtitle="Empowering Operators for a Sustainable Future"
       />
+      <Operators />
     </>
   );
 };
