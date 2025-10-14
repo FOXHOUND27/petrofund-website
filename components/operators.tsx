@@ -41,7 +41,7 @@ const Operators = () => {
           Employment and Training
         </h1>
 
-        <p className="text-white text-left text-sm sm:text-base md:text-lg leading-relaxed">
+        <p className="text-white text-justify text-sm sm:text-base md:text-lg leading-relaxed">
           22.3 (a) During each year of the Exploration Licence or any renewal
           thereof, the Company shall spend a sum which is not less than a sum
           equal to (agreed amount) United States Dollars for the purpose of the
