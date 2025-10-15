@@ -1,3 +1,4 @@
+import Homeposts from "@/components/homeposts";
 import MiniHero from "@/components/miniHero";
 import React from "react";
 
