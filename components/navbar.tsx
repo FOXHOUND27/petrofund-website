@@ -320,7 +320,12 @@ export default function Navbar() {
             transition={{ delay: 0.6, duration: 0.4 }}
             className="hidden lg:block"
           >
-            <Link href="/donate">
+            <a
+              href="https://innovation.muhoko.org/student/login"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {" "}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -328,7 +333,7 @@ export default function Navbar() {
               >
                 Login
               </motion.button>
-            </Link>
+            </a>
           </motion.div>
 
           <motion.button
@@ -581,14 +586,19 @@ export default function Navbar() {
                   transition={{ delay: 0.4, duration: 0.3 }}
                   className="mt-8"
                 >
-                  <Link href="/donate">
+                  <a
+                    href="https://innovation.muhoko.org/student/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {" "}
                     <motion.button
                       whileTap={{ scale: 0.95 }}
                       className="w-full bg-primary text-white px-8 py-3 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-base"
                     >
                       Login
                     </motion.button>
-                  </Link>
+                  </a>
                 </motion.div>
               </div>
             </motion.div>
