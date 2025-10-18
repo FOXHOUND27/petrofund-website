@@ -78,7 +78,6 @@ export default function Navbar() {
 
   const mediaSubMenuItems = [
     { href: "/media/news", label: "News" },
-    { href: "/media/articles", label: "Articles" },
     { href: "/media/gallery", label: "Gallery" },
   ];
 
