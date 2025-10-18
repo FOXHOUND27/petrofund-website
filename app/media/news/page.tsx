@@ -27,7 +27,7 @@ const posts: Post[] = [
   {
     id: "2",
     title: "Using Axios with TypeScript",
-    postImage: "/SectionImages/Engineering Rig.png",
+    postImage: "/SectionImages/GrayLady.jpg",
     summary:
       "How to fetch data safely in TypeScript using Axios for clean and maintainable code.",
     content: `Axios is a popular HTTP client for JavaScript and TypeScript...`,
@@ -35,7 +35,7 @@ const posts: Post[] = [
   {
     id: "3",
     title: "Petrofund Expands Renewable Energy Initiatives",
-    postImage: "/SectionImages/Engineering Rig.png",
+    postImage: "/SectionImages/GrayLady.jpg",
     summary:
       "Petrofund invests in solar, wind, and hybrid energy projects across Africa.",
     content: `Petrofund has announced a significant expansion of its renewable energy initiatives...`,
@@ -75,7 +75,7 @@ const Page = () => {
               <p className="text-sm sm:text-base">{post.summary}</p>
 
               <div className="flex justify-center sm:justify-start">
-                <Link href="/donate">
+                <Link href={`/media/news/${post.id}`}>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
