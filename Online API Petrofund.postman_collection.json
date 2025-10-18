@@ -1,0 +1,395 @@
+{
+	"info": {
+		"_postman_id": "f7525d76-68f6-4d42-9393-e7265ae06d53",
+		"name": "Online API Petrofund",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29064180"
+	},
+	"item": [
+		{
+			"name": "Show Scholarship",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/scholarships/2",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"scholarships",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All News",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/news",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"news"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "About-us",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/about-us",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"about-us"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Articles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/articles",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Article",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/articles/1",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Core-values",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/core-values",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"core-values"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Gallery",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/gallery",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"gallery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Gallery",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/gallery/1",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"gallery",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Trustees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/trustees",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"trustees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Trustee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/trustees/1",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"trustees",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Management",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/management",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"management"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Manager",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/management/1",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"management",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show News",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/news/2",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"news",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Trainings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/trainings",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"trainings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Training",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/trainings/1",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"trainings",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All News Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/news-categories",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"news-categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Article Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/article-categories",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"article-categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Gallery Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://innovation.muhoko.org/api/gallery-categories",
+					"protocol": "https",
+					"host": [
+						"innovation",
+						"muhoko",
+						"org"
+					],
+					"path": [
+						"api",
+						"gallery-categories"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
