@@ -44,8 +44,8 @@ const galleryApiData = [
   },
   {
     id: 2,
-    title: "PetroEvent",
-    thumbnailUrl: "/SectionImages/PetrofundEvent.jpg",
+    title: "Man and Lady",
+    thumbnailUrl: "/SectionImages/ManAndLady.jpg",
     images: [
       { id: 201, url: "/SectionImages/DesertHero.jpg", title: "Ocean Cliff" },
       { id: 202, url: "/SectionImages/PurpleSky.jpg", title: "Beach Sunset" },
@@ -79,7 +79,7 @@ const Page = () => {
                 height={500}
                 width={500}
                 alt="news post image"
-                className=" rounded-lg w-full h-56 sm:h-64 md:h-72"
+                className=" rounded-lg w-full h-56 rounded-tl-[55px] rounded-br-[55px] sm:h-64 md:h-72"
               />
             </Link>
 

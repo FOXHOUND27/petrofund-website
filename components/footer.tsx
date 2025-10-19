@@ -147,7 +147,8 @@ const Footer = () => {
             {/* Social Media Links */}
             <div className="flex justify-center items-center gap-4 md:gap-6">
               <a
-                href="#"
+                href="https://www.facebook.com/petrofund/"
+                target="_blank"
                 className="group relative transition-all duration-300 hover:scale-110 hover:-translate-y-1"
                 aria-label="Facebook"
               >

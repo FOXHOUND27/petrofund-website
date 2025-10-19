@@ -84,6 +84,7 @@ export default function Navbar() {
   const aboutSubMenuItems = [
     { href: "/about/message-from-ceo", label: "Message from CEO" },
     { href: "/about/company-profile", label: "Company Profile" },
+    { href: "/about/our-management-team", label: "Our Management Team" },
   ];
 
   return (
