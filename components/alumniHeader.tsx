@@ -17,7 +17,7 @@ const AlumniHeader = () => {
             className="w-48 h-auto sm:w-64 md:w-72 lg:w-[300px]"
           />
 
-          <div className="flex  lg:flex-row mt-10 sm:mt-16 lg:mt-5 relative items-center w-full gap-6 lg:gap-0">
+          <div className="flex  lg:flex-row mt-10 sm:mt-10 lg:mt-5 relative items-center w-full gap-6 lg:gap-0">
             <div className="w-full ">
               <h1 className="text-white text-center font-semibold text-xl sm:text-2xl lg:text-2xl">
                 PETROFUND ALUMNI ASSOCIATION
