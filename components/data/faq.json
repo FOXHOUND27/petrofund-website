@@ -1,0 +1,14 @@
+[
+  {
+    "question": "What services do you offer?",
+    "answer": "We offer software development, cloud solutions, and IT consulting."
+  },
+  {
+    "question": "How can I contact support?",
+    "answer": "You can contact support by emailing support@example.com."
+  },
+  {
+    "question": "Where are you located?",
+    "answer": "Our head office is in Windhoek, Namibia."
+  }
+]

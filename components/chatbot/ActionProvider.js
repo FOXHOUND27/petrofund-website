@@ -1,4 +1,5 @@
 import { createChatBotMessage } from "react-chatbot-kit";
+import faqs from "../data/faq.json";
 
 class ActionProvider {
   constructor(createChatBotMessage, setStateFunc) {
@@ -30,6 +31,20 @@ class ActionProvider {
       "Sorry, I didn’t quite get that. Could you try rephrasing?"
     );
     this.update(msg);
+  }
+
+  handleFAQ(question) {
+    const found = faqs.find((faq) =>
+      question.toLowerCase().includes(faq.question.toLowerCase())
+    );
+
+    const message = found
+      ? this.createChatBotMessage(found.answer)
+      : this.createChatBotMessage(
+          "I'm sorry, I don't have an answer for that yet."
+        );
+
+    this.addMessageToState(message);
   }
 
   update(message) {
