@@ -6,6 +6,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import ChatbotWidget from "@/components/chatbot/ChatbotWidget";
 
 const ubuntuSans = Ubuntu_Sans({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
           <Footer />
         </Suspense>
         <SpeedInsights />
+        <ChatbotWidget />
       </body>
     </html>
   );
