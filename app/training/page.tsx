@@ -5,7 +5,7 @@ const Page = () => {
   return (
     <>
       <MainHero
-        imageSrc="/SectionImages/CleanYellowLady.jpg"
+        imageSrc="/PetrofundContent/Training.jpeg"
         title="Training"
         subtitle="Empower Your Skills, Elevate Your Potential"
       />

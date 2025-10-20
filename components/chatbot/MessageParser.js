@@ -4,28 +4,39 @@ class MessageParser {
   }
 
   parse(message) {
-    const lower = message.toLowerCase();
+    const lower = message.toLowerCase().trim();
 
-    // Greeting
-    if (lower.includes("hello") || lower.includes("hi")) {
+    // Greetings
+    if (/(hello|hi|hey)/.test(lower)) {
       this.actionProvider.greet();
 
-      // Help command
-    } else if (lower.includes("help")) {
+      // Help
+    } else if (lower.includes("help") || lower.includes("assist")) {
       this.actionProvider.help();
 
-      // About command
-    } else if (lower.includes("about")) {
-      this.actionProvider.about();
-
-      // FAQ: detect questions
-    } else if (lower.includes("?")) {
+      // FAQ detection
+    } else if (lower.includes("?") || this.isLikelyFAQ(lower)) {
       this.actionProvider.handleFAQ(message);
 
-      // Fallback / unknown message
+      // Fallback
     } else {
       this.actionProvider.unknown();
     }
+  }
+
+  isLikelyFAQ(message) {
+    const faqWords = [
+      "how",
+      "what",
+      "when",
+      "where",
+      "can",
+      "do",
+      "which",
+      "are",
+      "is",
+    ];
+    return faqWords.some((word) => message.startsWith(word));
   }
 }
 

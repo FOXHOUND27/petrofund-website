@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <>
       <MainHero
-        imageSrc="/SectionImages/GrayLady.jpg"
+        imageSrc="/PetrofundContent/DSC_6275.jpg"
         title="Scholarships"
         subtitle="Explore the various scholarships available to support your education and career development."
       />

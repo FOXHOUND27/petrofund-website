@@ -8,7 +8,7 @@ const LargeHero = () => {
       {/* Background Image */}
       <div className="absolute inset-0 bottom-25">
         <Image
-          src="/SectionImages/HeroImage.png"
+          src="/PetrofundContent/_E0A0010.jpg"
           alt="Large Hero Image"
           fill
           priority
@@ -18,7 +18,7 @@ const LargeHero = () => {
       </div>
 
       {/* Overlay with fade-in animation */}
-      <div className="absolute inset-0 bottom-25 bg-black/30 rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px] animate-in fade-in duration-700" />
+      <div className="absolute inset-0 bottom-25 bg-black/45 rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px] animate-in fade-in duration-700" />
 
       {/* Hero Text Content */}
       <div className="relative z-20 h-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 pt-8 sm:pt-12 md:pt-16">

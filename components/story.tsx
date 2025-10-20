@@ -69,9 +69,9 @@ const Story = () => {
           whileInView={{ opacity: 1, x: 0, scale: 1 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-          src="/SectionImages/ResizedStory.png"
+          src="/SectionImages/OurStoryNew.png"
           alt="Story Image"
-          className="hidden overflow-hidden lg:block object-cover absolute bottom-0 left-[700px] h-[700px] w-auto "
+          className="hidden overflow-hidden lg:block object-cover absolute bottom-0 left-[100px] h-[800px] w-auto "
         />
       </motion.div>
     </section>

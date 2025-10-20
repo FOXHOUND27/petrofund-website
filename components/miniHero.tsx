@@ -35,7 +35,7 @@ const MiniHero: React.FC<MiniHeroProps> = ({ imageSrc, title, subtitle }) => {
       </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40 rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px]" />
+      <div className="absolute inset-0 bg-black/45 rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px]" />
 
       {/* Text Content */}
       <div className="relative z-20 h-full flex flex-col justify-center items-center px-4 sm:px-6 md:px-12">

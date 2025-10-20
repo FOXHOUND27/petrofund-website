@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <>
       <MainHero
-        imageSrc="/SectionImages/BlueTank.jpg"
+        imageSrc="/PetrofundContent/operatorsNew.jpeg"
         title="Pel Operators"
         subtitle="Empowering Operators for a Sustainable Future"
       />

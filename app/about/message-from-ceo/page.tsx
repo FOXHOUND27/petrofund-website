@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <>
       <MainHero
-        imageSrc="/SectionImages/PurpleSky.jpg"
+        imageSrc="/PetrofundContent/CEOP.jpeg"
         title="Message from the CEO"
         subtitle="A message from our CEO"
       />

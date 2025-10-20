@@ -1,14 +1,54 @@
 [
   {
-    "question": "What services do you offer?",
-    "answer": "We offer software development, cloud solutions, and IT consulting."
+    "question": "How many points do I need to qualify for a scholarship?",
+    "answer": "At undergraduate level, all applicants are required to have a minimum of 30 points in Grade 12 or Advanced Subsidiary (AS) level, in five subjects including English, Mathematics and Science. Postgraduate applicants must hold a relevant honours degree with a minimum average pass mark of 60% in their final-year modules."
   },
   {
-    "question": "How can I contact support?",
-    "answer": "You can contact support by emailing support@example.com."
+    "question": "What if I do not have university admission yet?",
+    "answer": "You may submit your application form and provide the admission letter later, either in January or during the scholarship selection interviews."
   },
   {
-    "question": "Where are you located?",
-    "answer": "Our head office is in Windhoek, Namibia."
+    "question": "Do I have the option to study overseas?",
+    "answer": "Yes, but only for postgraduate scholarships that allow study abroad. For the MSc in Petroleum Geology, studies are only permitted at the University of Namibia. Undergraduate studies are limited to institutions within the SADC region."
+  },
+  {
+    "question": "Can I apply if I am studying at a TVET institution?",
+    "answer": "Yes, provided that Technical and Vocational Education and Training (TVET) scholarships are advertised in the scholarship call."
+  },
+  {
+    "question": "When will I know if my application is successful?",
+    "answer": "Shortlisted applicants will be notified to attend interviews in Windhoek by the first week of December. Successful candidates will be informed towards the end of December or early January."
+  },
+  {
+    "question": "What does the scholarship cover?",
+    "answer": "The scholarship covers tuition, accommodation, transport (for overseas studies only), pocket money, visa fees, books, stationery allowances, and a once-off laptop."
+  },
+  {
+    "question": "Which results for current Grade 12/AS Level learners are used?",
+    "answer": "Applicants must submit both August/September (mock) examination results and final November results. Mock results are submitted at the time of application, while November results must be submitted before the scholarship is awarded."
+  },
+  {
+    "question": "Can I apply if I am not a Namibian?",
+    "answer": "No. Scholarships are exclusively reserved for Namibian citizens."
+  },
+  {
+    "question": "Are applicants only able to apply online only?",
+    "answer": "No. Applicants can also collect and submit forms at all Regional Council and Constituency Offices to ensure access for those with limited or no internet connectivity."
+  },
+  {
+    "question": "Where do I get the list of recommended universities?",
+    "answer": "The list can be found on the PETROFUND website: www.petrofund.org."
+  },
+  {
+    "question": "Are applicants required to apply for the Chevening Scholarship?",
+    "answer": "Yes. MSc applicants for programmes in the UK must apply on both the PETROFUND website and the Chevening website. These programmes are sponsored exclusively through the PETROFUND–Chevening joint scholarship programme."
+  },
+  {
+    "question": "Where can I get an application form?",
+    "answer": "Application forms are available online at https://www.petrofund.org. Sign up, activate your account, log in, complete the form, attach all required documents, and submit your application."
+  },
+  {
+    "question": "When do the applications close?",
+    "answer": "The application deadline is 7 October 2025 at 13:00. No applications will be accepted after this deadline."
   }
 ]

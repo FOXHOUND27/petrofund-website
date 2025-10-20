@@ -7,7 +7,7 @@ const Page = () => {
   return (
     <>
       <MainHero
-        imageSrc="/SectionImages/YellowDirtyLady.jpg"
+        imageSrc="/PetrofundContent/YIOGS2025_43.jpg"
         title="Media"
         subtitle="Our latest media"
       />
