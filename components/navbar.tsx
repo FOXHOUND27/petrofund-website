@@ -85,6 +85,7 @@ export default function Navbar() {
     { href: "/about/message-from-ceo", label: "Message from CEO" },
     { href: "/about/company-profile", label: "Company Profile" },
     { href: "/about/our-management-team", label: "Our Management Team" },
+    { href: "/about/board-of-trustees-page", label: "Board of Trustees" },
   ];
 
   return (

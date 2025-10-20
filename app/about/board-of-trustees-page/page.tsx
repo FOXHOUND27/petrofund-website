@@ -49,14 +49,13 @@ const executives = [
   },
 ];
 
-export default function ExecutiveTeamPage() {
+export default function TrusteesTeamPage() {
   return (
     <>
       <MiniHero
         imageSrc="/SectionImages/DesertHero.jpg"
-        title="  Meet Our Executive Team"
-        subtitle="    Visionary leaders driving innovation, excellence, and
-                sustainable growth across every facet of our organization."
+        title="Board of Trustees"
+        subtitle="Guiding the Vision and Governance of Petrofund"
       />
       <div className="min-h-screen bg-background">
         {/* Team Grid */}
@@ -84,7 +83,7 @@ export default function ExecutiveTeamPage() {
                   <p className="mt-4 text-muted-foreground leading-relaxed">
                     {executive.bio}
                   </p>
-                  <Link href={`/about/our-management-team/${executive.id}`}>
+                  <Link href={`/about/board-of-trustees-page/${executive.id}`}>
                     <Button className="mt-6 w-full bg-[#4F3996] text-white font-medium rounded-lg py-2 transition-all duration-300 ease-in-out hover:bg-[#F47C20] hover:scale-[1.02] hover:shadow-lg">
                       View More Information
                       <ArrowRight className="ml-2 h-4 w-4" />
