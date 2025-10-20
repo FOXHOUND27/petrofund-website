@@ -7,7 +7,7 @@ const executives = {
   "sarah-johnson": {
     name: "Sarah Johnson",
     title: "Chief Executive Officer",
-    image: "/professional-woman-ceo-executive-portrait.jpg",
+    image: "/Icons/person.svg",
     bio: "Leading the company with vision and strategic excellence.",
     fullBio: [
       "Sarah Johnson brings over 20 years of executive leadership experience to her role as CEO. With a proven track record of driving organizational transformation and sustainable growth, she has positioned the company as an industry leader.",
@@ -32,7 +32,7 @@ const executives = {
   "michael-chen": {
     name: "Michael Chen",
     title: "Chief Technology Officer",
-    image: "/professional-man-cto-technology-executive-portrait.jpg",
+    image: "/Icons/person.svg",
     bio: "Driving innovation and technological advancement.",
     fullBio: [
       "Michael Chen is a visionary technology leader with 15+ years of experience in software engineering, cloud architecture, and AI/ML implementation. As CTO, he oversees all technology strategy and product development.",
@@ -58,7 +58,7 @@ const executives = {
   "emily-rodriguez": {
     name: "Emily Rodriguez",
     title: "Chief Financial Officer",
-    image: "/professional-woman-cfo-finance-executive-portrait.jpg",
+    image: "/Icons/person.svg",
     bio: "Ensuring financial stability and sustainable growth.",
     fullBio: [
       "Emily Rodriguez is a strategic financial leader with extensive experience in corporate finance, M&A, and investor relations. As CFO, she manages all financial operations and drives strategic planning initiatives.",
@@ -84,7 +84,7 @@ const executives = {
   "david-thompson": {
     name: "David Thompson",
     title: "Chief Operating Officer",
-    image: "/professional-man-coo-operations-executive-portrait.jpg",
+    image: "/Icons/person.svg",
     bio: "Optimizing operations and driving efficiency.",
     fullBio: [
       "David Thompson is an operations expert with a passion for process optimization and organizational excellence. As COO, he oversees all operational functions and ensures seamless execution of business strategies.",
@@ -110,7 +110,7 @@ const executives = {
   "lisa-martinez": {
     name: "Lisa Martinez",
     title: "Chief Marketing Officer",
-    image: "/professional-woman-cmo-marketing-executive-portrai.jpg",
+    image: "/Icons/person.svg",
     bio: "Building brand presence and market leadership.",
     fullBio: [
       "Lisa Martinez is a creative marketing strategist with expertise in brand development, digital marketing, and customer engagement. As CMO, she leads all marketing initiatives and brand positioning efforts.",
@@ -135,7 +135,7 @@ const executives = {
   "james-wilson": {
     name: "James Wilson",
     title: "Chief Human Resources Officer",
-    image: "/professional-man-chro-hr-executive-portrait.jpg",
+    image: "/Icons/person.svg",
     bio: "Cultivating talent and organizational culture.",
     fullBio: [
       "James Wilson is a people-focused leader dedicated to building high-performing teams and fostering inclusive workplace cultures. As CHRO, he oversees all aspects of human resources, talent acquisition, and organizational development.",
@@ -160,12 +160,13 @@ const executives = {
   },
 };
 
-export default function ExecutiveDetailPage({
+export default async function ExecutiveDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const executive = executives[params.id as keyof typeof executives];
+  const { id } = await params;
+  const executive = executives[id as keyof typeof executives];
 
   if (!executive) {
     notFound();
