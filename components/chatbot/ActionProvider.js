@@ -17,14 +17,19 @@ class ActionProvider {
 
   // Greet
   greet() {
-    const msg = this.createChatBotMessage("Hello! 👋 How can I assist you?");
+    const msg = this.createChatBotMessage("Hello! 👋 How can I assist you?", {
+      className: "chatbot-message",
+    });
     this.addMessageToState(msg);
   }
 
   // Help
   help() {
     const msg = this.createChatBotMessage(
-      "I can answer questions about PETROFUND scholarships. Try asking about eligibility, deadlines, coverage, or application process."
+      "I can answer questions about PETROFUND scholarships. Try asking about eligibility, deadlines, coverage, or application process.",
+      {
+        className: "chatbot-message",
+      }
     );
     this.addMessageToState(msg);
   }
@@ -43,6 +48,7 @@ class ActionProvider {
       "Sure, here are some frequently asked questions:",
       {
         widget: "faqSelector",
+        className: "chatbot-message",
       }
     );
     this.addMessageToState(message);
@@ -50,7 +56,9 @@ class ActionProvider {
 
   // Handle Answer
   handleAnswer(answer) {
-    const message = this.createChatBotMessage(answer);
+    const message = this.createChatBotMessage(answer, {
+      className: "chatbot-message",
+    });
     this.addMessageToState(message);
   }
 }

@@ -6,7 +6,10 @@ const config = {
   botName: "HelperBot",
   initialMessages: [
     createChatBotMessage(
-      "Hello! Type ? to see a list of frequently asked questions."
+      "Hello! Type ? to see a list of frequently asked questions.",
+      {
+        className: "chatbot-message",
+      }
     ),
   ],
   customStyles: {
@@ -21,6 +24,8 @@ const config = {
     {
       widgetName: "faqSelector",
       widgetFunc: (props) => <FaqSelector {...props} />,
+      props: {},
+      mapStateToProps: [],
     },
   ],
 };
