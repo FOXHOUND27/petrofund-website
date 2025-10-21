@@ -57,6 +57,10 @@ By expanding its portfolio into clean energy, Petrofund demonstrates a forward-t
   },
 ];
 
+export async function generateStaticParams() {
+  return posts.map((post) => ({ id: post.id }));
+}
+
 const Page = ({ params }: Params) => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const currentIndex = posts.findIndex((p) => p.id === params.id);

@@ -56,6 +56,10 @@ const galleryApiData: Gallery[] = [
   },
 ];
 
+export async function generateStaticParams() {
+  return galleryApiData.map((gallery) => ({ id: String(gallery.id) }));
+}
+
 export default function GalleryDetailPage() {
   const params = useParams();
   const router = useRouter();
