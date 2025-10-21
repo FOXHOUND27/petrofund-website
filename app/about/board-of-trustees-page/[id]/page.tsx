@@ -159,6 +159,10 @@ const executives = {
   },
 };
 
+export async function generateStaticParams() {
+  return Object.keys(executives).map((id) => ({ id }));
+}
+
 export default function ExecutiveDetailPage({
   params,
 }: {
