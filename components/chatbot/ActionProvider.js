@@ -38,44 +38,20 @@ class ActionProvider {
   }
 
   // Handle FAQ
-  handleFAQ(userInput) {
-    const input = userInput.toLowerCase().trim();
-
-    const found = faqs.find((faq) => {
-      const keywords = faq.question
-        .toLowerCase()
-        .replace(/[^a-z0-9 ]/g, "")
-        .split(" ");
-      return keywords.some((kw) => input.includes(kw));
-    });
-
-    const msg = found
-      ? this.createChatBotMessage(found.answer)
-      : this.createChatBotMessage(
-          "I'm sorry, I don't have an answer for that yet. Check https://www.petrofund.org."
-        );
-
-    this.addMessageToState(msg);
-  }
-
-  // Show clickable FAQ buttons
-  showFAQButtons() {
-    const buttons = faqs.map((faq) => ({
-      text: faq.question,
-      handler: () => this.handleFAQ(faq.question),
-      id: faq.question,
-    }));
-
-    const msg = this.createChatBotMessage(
-      "Here are some frequently asked questions:",
+  handleFAQ() {
+    const message = this.createChatBotMessage(
+      "Sure, here are some frequently asked questions:",
       {
-        widget: "faqButtons",
-        withAvatar: true,
-        loading: false,
+        widget: "faqSelector",
       }
     );
+    this.addMessageToState(message);
+  }
 
-    this.addMessageToState(msg);
+  // Handle Answer
+  handleAnswer(answer) {
+    const message = this.createChatBotMessage(answer);
+    this.addMessageToState(message);
   }
 }
 

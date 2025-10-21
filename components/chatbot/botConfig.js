@@ -1,9 +1,13 @@
 import { createChatBotMessage } from "react-chatbot-kit";
 
+import FaqSelector from "./FaqSelector";
+
 const config = {
   botName: "HelperBot",
   initialMessages: [
-    createChatBotMessage("Hi there! 👋 How can I help you today?"),
+    createChatBotMessage(
+      "Hello! Type ? to see a list of frequently asked questions."
+    ),
   ],
   customStyles: {
     botMessageBox: {
@@ -13,6 +17,12 @@ const config = {
       backgroundColor: "#4F3996",
     },
   },
+  widgets: [
+    {
+      widgetName: "faqSelector",
+      widgetFunc: (props) => <FaqSelector {...props} />,
+    },
+  ],
 };
 
 export default config;
