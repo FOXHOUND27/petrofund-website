@@ -63,7 +63,7 @@ const Vision = () => {
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
   return (
-    <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-10 sm:bottom-20 md:bottom-28 lg:bottom-32 space-y-10">
+    <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-35 sm:bottom-20 md:bottom-28 lg:bottom-32 space-y-10">
       {/* Vision Section */}
       <motion.div
         className="bg-[#4F3996] shadow-2xl flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] w-full max-w-[95%] mx-auto"
