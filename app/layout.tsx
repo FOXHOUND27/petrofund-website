@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ChatbotWidget from "@/components/chatbot/ChatbotWidget";
+import LoadingScreen from "@/components/loadingscreen";
 
 const ubuntuSans = Ubuntu_Sans({
   subsets: ["latin"],
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${ubuntuSans.variable}`}>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingScreen />}>
           <Navbar />
           {children}
           <Footer />

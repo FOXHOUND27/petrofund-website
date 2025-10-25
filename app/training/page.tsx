@@ -1,3 +1,4 @@
+"use client";
 import MainHero from "@/components/mainHero";
 import React from "react";
 

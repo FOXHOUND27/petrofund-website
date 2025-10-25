@@ -3,10 +3,10 @@ import { createChatBotMessage } from "react-chatbot-kit";
 import FaqSelector from "./FaqSelector";
 
 const config = {
-  botName: "HelperBot",
+  botName: "PetroBot",
   initialMessages: [
     createChatBotMessage(
-      "Hello! Type ? to see a list of frequently asked questions.",
+      "Hello! Type ? to see a list of frequently asked questions about the scholarship process.",
       {
         className: "chatbot-message",
       }
