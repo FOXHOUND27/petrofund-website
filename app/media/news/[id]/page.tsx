@@ -213,14 +213,14 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
       {showScrollTop && (
         <motion.button
           onClick={scrollToTop}
-          className="fixed bottom-6 left-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center"
+          className="fixed bottom-6 z-50 left-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center"
           aria-label="Scroll to top"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          <ArrowUp className="w-5 h-5" />
+          <ArrowUp className="w-5 h-5 z-[9999]" />
         </motion.button>
       )}
     </motion.div>
