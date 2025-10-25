@@ -131,7 +131,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
       >
         {/* 🖼️ Hero Image */}
         <motion.div
-          className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden mb-8"
+          className="relative w-full aspect-[21/10] rounded-2xl overflow-hidden mb-8"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
@@ -157,6 +157,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             className="text-lg text-muted-foreground"
             dangerouslySetInnerHTML={{ __html: post.content_snippet }}
           ></p>
+          <h1 className="my-2 font-bold mb-4">{post.published_at}</h1>
         </motion.header>
 
         {/* 📜 Full Article Content */}
