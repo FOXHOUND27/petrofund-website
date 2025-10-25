@@ -1,10 +1,74 @@
+"use client";
 import React from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
+export interface profileData {
+  id: number;
+  about_summary: string;
+  executive_summary: string;
+  mandate: string;
+  vision: string;
+  mission: string;
+  core_values: string;
+  updated_at: string;
+}
 
 const Message = () => {
+  const [profileSummary, setProfileSummary] = useState<profileData | null>(
+    null
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchSummary() {
+      try {
+        const res = await fetch("https://innovation.muhoko.org/api/about-us");
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+        setProfileSummary(data.data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchSummary();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
+        <div className="flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] min-h-[400px]">
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative w-16 h-16">
+              <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
+            </div>
+            <p className="text-lg font-medium text-[#F47C20]">Loading</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) return <p className="text-red-500">Error: {error}</p>;
+
   return (
     <section className="relative bottom-40 p-4 md:p-8 lg:p-10 xl:p-12">
-      <div className="bg-[#4F3996] shadow-2xl rounded-tl-[85px] flex flex-col md:flex-row overflow-hidden">
+      <motion.div
+        className="bg-[#4F3996] shadow-2xl rounded-tl-[85px] flex flex-col md:flex-row overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         {/* CEO Image */}
         <div className="w-full md:w-[35%] flex-shrink-0">
           <Image
@@ -23,44 +87,12 @@ const Message = () => {
               Message from the <br />
               Chief Executive Officer
             </h1>
-            <p className="text-white text-justify text-sm md:text-base">
-              Since our establishment in 1993 as the Petroleum Training and
-              Education Fund, our mission has been clear: to build national
-              capacity for Namibia’s upstream petroleum industry. Over the past
-              three decades, we have evolved into a trusted partner in
-              developing the skills and knowledge that empower Namibians to
-              participate meaningfully in this vital sector.
-              <br />
-              <br />
-              Our enduring commitment is to be Your partner in Building Skills
-              through Training and Innovation Technology. This mission drives
-              our work in advancing education and training through strategic
-              partnerships, scholarships, and institutional support. By
-              investing in our people, we are not only preparing individuals for
-              fulfilling careers in the energy value chain, but also directly
-              contributing to the sustainable growth of Namibia’s economy. At
-              the core of every decision are our guiding values: Integrity,
-              Accountability, Sustainability, Equity, and Duty of Care.
-              <br />
-              <br />
-              The energy landscape is continually being reshaped by
-              technological change and the global shift toward sustainability.
-              Petrofund’s role has never been more crucial. We are dedicated to
-              equipping Namibians with the skills needed to thrive in this
-              evolving environment, ensuring our nation remains competitive and
-              future-ready. Our new identity, with its central infinite loop,
-              symbolizes our core purpose—that training and skills development
-              are continuous and ever-evolving and central to Petrofund’s
-              purpose. Looking ahead, we will continue to strengthen our
-              scholarship opportunities, foster collaboration with our industry
-              partners, and expand our outreach to nurture the next generation
-              of energy leaders. I invite you to join us in this new
-              chapter—whether you are a student, educator, industry partner, or
-              policymaker. Together, we are not simply building knowledge; we
-              are sustaining momentum for Namibia’s energy future and unlocking
-              prosperity for generations to come. We look forward to achieving
-              this vision with you.
-            </p>
+            <div
+              className="text-white text-justify text-sm md:text-base"
+              dangerouslySetInnerHTML={{
+                __html: profileSummary?.executive_summary || "",
+              }}
+            ></div>
           </div>
 
           {/* Footer with CEO name and Logo */}
@@ -79,7 +111,7 @@ const Message = () => {
             />
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
