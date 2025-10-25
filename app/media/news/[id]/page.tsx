@@ -5,87 +5,108 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { use } from "react";
+import { motion } from "framer-motion"; // ✅ Import Framer Motion
 
-interface Params {
-  params: { id: string };
-}
-
-export interface Post {
-  id: string;
+// 🧩 Define the data structure expected from the API
+interface NewsData {
+  id: number;
   title: string;
-  postImage: string;
-  summary: string;
-  content: string;
+  category_id: number;
+  category_name: string | null;
+  full_content_html: string;
+  content_snippet: string;
+  image_url: string;
+  published_at: string;
 }
 
-const posts: Post[] = [
-  {
-    id: "1",
-    title: "Next.js Tips",
-    postImage: "/SectionImages/DesertHero.jpg",
-    summary:
-      "Learn how to use Next.js efficiently with practical examples and best practices.",
-    content: `
-Next.js has become one of the most popular frameworks for React applications. Developers love it for its speed, flexibility, and built-in support for SEO and server-side rendering. By using Next.js, you can easily build high-performing web applications that scale effortlessly as your project grows. The framework also integrates seamlessly with TypeScript and modern APIs, allowing developers to create strongly typed and error-free components. 
+// ✅ Main component for displaying a single news post
+const Page = ({ params }: { params: Promise<{ id: string }> }) => {
+  // Unwrap the params Promise (Next.js 15+ requirement)
+  const { id } = use(params);
 
-When used properly, Next.js drastically improves the developer experience while reducing technical debt in large projects. Many companies rely on it to build dashboards, marketing sites, and content-driven platforms that handle millions of users. With continuous updates from Vercel, its ecosystem keeps improving with features like Edge Middleware and App Router, giving developers even more power to build dynamic and optimized experiences.
-    `,
-  },
-  {
-    id: "2",
-    title: "Using Axios with TypeScript",
-    postImage: "/SectionImages/GrayLady.jpg",
-    summary:
-      "How to fetch data safely in TypeScript using Axios for clean and maintainable code.",
-    content: `
-Axios is a popular HTTP client for JavaScript and TypeScript, widely used for fetching and posting data between the client and the server. When combined with TypeScript, Axios provides excellent type safety, ensuring that your responses match expected structures and reducing runtime bugs. You can easily define interfaces for your API responses, which helps maintain clean and predictable codebases.
+  // 🧠 Local state
+  const [newsInfo, setNewsInfo] = useState<NewsData[] | null>([]); // stores all news
+  const [loading, setLoading] = useState(true); // loading state
+  const [error, setError] = useState<string | null>(null); // error message
+  const [showScrollTop, setShowScrollTop] = useState(false); // controls scroll-to-top button visibility
 
-Developers often prefer Axios because of its simplicity and the power of its interceptors, which allow handling authentication, logging, or response formatting globally. When properly configured, Axios can reduce boilerplate and make network requests more consistent across your entire application. Additionally, its promise-based syntax integrates perfectly with async/await, making your data-fetching code clean and modern. Whether you're building a small app or a large enterprise system, Axios remains a trusted and developer-friendly choice for robust TypeScript development.
-    `,
-  },
-  {
-    id: "3",
-    title: "Petrofund Expands Renewable Energy Initiatives",
-    postImage: "/SectionImages/GrayLady.jpg",
-    summary:
-      "Petrofund invests in solar, wind, and hybrid energy projects across Africa.",
-    content: `
-Petrofund has announced a significant expansion of its renewable energy initiatives, marking an important milestone in its journey toward sustainability. The organization's investment in solar and wind infrastructure aims to reduce dependency on fossil fuels while promoting long-term environmental responsibility. These initiatives also include educational outreach and partnerships with local universities to drive innovation in green energy technology.
-
-By expanding its portfolio into clean energy, Petrofund demonstrates a forward-thinking commitment to the global energy transition. The company's vision aligns with international sustainability goals and Namibia's ambitions for energy independence. In the coming years, Petrofund plans to increase its renewable footprint even further, investing in hybrid projects that combine solar, wind, and storage technologies to provide consistent and affordable power to communities across the region. This approach positions Petrofund as a leading advocate for clean, inclusive, and future-ready energy solutions in Africa.
-    `,
-  },
-];
-
-const Page = ({ params }: Params) => {
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const currentIndex = posts.findIndex((p) => p.id === params.id);
-  const post = posts[currentIndex];
-
-  const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
-  const nextPost =
-    currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
-
+  // 🪟 Track scroll position for "scroll to top" button
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
-    };
-
+    const handleScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  // 🌐 Fetch news data from the API when the page loads
+  useEffect(() => {
+    async function fetchSummary() {
+      try {
+        const res = await fetch("https://innovation.muhoko.org/api/news");
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
+        const data = await res.json();
+        console.log("News", data.data);
+        setNewsInfo(data.data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchSummary();
+  }, []);
+
+  // 🌀 Show loading spinner while fetching data
+  if (loading) {
+    return (
+      <section className="p-8 flex justify-center items-center min-h-screen">
+        <motion.div
+          className="flex flex-col items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            className="relative w-16 h-16"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
+          >
+            <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full"></div>
+          </motion.div>
+          <p className="text-lg font-medium text-[#F47C20]">Loading...</p>
+        </motion.div>
+      </section>
+    );
+  }
+
+  // ⚠️ Show error message if something goes wrong
+  if (error) return <p className="text-red-500 text-center">{error}</p>;
+
+  // 📰 Identify current, previous, and next posts
+  const currentIndex = (newsInfo || []).findIndex(
+    (news) => news.id === Number(id)
+  );
+  const post = (newsInfo || [])[currentIndex];
+  const prevPost =
+    currentIndex > 0 && newsInfo?.[currentIndex - 1]
+      ? newsInfo[currentIndex - 1]
+      : null;
+  const nextPost =
+    newsInfo && currentIndex < newsInfo.length - 1
+      ? newsInfo[currentIndex + 1]
+      : null;
+
+  // 🔼 Scroll-to-top functionality
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+  // 🚫 Handle invalid post (not found)
   if (!post) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Post not found
-          </h1>
+          <h1 className="text-3xl font-bold mb-4">Post not found</h1>
           <Link href="/">
             <Button variant="outline">Return Home</Button>
           </Link>
@@ -95,118 +116,114 @@ const Page = ({ params }: Params) => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Article Container */}
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-        {/* Hero Image */}
-        <div className="relative w-full aspect-[21/9] sm:aspect-[2/1] rounded-2xl overflow-hidden mb-8 sm:mb-12">
+    <motion.div
+      className="min-h-screen bg-background"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
+      {/* 📰 Main Article Section */}
+      <motion.article
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        {/* 🖼️ Hero Image */}
+        <motion.div
+          className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden mb-8"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           <Image
-            src={post.postImage || "/placeholder.svg"}
+            src={post.image_url || "/placeholder.svg"}
             alt={post.title}
             fill
             className="object-cover"
             priority
           />
-        </div>
+        </motion.div>
 
-        {/* Article Header */}
-        <header className="mb-8 sm:mb-12">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6 leading-tight text-balance">
-            {post.title}
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed text-pretty">
-            {post.summary}
-          </p>
-        </header>
+        {/* 🗞️ Title and Snippet */}
+        <motion.header
+          className="mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+          <p
+            className="text-lg text-muted-foreground"
+            dangerouslySetInnerHTML={{ __html: post.content_snippet }}
+          ></p>
+        </motion.header>
 
-        {/* Article Content */}
-        <div className="prose prose-lg max-w-none mb-12 sm:mb-16">
-          <div className="text-foreground/90 leading-relaxed space-y-6 text-justify">
-            {post.content.split("\n\n").map((paragraph, index) => (
-              <p key={index} className="text-base sm:text-lg">
-                {paragraph.trim()}
-              </p>
-            ))}
-          </div>
-        </div>
+        {/* 📜 Full Article Content */}
+        <motion.div
+          className="prose prose-lg max-w-none mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <div
+            dangerouslySetInnerHTML={{ __html: post.full_content_html }}
+            className="text-foreground/90 leading-relaxed text-justify"
+          ></div>
+        </motion.div>
 
-        {/* Navigation Buttons */}
-        <nav className="border-t border-border pt-8 sm:pt-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-            {/* Previous Post */}
-            <div>
-              {prevPost ? (
-                <Link href={`/media/news/${prevPost.id}`}>
-                  <Button
-                    variant="outline"
-                    className="w-full bg-transparent h-auto py-4 px-6 flex flex-col items-start gap-2 hover:bg-accent transition-colors group"
-                  >
-                    <span className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                      <ArrowLeft className="w-4 h-4" />
-                      Previous
-                    </span>
-                    <span className="text-left font-semibold text-foreground line-clamp-2">
-                      {prevPost.title}
-                    </span>
-                  </Button>
-                </Link>
-              ) : (
-                <div className="w-full h-full opacity-0 pointer-events-none">
-                  <Button
-                    variant="outline"
-                    disabled
-                    className="w-full bg-transparent"
-                  >
-                    No previous post
-                  </Button>
-                </div>
-              )}
-            </div>
+        {/* 🔁 Navigation Buttons (Previous / Next) */}
+        <motion.nav
+          className="border-t border-border pt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
+          {/* Previous Post Button */}
+          {prevPost ? (
+            <Link href={`/media/news/${prevPost.id}`}>
+              <Button
+                variant="outline"
+                className="w-full flex items-center gap-2"
+              >
+                <ArrowLeft size={18} /> {prevPost.title}
+              </Button>
+            </Link>
+          ) : (
+            <div />
+          )}
 
-            {/* Next Post */}
-            <div>
-              {nextPost ? (
-                <Link href={`/media/news/${nextPost.id}`}>
-                  <Button
-                    variant="outline"
-                    className="w-full h-auto py-4 px-6 flex flex-col items-end gap-2 hover:bg-accent transition-colors group bg-transparent"
-                  >
-                    <span className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                      Next
-                      <ArrowRight className="w-4 h-4" />
-                    </span>
-                    <span className="text-right font-semibold text-foreground line-clamp-2">
-                      {nextPost.title}
-                    </span>
-                  </Button>
-                </Link>
-              ) : (
-                <div className="w-full h-full opacity-0 pointer-events-none">
-                  <Button
-                    variant="outline"
-                    disabled
-                    className="w-full bg-transparent"
-                  >
-                    No next post
-                  </Button>
-                </div>
-              )}
-            </div>
-          </div>
-        </nav>
-      </article>
+          {/* Next Post Button */}
+          {nextPost ? (
+            <Link href={`/media/news/${nextPost.id}`}>
+              <Button
+                variant="outline"
+                className="w-full flex items-center justify-end gap-2"
+              >
+                {nextPost.title} <ArrowRight size={18} />
+              </Button>
+            </Link>
+          ) : (
+            <div />
+          )}
+        </motion.nav>
+      </motion.article>
 
-      {/* Scroll to Top Button */}
+      {/* ⬆️ Floating Scroll-to-Top Button */}
       {showScrollTop && (
-        <button
+        <motion.button
           onClick={scrollToTop}
-          className="fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95"
+          className="fixed bottom-6 left-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center"
           aria-label="Scroll to top"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
         >
           <ArrowUp className="w-5 h-5" />
-        </button>
+        </motion.button>
       )}
-    </div>
+    </motion.div>
   );
 };
 
