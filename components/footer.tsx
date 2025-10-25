@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -100,15 +101,21 @@ const Footer = () => {
                 Quick Links
               </h3>
               <div className="space-y-2">
-                <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
-                  Our History
-                </h2>
-                <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
-                  About Us
-                </h2>
-                <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
-                  Scholarships
-                </h2>
+                <Link href="/about/message-from-ceo">
+                  <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
+                    Message From Ceo
+                  </h2>
+                </Link>
+                <Link href="/about">
+                  <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
+                    About Us
+                  </h2>
+                </Link>
+                <Link href="/scholarships">
+                  <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
+                    Scholarships
+                  </h2>
+                </Link>
               </div>
             </div>
 
@@ -124,15 +131,21 @@ const Footer = () => {
                 Media
               </h3>
               <div className="space-y-2">
-                <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
-                  Latest News
-                </h2>
-                <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
-                  Latest Articles
-                </h2>
-                <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
-                  Gallery
-                </h2>
+                <Link href="/media/news">
+                  <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
+                    Latest News
+                  </h2>
+                </Link>
+                <Link href="/media/articles">
+                  <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
+                    Latest Articles
+                  </h2>
+                </Link>
+                <Link href="/media/gallery">
+                  <h2 className="text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 hover:translate-x-2 hover:text-[#F47C20]">
+                    Gallery
+                  </h2>
+                </Link>
               </div>
             </div>
           </div>
@@ -162,7 +175,8 @@ const Footer = () => {
                 />
               </a>
               <a
-                href="#"
+                href="https://x.com/PetrofundNam"
+                target="_blank"
                 className="group relative transition-all duration-300 hover:scale-110 hover:-translate-y-1"
                 aria-label="X (Twitter)"
               >
@@ -176,7 +190,8 @@ const Footer = () => {
                 />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/in/petrofund-namibia-511756358/"
+                target="_blank"
                 className="group relative transition-all duration-300 hover:scale-110 hover:-translate-y-1"
                 aria-label="LinkedIn"
               >
@@ -190,7 +205,8 @@ const Footer = () => {
                 />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/petrofund_namibia/?hl=en"
+                target="_blank"
                 className="group relative transition-all duration-300 hover:scale-110 hover:-translate-y-1"
                 aria-label="Instagram"
               >
