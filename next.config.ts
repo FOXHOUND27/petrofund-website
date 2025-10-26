@@ -1,8 +1,15 @@
+// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
   images: {
-    domains: ["innovation.muhoko.org"], // Add the host here
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "innovation.muhoko.org",
+        port: "", // optional, usually empty
+        pathname: "/**", // allow all paths from this domain
+      },
+    ],
   },
 };
 

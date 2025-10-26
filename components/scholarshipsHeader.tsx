@@ -101,10 +101,10 @@ const ScholarshipsHeader = () => {
                       Candidates must submit applications via the PETROFUND
                       website:{" "}
                       <a
-                        href="https://esaspetrofund.org/login"
+                        href="https://innovation.muhoko.org/student/login"
                         className="font-bold text-orange-600 underline hover:text-orange-700"
                       >
-                        https://esaspetrofund.org/login
+                        https://innovation.muhoko.org/student/login
                       </a>
                     </p>
                     <p className="text-sm text-gray-700">
@@ -139,10 +139,10 @@ const ScholarshipsHeader = () => {
                       Candidates must submit applications via the PETROFUND
                       website:{" "}
                       <a
-                        href="https://esaspetrofund.org/login"
+                        href="https://innovation.muhoko.org/student/login"
                         className="font-bold text-purple-700 underline hover:text-purple-800"
                       >
-                        https://esaspetrofund.org/login
+                        https://innovation.muhoko.org/student/login
                       </a>
                     </p>
                   </div>
@@ -230,10 +230,10 @@ const ScholarshipsHeader = () => {
                         Candidates must submit applications on both the
                         PETROFUND website:{" "}
                         <a
-                          href="https://esaspetrofund.org/login"
+                          href="https://innovation.muhoko.org/student/login"
                           className="font-bold text-purple-700 underline hover:text-purple-800"
                         >
-                          https://esaspetrofund.org/login
+                          https://innovation.muhoko.org/student/login
                         </a>{" "}
                         and the Chevening website:{" "}
                         <a
@@ -392,10 +392,10 @@ const ScholarshipsHeader = () => {
                           Complete the relevant online PETROFUND or Chevening
                           scholarship application form at:{" "}
                           <a
-                            href="https://esaspetrofund.org/login"
+                            href="https://innovation.muhoko.org/student/login"
                             className="font-bold text-purple-700 underline hover:text-purple-800"
                           >
-                            https://esaspetrofund.org/login
+                            https://innovation.muhoko.org/student/login
                           </a>{" "}
                           or{" "}
                           <a
@@ -496,6 +496,13 @@ const ScholarshipsHeader = () => {
                 <p className="mt-2 text-center text-2xl font-bold text-orange-900 sm:text-3xl">
                   Tuesday, 7 October 2025 at 13:00
                 </p>
+
+                <a
+                  href="https://innovation.muhoko.org/student/login"
+                  className="bg-primary text-center text-white my-5 px-8 xl:px-10 py-2.5 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-[15px]"
+                >
+                  Apply Now
+                </a>
               </div>
             </div>
           </section>
