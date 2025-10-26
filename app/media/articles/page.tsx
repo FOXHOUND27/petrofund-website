@@ -1,14 +1,12 @@
 "use client";
-import Homeposts from "@/components/homeposts";
 import MiniHero from "@/components/miniHero";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CircleArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
 
-interface articleData {
+interface ArticleData {
   id: number;
   title: string;
   category_id: number;
@@ -20,7 +18,7 @@ interface articleData {
 }
 
 const Page = () => {
-  const [articlesInfo, setArticlesInfo] = useState<articleData[] | null>([]);
+  const [articlesInfo, setArticlesInfo] = useState<ArticleData[] | null>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,7 +32,6 @@ const Page = () => {
         }
 
         const data = await res.json();
-        console.log("News", data.data);
         setArticlesInfo(data.data);
       } catch (err: any) {
         setError(err.message);
@@ -69,50 +66,56 @@ const Page = () => {
       <MiniHero
         imageSrc="/SectionImages/DesertHero.jpg"
         title="Latest Articles"
-        subtitle="View and read our latest updates"
+        subtitle="Explore our latest insights and updates"
       />
 
-      {/* News Posts Section Page */}
+      {/* Articles Section */}
       <section className="flex flex-wrap justify-center gap-8 items-center mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
-        {/* News Cards */}
-        {articlesInfo?.map((post) => (
-          <div
-            key={post.id}
-            className="p-6 sm:p-8 lg:h-auto bg-[#4F3996] w-full sm:w-[90%] md:w-[350px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto sm:h-[500px] shadow-lg"
-          >
-            <Image
-              src={post.image_url}
-              height={350}
-              width={350}
-              alt="news post image"
-              className="object-cover rounded-lg w-full h-56 sm:h-64 md:h-72"
-            />
+        {articlesInfo && articlesInfo.length > 0 ? (
+          articlesInfo.map((post) => (
+            <div
+              key={post.id}
+              className="p-6 sm:p-8 lg:h-auto bg-[#4F3996] w-full sm:w-[90%] md:w-[350px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto sm:h-[500px] shadow-lg"
+            >
+              <Image
+                src={post.image_url || "/placeholder.svg"}
+                height={350}
+                width={350}
+                alt="article image"
+                className="object-cover rounded-lg w-full h-56 sm:h-64 md:h-72"
+              />
 
-            {/* Text Div */}
-            <div className="mt-6 text-white text-center sm:text-left">
-              <h1 className="mb-2 text-lg sm:text-xl font-semibold">
-                {post.title}
-              </h1>
-              <div
-                className="text-sm sm:text-base text-justify"
-                dangerouslySetInnerHTML={{ __html: post.content_snippet }}
-              ></div>
+              {/* Text Div */}
+              <div className="mt-6 text-white text-center sm:text-left">
+                <h1 className="mb-2 text-lg sm:text-xl font-semibold">
+                  {post.title}
+                </h1>
+                <div
+                  className="text-sm sm:text-base text-justify"
+                  dangerouslySetInnerHTML={{ __html: post.content_snippet }}
+                ></div>
 
-              <div className="flex justify-center sm:justify-start">
-                <Link href={`/media/articles/${post.id}`}>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-primary flex items-center gap-x-2 sm:gap-x-4 text-white my-5 px-6 sm:px-8 xl:px-10 py-2 sm:py-2.5 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-sm sm:text-[15px]"
-                  >
-                    Read More
-                    <CircleArrowRight size={18} />
-                  </motion.button>
-                </Link>
+                <div className="flex justify-center sm:justify-start">
+                  <Link href={`/media/articles/${post.id}`}>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-primary flex items-center gap-x-2 sm:gap-x-4 text-white my-5 px-6 sm:px-8 xl:px-10 py-2 sm:py-2.5 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-sm sm:text-[15px]"
+                    >
+                      Read More
+                      <CircleArrowRight size={18} />
+                    </motion.button>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="w-full text-center text-lg text-muted-foreground mt-12">
+            There are currently no articles available. Please check back later
+            for updates.
+          </p>
+        )}
       </section>
     </>
   );

@@ -8,82 +8,12 @@ export interface TrainingProgram {
   id: number;
   title: string;
   description_snippet: string;
-  start_date: string; // ISO date string, e.g., "2025-10-30"
-  application_deadline: string; // ISO date string
+  start_date: string;
+  application_deadline: string;
   duration: string;
   location: string;
   image_url: string;
 }
-
-// Sample training data
-const trainings = [
-  {
-    id: 1,
-    title: "Advanced Web Development Bootcamp",
-    snippet:
-      "Master modern web technologies including React, Next.js, and TypeScript. Build production-ready applications with industry best practices.",
-    applicationDeadline: "2025-11-15",
-    startDate: "2025-12-01",
-    endDate: "2026-03-15",
-    location: "San Francisco, CA",
-    image: "/modern-web-development-coding-bootcamp.jpg",
-  },
-  {
-    id: 2,
-    title: "Data Science & Machine Learning",
-    snippet:
-      "Learn Python, statistical analysis, and machine learning algorithms. Work on real-world projects and build your data science portfolio.",
-    applicationDeadline: "2025-11-20",
-    startDate: "2025-12-10",
-    endDate: "2026-04-10",
-    location: "New York, NY",
-    image: "/data-science-machine-learning-analytics.jpg",
-  },
-  {
-    id: 3,
-    title: "UX/UI Design Masterclass",
-    snippet:
-      "Create stunning user experiences with Figma, Adobe XD, and modern design principles. Learn user research and prototyping techniques.",
-    applicationDeadline: "2025-11-10",
-    startDate: "2025-11-25",
-    endDate: "2026-02-25",
-    location: "Austin, TX",
-    image: "/ux-ui-design-interface-mockups.jpg",
-  },
-  {
-    id: 4,
-    title: "Cloud Architecture & DevOps",
-    snippet:
-      "Master AWS, Docker, Kubernetes, and CI/CD pipelines. Build scalable cloud infrastructure and automate deployment workflows.",
-    applicationDeadline: "2025-11-25",
-    startDate: "2025-12-15",
-    endDate: "2026-03-30",
-    location: "Seattle, WA",
-    image: "/cloud-computing-devops-infrastructure.jpg",
-  },
-  {
-    id: 5,
-    title: "Mobile App Development",
-    snippet:
-      "Build native iOS and Android apps using React Native and Flutter. Learn mobile-first design and app store deployment strategies.",
-    applicationDeadline: "2025-12-01",
-    startDate: "2025-12-20",
-    endDate: "2026-04-20",
-    location: "Los Angeles, CA",
-    image: "/mobile-app-development.png",
-  },
-  {
-    id: 6,
-    title: "Cybersecurity Fundamentals",
-    snippet:
-      "Understand network security, ethical hacking, and threat detection. Gain hands-on experience with security tools and frameworks.",
-    applicationDeadline: "2025-11-18",
-    startDate: "2025-12-05",
-    endDate: "2026-03-05",
-    location: "Boston, MA",
-    image: "/cybersecurity-network-security-hacking.jpg",
-  },
-];
 
 const Page = () => {
   const [trainingInfo, setTrainingInfo] = useState<TrainingProgram[] | null>(
@@ -156,11 +86,17 @@ const Page = () => {
 
         {/* Trainings Grid */}
         <main className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {trainingInfo?.map((training) => (
-              <TrainingCard key={training.id} training={training} />
-            ))}
-          </div>
+          {trainingInfo && trainingInfo.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {trainingInfo.map((training) => (
+                <TrainingCard key={training.id} training={training} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-lg text-muted-foreground">
+              No trainings currently available.
+            </p>
+          )}
         </main>
       </div>
     </>

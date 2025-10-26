@@ -114,6 +114,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
       "h2",
       "h3",
       "iframe",
+      "br",
     ]),
     allowedAttributes: {
       a: ["href", "target", "rel"],

@@ -18,7 +18,7 @@ interface Executive {
   bio_snippet: string;
   profile_image_url: string;
   is_active: boolean;
-  updated_at: string; // Could be `Date` if you parse it
+  updated_at: string;
 }
 
 export default function ExecutiveTeamPage() {
@@ -69,46 +69,52 @@ export default function ExecutiveTeamPage() {
     <>
       <MiniHero
         imageSrc="/SectionImages/DesertHero.jpg"
-        title="  Meet Our Executive Team"
-        subtitle="    Visionary leaders driving innovation, excellence, and
-                sustainable growth across every facet of our organization."
+        title="Meet Our Executive Team"
+        subtitle="Visionary leaders driving innovation, excellence, and sustainable growth across every facet of our organization."
       />
+
       <div className="min-h-screen bg-background">
-        {/* Team Grid */}
         <section className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {executives?.map((executive) => (
-              <Card
-                key={executive.id}
-                className="group overflow-hidden bg-[#E6E7E8] transition-all hover:shadow-lg"
-              >
-                <div className="aspect-square overflow-hidden bg-muted">
-                  <img
-                    src={executive.profile_image_url || "/placeholder.svg"}
-                    alt={executive.full_name}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-2xl font-bold text-foreground">
-                    {executive.first_name}
-                  </h3>
-                  <p className="mt-2 text-sm font-medium text-accent">
-                    {executive.position}
-                  </p>
-                  <p className="mt-4 text-muted-foreground leading-relaxed text-justify">
-                    {executive.bio_snippet}
-                  </p>
-                  <Link href={`/about/our-management-team/${executive.id}`}>
-                    <Button className="mt-6 w-full bg-[#4F3996] text-white font-medium rounded-lg py-2 transition-all duration-300 ease-in-out hover:bg-[#F47C20] hover:scale-[1.02] hover:shadow-lg">
-                      View More Information
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {executives && executives.length > 0 ? (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {executives.map((executive) => (
+                <Card
+                  key={executive.id}
+                  className="group overflow-hidden bg-[#E6E7E8] transition-all hover:shadow-lg"
+                >
+                  <div className="aspect-square overflow-hidden bg-muted">
+                    <img
+                      src={executive.profile_image_url || "/placeholder.svg"}
+                      alt={executive.full_name}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="text-2xl font-bold text-foreground">
+                      {executive.first_name} {executive.last_name}
+                    </h3>
+                    <p className="mt-2 text-sm font-medium text-accent">
+                      {executive.position}
+                    </p>
+                    <p className="mt-4 text-muted-foreground leading-relaxed text-justify">
+                      {executive.bio_snippet}
+                    </p>
+                    <Link href={`/about/our-management-team/${executive.id}`}>
+                      <Button className="mt-6 w-full bg-[#4F3996] text-white font-medium rounded-lg py-2 transition-all duration-300 ease-in-out hover:bg-[#F47C20] hover:scale-[1.02] hover:shadow-lg">
+                        View More Information
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <p className="w-full text-center text-lg text-muted-foreground mt-12">
+              There is currently no executives information available. Please
+              check back later for updates.
+            </p>
+          )}
         </section>
       </div>
     </>
