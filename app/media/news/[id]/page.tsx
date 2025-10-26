@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { use } from "react";
-import { motion } from "framer-motion"; // ✅ Import Framer Motion
+import { motion } from "framer-motion";
+import sanitizeHtml from "sanitize-html"; // ✅ Import sanitizer
 
 // 🧩 Define the data structure expected from the API
 interface NewsData {
@@ -22,23 +22,22 @@ interface NewsData {
 
 // ✅ Main component for displaying a single news post
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
-  // Unwrap the params Promise (Next.js 15+ requirement)
   const { id } = use(params);
 
   // 🧠 Local state
-  const [newsInfo, setNewsInfo] = useState<NewsData[] | null>([]); // stores all news
-  const [loading, setLoading] = useState(true); // loading state
-  const [error, setError] = useState<string | null>(null); // error message
-  const [showScrollTop, setShowScrollTop] = useState(false); // controls scroll-to-top button visibility
+  const [newsInfo, setNewsInfo] = useState<NewsData[] | null>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // 🪟 Track scroll position for "scroll to top" button
+  // 🪟 Show scroll-to-top button after scrolling
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 🌐 Fetch news data from the API when the page loads
+  // 🌐 Fetch all news
   useEffect(() => {
     async function fetchSummary() {
       try {
@@ -46,7 +45,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const data = await res.json();
-        console.log("News", data.data);
         setNewsInfo(data.data);
       } catch (err: any) {
         setError(err.message);
@@ -57,7 +55,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     fetchSummary();
   }, []);
 
-  // 🌀 Show loading spinner while fetching data
+  // 🌀 Loading UI
   if (loading) {
     return (
       <section className="p-8 flex justify-center items-center min-h-screen">
@@ -81,10 +79,10 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     );
   }
 
-  // ⚠️ Show error message if something goes wrong
+  // ⚠️ Error display
   if (error) return <p className="text-red-500 text-center">{error}</p>;
 
-  // 📰 Identify current, previous, and next posts
+  // 📰 Find current, previous, next posts
   const currentIndex = (newsInfo || []).findIndex(
     (news) => news.id === Number(id)
   );
@@ -98,10 +96,10 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
       ? newsInfo[currentIndex + 1]
       : null;
 
-  // 🔼 Scroll-to-top functionality
+  // 🔼 Scroll to top
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  // 🚫 Handle invalid post (not found)
+  // 🚫 Post not found
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -114,6 +112,30 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
       </div>
     );
   }
+
+  // 🧹 Sanitize HTML safely before rendering
+  const cleanSnippet = sanitizeHtml(post.content_snippet || "", {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      img: ["src", "alt", "width", "height"],
+    },
+  });
+
+  const cleanFullContent = sanitizeHtml(post.full_content_html || "", {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+      "img",
+      "h1",
+      "h2",
+      "h3",
+      "iframe",
+    ]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      img: ["src", "alt", "width", "height", "style"],
+      iframe: ["src", "allow", "allowfullscreen", "width", "height"],
+    },
+  });
 
   return (
     <motion.div
@@ -155,9 +177,15 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
           <p
             className="text-lg text-muted-foreground"
-            dangerouslySetInnerHTML={{ __html: post.content_snippet }}
+            dangerouslySetInnerHTML={{ __html: cleanSnippet }}
           ></p>
-          <h1 className="my-2 font-bold mb-4">{post.published_at}</h1>
+          <p className="my-2 font-medium text-sm text-gray-500">
+            {new Date(post.published_at).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </p>
         </motion.header>
 
         {/* 📜 Full Article Content */}
@@ -168,19 +196,18 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           transition={{ delay: 0.4 }}
         >
           <div
-            dangerouslySetInnerHTML={{ __html: post.full_content_html }}
+            dangerouslySetInnerHTML={{ __html: cleanFullContent }}
             className="text-foreground/90 leading-relaxed text-justify"
           ></div>
         </motion.div>
 
-        {/* 🔁 Navigation Buttons (Previous / Next) */}
+        {/* 🔁 Navigation Buttons */}
         <motion.nav
           className="border-t border-border pt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          {/* Previous Post Button */}
           {prevPost ? (
             <Link href={`/media/news/${prevPost.id}`}>
               <Button
@@ -194,7 +221,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             <div />
           )}
 
-          {/* Next Post Button */}
           {nextPost ? (
             <Link href={`/media/news/${nextPost.id}`}>
               <Button
@@ -210,18 +236,18 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         </motion.nav>
       </motion.article>
 
-      {/* ⬆️ Floating Scroll-to-Top Button */}
+      {/* ⬆️ Scroll-to-Top Button */}
       {showScrollTop && (
         <motion.button
           onClick={scrollToTop}
-          className="fixed bottom-6 z-50 left-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center"
+          className="fixed bottom-6 left-6 z-[9999] w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center"
           aria-label="Scroll to top"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          <ArrowUp className="w-5 h-5 z-[9999]" />
+          <ArrowUp className="w-5 h-5" />
         </motion.button>
       )}
     </motion.div>
