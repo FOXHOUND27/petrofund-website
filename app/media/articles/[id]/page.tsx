@@ -163,6 +163,14 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             dangerouslySetInnerHTML={{ __html: post.content_snippet }}
             className="text-lg sm:text-xl text-muted-foreground leading-relaxed text-pretty"
           ></div>
+
+          <p className="my-2 font-medium text-sm text-gray-500">
+            {new Date(post.published_at).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </p>
         </motion.header>
 
         {/* ✅ Main Article Content */}
