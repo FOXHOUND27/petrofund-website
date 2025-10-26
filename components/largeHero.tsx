@@ -35,22 +35,22 @@ const LargeHero = () => {
 
           {/* Hero Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10 animate-in slide-in-from-bottom-4 fade-in duration-1000 delay-700">
-            <Link href="/media">
-              <button className="group py-3 px-6 sm:py-3 sm:px-7 md:py-4 md:px-8 bg-[#4F3996] flex items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-lg font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95">
-                <span>Latest Updates</span>
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover:translate-x-1" />
-              </button>
+            <Link
+              href="/media"
+              className="group py-3 px-6 sm:py-3 sm:px-7 md:py-4 md:px-8 bg-[#4F3996] flex items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-lg font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
+            >
+              <span>Latest Updates</span>
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
 
             <a
               href="https://innovation.muhoko.org/student/login"
               target="_blank"
+              className="group py-3 px-6 sm:py-3 sm:px-7 md:py-4 md:px-8 bg-[#4F3996] flex items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-lg font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               {" "}
-              <button className="group py-3 px-6 sm:py-3 sm:px-7 md:py-4 md:px-8 bg-[#4F3996] flex items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-lg font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95">
-                <span>Esas Portal</span>
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover:translate-x-1" />
-              </button>
+              <span>Esas Portal</span>
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
 
             <button className="flex md:hidden group py-3 px-6 sm:py-3 sm:px-7 bg-[#4F3996] items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-lg font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95">
