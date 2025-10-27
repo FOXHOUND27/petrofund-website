@@ -1,7 +1,5 @@
 "use client";
 import MiniHero from "@/components/miniHero";
-import { motion } from "framer-motion";
-import { CircleArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
