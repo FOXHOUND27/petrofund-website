@@ -1,4 +1,5 @@
 import MainHero from "@/components/mainHero";
+import ProgramSection from "@/components/programSection";
 import ScholarshipsHeader from "@/components/scholarshipsHeader";
 import React from "react";
 
@@ -11,6 +12,7 @@ const Page = () => {
         subtitle="Explore the various scholarships available to support your education and career development."
       />
       <ScholarshipsHeader />
+      <ProgramSection />
     </>
   );
 };

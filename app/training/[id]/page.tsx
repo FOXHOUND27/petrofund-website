@@ -231,7 +231,8 @@ export default function TrainingDetailPage({ params }: TrainingPageProps) {
 
               <div className="mt-6 pt-6 border-t border-border space-y-3">
                 <motion.a
-                  href=""
+                  href="https://innovation.muhoko.org/student/login"
+                  target="_blank"
                   className="bg-primary flex gap-x-4 items-center justify-center text-white my-5 px-8 xl:px-10 py-2.5 rounded-md hover:bg-accent transition-colors duration-300 font-medium shadow-md text-[15px]"
                 >
                   <p>Apply Now</p>

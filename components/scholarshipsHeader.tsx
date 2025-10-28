@@ -496,13 +496,6 @@ const ScholarshipsHeader = () => {
                 <p className="mt-2 text-center text-2xl font-bold text-orange-900 sm:text-3xl">
                   Tuesday, 7 October 2025 at 13:00
                 </p>
-
-                <a
-                  href="https://innovation.muhoko.org/student/login"
-                  className="bg-primary text-center text-white my-5 px-8 xl:px-10 py-2.5 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-[15px]"
-                >
-                  Apply Now
-                </a>
               </div>
             </div>
           </section>
