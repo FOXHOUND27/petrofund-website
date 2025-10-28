@@ -136,7 +136,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
             </CardHeader>
             <CardContent>
               <div
-                className="prose prose-sm max-w-none text-foreground"
+                className="prose prose-sm max-w-none text-foreground text-justify"
                 dangerouslySetInnerHTML={{
                   __html: scholarItem.full_description_html,
                 }}
@@ -150,7 +150,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
             </CardHeader>
             <CardContent>
               <div
-                className="prose prose-sm max-w-none text-foreground"
+                className="prose prose-sm max-w-none text-foreground text-justify"
                 dangerouslySetInnerHTML={{ __html: scholarItem.eligibility }}
               />
             </CardContent>
@@ -162,7 +162,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
             </CardHeader>
             <CardContent>
               <div
-                className="prose prose-sm max-w-none text-foreground"
+                className="prose prose-sm max-w-none text-foreground text-justify"
                 dangerouslySetInnerHTML={{ __html: scholarItem.requirements }}
               />
             </CardContent>
@@ -174,7 +174,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
             </CardHeader>
             <CardContent>
               <div
-                className="prose prose-sm max-w-none text-foreground"
+                className="prose prose-sm max-w-none text-foreground text-justify"
                 dangerouslySetInnerHTML={{
                   __html: scholarItem.application_process,
                 }}
@@ -188,7 +188,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
             </CardHeader>
             <CardContent>
               <div
-                className="prose prose-sm max-w-none text-foreground"
+                className="prose text-justify prose-sm max-w-none text-foreground"
                 dangerouslySetInnerHTML={{
                   __html: scholarItem.important_information,
                 }}
@@ -202,7 +202,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
             </CardHeader>
             <CardContent>
               <div
-                className="prose prose-sm max-w-none text-foreground"
+                className="prose text-justify prose-sm max-w-none text-foreground"
                 dangerouslySetInnerHTML={{ __html: scholarItem.enquiries }}
               />
             </CardContent>

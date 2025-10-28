@@ -227,17 +227,8 @@ export default function Navbar() {
               className="relative font-semibold group"
             >
               <div className="flex items-center gap-1">
-                <Link
-                  href="/media"
-                  className={`font-semibold transition-colors duration-300 relative whitespace-nowrap ${
-                    pathname === "/media"
-                      ? "text-[#F47C20]"
-                      : "text-[#4F3996] hover:text-[#F47C20]"
-                  }`}
-                >
-                  Media
-                  <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
-                </Link>
+                <p className="text-[#4F3996]">Media</p>
+                <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
                 <button
                   className={`transition-colors duration-300 focus:outline-none ${
                     pathname.startsWith("/media")

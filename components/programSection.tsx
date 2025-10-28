@@ -10,19 +10,6 @@ interface ProgramCardProps {
   deadline: string;
 }
 
-// Sample data - in a real app, this would come from an API or database
-const programs = [
-  {
-    id: 3,
-    title: "Engineering",
-    description_snippet:
-      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The...",
-    image_url:
-      "https://innovation.muhoko.org/public/uploads/images/scholarships/covers/blsRpqXrh9EenCkz0D5ANpqTDEY9rnUQhBMifUy6.jpg",
-    deadline: "2025-10-31",
-  },
-];
-
 export default function ProgramSection() {
   const [scholarInfo, setScholarInfo] = useState<ProgramCardProps[] | null>([]);
   const [loading, setLoading] = useState(true);
@@ -34,10 +21,7 @@ export default function ProgramSection() {
         const res = await fetch(
           "https://innovation.muhoko.org/api/scholarships"
         );
-
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const data = await res.json();
         setScholarInfo(data.data);
@@ -67,7 +51,10 @@ export default function ProgramSection() {
     );
   }
 
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  if (error)
+    return <p className="text-red-500 text-center mt-10">Error: {error}</p>;
+
+  const hasNoScholarships = !scholarInfo || scholarInfo.length === 0;
 
   return (
     <main className="min-h-screen bg-background p-6 md:p-12">
@@ -75,11 +62,20 @@ export default function ProgramSection() {
         <h1 className="mb-8 text-4xl font-bold text-foreground">
           Available Scholarships
         </h1>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {scholarInfo?.map((program) => (
-            <ProgramCard key={program.id} program={program} />
-          ))}
-        </div>
+
+        {hasNoScholarships ? (
+          <div className="flex flex-col items-center justify-center min-h-[300px]">
+            <p className="text-lg text-gray-500 font-medium">
+              No scholarship programs currently available.
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {scholarInfo.map((program) => (
+              <ProgramCard key={program.id} program={program} />
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );
