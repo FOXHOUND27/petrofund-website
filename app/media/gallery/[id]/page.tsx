@@ -21,67 +21,6 @@ export interface GalleryCategory {
   images: GalleryImage[];
 }
 
-const galleryApiData: GalleryCategory[] = [
-  {
-    categoryId: 2,
-    categoryName: "Website Launch",
-    thumbnail:
-      "https://innovation.muhoko.org/public/uploads/images/gallery/XaoXQO0EKJf7jXowKMZ2pBsH3orYjjPSOzajO3fx.jpg",
-    images: [
-      {
-        imageUrl:
-          "https://innovation.muhoko.org/public/uploads/images/gallery/XaoXQO0EKJf7jXowKMZ2pBsH3orYjjPSOzajO3fx.jpg",
-        caption: "Image 1",
-        order: 0,
-      },
-      {
-        imageUrl:
-          "https://innovation.muhoko.org/public/uploads/images/gallery/SSagxV3RT2L2sf8tYrvdVQzdpwMOrTxbiSd9ysRu.jpg",
-        caption: "Image 2",
-        order: 0,
-      },
-      {
-        imageUrl:
-          "https://innovation.muhoko.org/public/uploads/images/gallery/1lmFAdbAeAxJ6VGrotatB2Udma8ZfP6vLhuamBee.jpg",
-        caption: "Image 3",
-        order: 0,
-      },
-    ],
-  },
-  {
-    categoryId: 3,
-    categoryName: "Namibian Landscapes",
-    thumbnail: null,
-    images: [],
-  },
-  {
-    categoryId: 4,
-    categoryName: "Oil and Gas Event",
-    thumbnail:
-      "https://innovation.muhoko.org/public/uploads/images/gallery/6V8NTob0wdWd6ldc3zu8cMOPEW101izF3UG3Bgzx.jpg",
-    images: [
-      {
-        imageUrl:
-          "https://innovation.muhoko.org/public/uploads/images/gallery/6V8NTob0wdWd6ldc3zu8cMOPEW101izF3UG3Bgzx.jpg",
-        caption: "Image 1",
-        order: 0,
-      },
-      {
-        imageUrl:
-          "https://innovation.muhoko.org/public/uploads/images/gallery/zQcwTmRl6GdF30vDkjss0IWttPcUNtiYsIo7dxOf.jpg",
-        caption: "Image",
-        order: 0,
-      },
-      {
-        imageUrl:
-          "https://innovation.muhoko.org/public/uploads/images/gallery/hOtYLNP7sC5U0LKrE7XziP5pdT3h2KQdslVB03F6.jpg",
-        caption: "Image",
-        order: 0,
-      },
-    ],
-  },
-];
-
 export default function GalleryDetailPage() {
   const params = useParams();
   const router = useRouter();

@@ -18,41 +18,6 @@ export interface GalleryCategory {
   images: GalleryImage[];
 }
 
-const galleryApiData = [
-  {
-    id: 1,
-    title: "Namibian Landscapes",
-    thumbnailUrl: "/SectionImages/CleanYellowLady.jpg", // Cover image
-    images: [
-      {
-        id: 101,
-        url: "/SectionImages/EngineeringRig.png",
-        title: "Sand Dunes",
-      },
-      {
-        id: 102,
-        url: "/SectionImages/OrangeAndGray.jpg",
-        title: "Desert Sunset",
-      },
-      {
-        id: 103,
-        url: "/public/SectionImages/OrangeSuite.png",
-        title: "Etosha Park",
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "Man and Lady",
-    thumbnailUrl: "/SectionImages/ManAndLady.jpg",
-    images: [
-      { id: 201, url: "/SectionImages/DesertHero.jpg", title: "Ocean Cliff" },
-      { id: 202, url: "/SectionImages/PurpleSky.jpg", title: "Beach Sunset" },
-      { id: 203, url: "/SectionImages/PurpleSky.jpg", title: "Harbor" },
-    ],
-  },
-];
-
 const Page = () => {
   const [galleryInfo, setGalleryInfo] = useState<GalleryCategory[] | null>([]);
   const [loading, setLoading] = useState(true);
