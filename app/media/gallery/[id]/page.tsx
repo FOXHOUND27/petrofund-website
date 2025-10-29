@@ -1,57 +1,83 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
-interface GalleryImage {
-  id: number;
-  url: string;
-  title?: string;
-  thumbnailUrl?: string;
+export interface GalleryImage {
+  imageUrl: string;
+  caption: string;
+  order: number;
 }
 
-interface Gallery {
-  id: number;
-  title: string;
-  thumbnailUrl: string;
+export interface GalleryCategory {
+  categoryId: number;
+  categoryName: string;
+  thumbnail: string | null;
   images: GalleryImage[];
 }
 
-const galleryApiData: Gallery[] = [
+const galleryApiData: GalleryCategory[] = [
   {
-    id: 1,
-    title: "Namibian Landscapes",
-    thumbnailUrl: "/SectionImages/CleanYellowLady.jpg",
+    categoryId: 2,
+    categoryName: "Website Launch",
+    thumbnail:
+      "https://innovation.muhoko.org/public/uploads/images/gallery/XaoXQO0EKJf7jXowKMZ2pBsH3orYjjPSOzajO3fx.jpg",
     images: [
       {
-        id: 101,
-        url: "/SectionImages/EngineeringRig.png",
-        title: "Sand Dunes",
+        imageUrl:
+          "https://innovation.muhoko.org/public/uploads/images/gallery/XaoXQO0EKJf7jXowKMZ2pBsH3orYjjPSOzajO3fx.jpg",
+        caption: "Image 1",
+        order: 0,
       },
       {
-        id: 102,
-        url: "/SectionImages/OrangeAndGray.jpg",
-        title: "Desert Sunset",
+        imageUrl:
+          "https://innovation.muhoko.org/public/uploads/images/gallery/SSagxV3RT2L2sf8tYrvdVQzdpwMOrTxbiSd9ysRu.jpg",
+        caption: "Image 2",
+        order: 0,
       },
       {
-        id: 103,
-        url: "/SectionImages/OrangeSuite.png",
-        title: "Etosha Park",
+        imageUrl:
+          "https://innovation.muhoko.org/public/uploads/images/gallery/1lmFAdbAeAxJ6VGrotatB2Udma8ZfP6vLhuamBee.jpg",
+        caption: "Image 3",
+        order: 0,
       },
     ],
   },
   {
-    id: 2,
-    title: "PetroEvent",
-    thumbnailUrl: "/SectionImages/PetrofundEvent.jpg",
+    categoryId: 3,
+    categoryName: "Namibian Landscapes",
+    thumbnail: null,
+    images: [],
+  },
+  {
+    categoryId: 4,
+    categoryName: "Oil and Gas Event",
+    thumbnail:
+      "https://innovation.muhoko.org/public/uploads/images/gallery/6V8NTob0wdWd6ldc3zu8cMOPEW101izF3UG3Bgzx.jpg",
     images: [
-      { id: 201, url: "/SectionImages/DesertHero.jpg", title: "Ocean Cliff" },
-      { id: 202, url: "/SectionImages/PurpleSky.jpg", title: "Beach Sunset" },
-      { id: 203, url: "/SectionImages/PurpleSky.jpg", title: "Harbor" },
+      {
+        imageUrl:
+          "https://innovation.muhoko.org/public/uploads/images/gallery/6V8NTob0wdWd6ldc3zu8cMOPEW101izF3UG3Bgzx.jpg",
+        caption: "Image 1",
+        order: 0,
+      },
+      {
+        imageUrl:
+          "https://innovation.muhoko.org/public/uploads/images/gallery/zQcwTmRl6GdF30vDkjss0IWttPcUNtiYsIo7dxOf.jpg",
+        caption: "Image",
+        order: 0,
+      },
+      {
+        imageUrl:
+          "https://innovation.muhoko.org/public/uploads/images/gallery/hOtYLNP7sC5U0LKrE7XziP5pdT3h2KQdslVB03F6.jpg",
+        caption: "Image",
+        order: 0,
+      },
     ],
   },
 ];
@@ -61,7 +87,59 @@ export default function GalleryDetailPage() {
   const router = useRouter();
   const galleryId = Number(params.id);
 
-  const gallery = galleryApiData.find((g) => g.id === galleryId);
+  // 🧠 Local state
+  const [galleryInfo, setGalleryInfo] = useState<GalleryCategory[] | null>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // 🌐 Fetch all news
+  useEffect(() => {
+    async function fetchSummary() {
+      try {
+        const res = await fetch(
+          "https://innovation.muhoko.org/api/gallery-categories"
+        );
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+        const data = await res.json();
+        setGalleryInfo(data.data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchSummary();
+  }, []);
+
+  // 🌀 Loading UI
+  if (loading) {
+    return (
+      <section className="p-8 flex justify-center items-center min-h-screen">
+        <motion.div
+          className="flex flex-col items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            className="relative w-16 h-16"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
+          >
+            <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full"></div>
+          </motion.div>
+          <p className="text-lg font-medium text-[#F47C20]">Loading...</p>
+        </motion.div>
+      </section>
+    );
+  }
+
+  // ⚠️ Error display
+  if (error) return <p className="text-red-500 text-center">{error}</p>;
+
+  const gallery = galleryInfo?.find((g) => g.categoryId === galleryId);
 
   if (!gallery) {
     return (
@@ -80,9 +158,9 @@ export default function GalleryDetailPage() {
   }
 
   const galleryItems = gallery.images.map((image) => ({
-    original: image.url,
-    thumbnail: image.thumbnailUrl || image.url,
-    description: image.title,
+    original: image.imageUrl,
+    thumbnail: image.imageUrl,
+    description: image.caption,
   }));
 
   return (
@@ -96,7 +174,7 @@ export default function GalleryDetailPage() {
             </Button>
           </Link>
           <h1 className="text-4xl font-bold tracking-tight text-foreground">
-            {gallery.title}
+            {gallery.categoryName}
           </h1>
           <p className="mt-2 text-muted-foreground">
             {gallery.images.length} images
