@@ -2,9 +2,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Mail } from "lucide-react";
 import MiniHero from "@/components/miniHero";
 import { useState, useEffect } from "react";
+import { notFound } from "next/navigation";
 
 interface Trustee {
   id: number;
@@ -21,7 +22,12 @@ interface Trustee {
   updated_at: string;
 }
 
-export default function TrusteesTeamPage() {
+interface TrusteesPageProps {
+  params: { id: string };
+}
+
+export default function TrusteesTeamPage({ params }: TrusteesPageProps) {
+  const { id } = params;
   const [trustees, setTrustees] = useState<Trustee[] | null>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -65,58 +71,86 @@ export default function TrusteesTeamPage() {
 
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
+  // Find the executive by id
+  const trustee = trustees?.find((e) => e.id === Number(id)) ?? null;
+
+  if (!trustee) {
+    notFound();
+  }
+
   return (
-    <>
-      <MiniHero
-        imageSrc="/SectionImages/DesertHero.jpg"
-        title="Board of Trustees"
-        subtitle="Guiding the Vision and Governance of Petrofund"
-      />
-      <div className="min-h-screen bg-background">
-        {/* Team Grid */}
-        <section className="container mx-auto px-4 py-16 md:py-24">
-          {trustees && trustees.length > 0 ? (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {trustees.map((trustee) => (
-                <Card
-                  key={trustee.id}
-                  className="group overflow-hidden bg-[#E6E7E8] transition-all hover:shadow-lg"
-                >
-                  <div className="aspect-square overflow-hidden bg-muted">
-                    <img
-                      src={trustee.profile_image_url || "/Icons/person.svg"}
-                      alt={trustee.full_name}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="text-2xl font-bold text-foreground">
-                      {trustee.full_name}
-                    </h3>
-                    <p className="mt-2 text-sm font-medium text-accent">
-                      {trustee.position}
-                    </p>
-                    <p className="mt-4 text-muted-foreground leading-relaxed text-justify">
-                      {trustee.bio_snippet}
-                    </p>
-                    <Link href={`/about/board-of-trustees-page/${trustee.id}`}>
-                      <Button className="mt-6 w-full bg-[#4F3996] text-white font-medium rounded-lg py-2 transition-all duration-300 ease-in-out hover:bg-[#F47C20] hover:scale-[1.02] hover:shadow-lg">
-                        View More Information
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <p className="w-full text-center text-lg text-muted-foreground mt-12">
-              There is currently no trustees information available. Please check
-              back later for updates.
-            </p>
-          )}
-        </section>
+    <div className="min-h-screen bg-background">
+      {/* Back Button */}
+      <div className="border-b border-border bg-card">
+        <div className="container mx-auto px-4 py-6">
+          <Link href="/about/board-of-trustees-page">
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Team
+            </Button>
+          </Link>
+        </div>
       </div>
-    </>
+
+      {/* Executive Profile */}
+      <section className="container mx-auto px-4 py-16 md:py-24">
+        <div className="grid gap-12 lg:grid-cols-5">
+          {/* Left Column - Image and Contact */}
+          <div className="lg:col-span-2">
+            <div className="sticky top-8">
+              <div className="aspect-square overflow-hidden rounded-lg bg-muted">
+                <img
+                  src={trustee.profile_image_url || "/placeholder.svg"}
+                  alt={trustee.full_name}
+                  className="w-full object-contain rounded-lg"
+                />
+              </div>
+
+              <div className="mt-8">
+                <h1 className="text-3xl font-bold text-foreground md:text-4xl">
+                  {trustee.full_name}
+                </h1>
+                <p className="mt-2 text-lg font-medium text-accent">
+                  {trustee.position}
+                </p>
+
+                {/* Contact Information */}
+                <div className="mt-8 space-y-4">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                    Contact
+                  </h3>
+                  <div className="space-y-3">
+                    <a
+                      href={`mailto:${trustee.email}`}
+                      className="flex items-center gap-3 text-foreground hover:text-primary transition-colors"
+                    >
+                      <Mail className="h-5 w-5" />
+                      <span className="text-sm">{trustee.email}</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Details */}
+          <div className="lg:col-span-3 space-y-12">
+            {/* Biography */}
+            <div>
+              <h2 className="text-4xl text-[#F47C20] font-bold  mb-6">
+                Biography
+              </h2>
+              <div
+                dangerouslySetInnerHTML={{ __html: trustee.full_bio_html }}
+                className="space-y-4 text-muted-foreground text-justify leading-relaxed"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
