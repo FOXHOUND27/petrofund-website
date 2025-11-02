@@ -12,11 +12,18 @@ interface NewsCardProps {
   link: string;
 }
 
-export function NewsCard({ image, title, description, link }: NewsCardProps) {
+interface NewsData {
+  id: number;
+  title: string;
+  content_snippet: string;
+  image_url: string;
+}
+
+export function NewsCard({ image_url, title, content_snippet, id }: NewsData) {
   return (
     <div className="bg-[#4F3996] w-full max-w-[400px] md:w-[400px] h-auto md:h-[520px] rounded-tl-[85px]">
       <Image
-        src={image}
+        src={image_url}
         height={150}
         width={400}
         alt={title}
@@ -25,11 +32,12 @@ export function NewsCard({ image, title, description, link }: NewsCardProps) {
 
       <div className="p-5">
         <h1 className="text-white font-semibold mb-2">{title}</h1>
-        <p className="text-white text-justify text-sm leading-relaxed line-clamp-5">
-          {description}
-        </p>
+        <div
+          className="text-white text-justify text-sm leading-relaxed line-clamp-5"
+          dangerouslySetInnerHTML={{ __html: content_snippet }}
+        ></div>
 
-        <Link href={link}>
+        <Link href={`/media/news/${id}`}>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

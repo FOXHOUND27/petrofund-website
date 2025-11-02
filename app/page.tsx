@@ -13,7 +13,6 @@ export default function Home() {
       <Homeposts />
       <Homestats />
       <Imagerow />
-      <Unamkids />
     </>
   );
 }

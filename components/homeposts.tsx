@@ -3,105 +3,75 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CircleArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { NewsCard } from "./bulletinCard";
+
+interface NewsData {
+  id: number;
+  title: string;
+  category_id: number;
+  category_name: string | null;
+  full_content_html: string;
+  content_snippet: string;
+  image_url: string;
+  published_at: string;
+}
 
 const Homeposts = () => {
+  const [newsInfo, setNewsInfo] = useState<NewsData[] | null>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchSummary() {
+      try {
+        const res = await fetch("https://innovation.muhoko.org/api/news");
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+
+        // ✅ Only take the first 3 posts
+        setNewsInfo(data.data.slice(0, 3));
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchSummary();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
+        <div className="flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] min-h-[400px]">
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative w-16 h-16">
+              <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
+            </div>
+            <p className="text-lg font-medium text-[#F47C20]">Loading</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) return <p className="text-red-500">Error: {error}</p>;
+
   return (
     <section>
       <h1 className="text-[#F47C20] text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold">
         The Petrofund Bulletin
       </h1>
       <div className="h-auto flex flex-col md:flex-row justify-center items-center md:items-stretch p-4 sm:p-6 md:p-10 gap-6 md:gap-x-10">
-        {" "}
-        {/* First Post */}
-        <div className="bg-[#4F3996] w-full max-w-[400px] md:w-[400px] h-auto md:h-[520px] rounded-tl-[85px]">
-          <Image
-            src="/SectionImages/DesertHero.jpg"
-            height={150}
-            width={400}
-            alt="Post Item"
-            className="rounded-tl-[85px] w-full h-auto"
-          />
-          <div className="p-5">
-            <h1 className="text-white font-semibold">News Article 1</h1>
-            <p className="text-white text-justify">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo
-              nobis quibusdam fugiat vero modi mollitia, rem voluptate at nemo
-              ratione expedita cum ea quis adipisci dolorum totam tenetur
-              necessitatibus officiis.
-            </p>
-
-            <Link href="/donate">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-primary flex gap-x-4 text-white my-5 px-8 xl:px-10 py-2.5 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-[15px]"
-              >
-                Read More
-                <CircleArrowRight />
-              </motion.button>
-            </Link>
-          </div>
-        </div>
-        {/* Second Post */}
-        <div className="bg-[#4F3996] w-full max-w-[400px] md:w-[400px] h-auto md:h-[520px] rounded-tl-[85px]">
-          <Image
-            src="/SectionImages/OrangeSuite.png"
-            height={150}
-            width={400}
-            alt="Post Item"
-            className="rounded-tl-[85px] w-full h-auto"
-          />
-          <div className="p-5">
-            <h1 className="text-white font-semibold">News Article 1</h1>
-            <p className="text-white text-justify">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo
-              nobis quibusdam fugiat vero modi mollitia, rem voluptate at nemo
-              ratione expedita cum ea quis adipisci dolorum totam tenetur
-              necessitatibus officiis.
-            </p>
-
-            <Link href="/donate">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-primary flex gap-x-4 text-white my-5 px-8 xl:px-10 py-2.5 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-[15px]"
-              >
-                Read More
-                <CircleArrowRight />
-              </motion.button>
-            </Link>
-          </div>
-        </div>
-        {/* Third Post */}
-        <div className="bg-[#4F3996] w-full max-w-[400px] md:w-[400px] h-auto md:h-[520px] rounded-tl-[85px]">
-          <Image
-            src="/SectionImages/ManAndLady.jpg"
-            height={150}
-            width={400}
-            alt="Post Item"
-            className="rounded-tl-[85px] w-full h-auto"
-          />
-          <div className="p-5">
-            <h1 className="text-white font-semibold">News Article 1</h1>
-            <p className="text-white text-justify">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo
-              nobis quibusdam fugiat vero modi mollitia, rem voluptate at nemo
-              ratione expedita cum ea quis adipisci dolorum totam tenetur
-              necessitatibus officiis.
-            </p>
-
-            <Link href="/donate">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-primary flex gap-x-4 text-white my-5 px-8 xl:px-10 py-2.5 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-[15px]"
-              >
-                Read More
-                <CircleArrowRight />
-              </motion.button>
-            </Link>
-          </div>
-        </div>
+        {newsInfo?.map((newsItem) => (
+          <NewsCard key={newsItem.id} {...newsItem} />
+        ))}
       </div>
     </section>
   );
