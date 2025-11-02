@@ -483,16 +483,13 @@ export default function Navbar() {
                     }}
                   >
                     <div className="flex items-center gap-2">
-                      <Link
-                        href="/media"
-                        className={`flex-1 px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
-                          pathname === "/media"
-                            ? "bg-[#F47C20] text-white"
-                            : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
-                        }`}
+                      <p
+                        className={`flex-1 px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 
+                          text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                        `}
                       >
                         Media
-                      </Link>
+                      </p>
                       <button
                         onClick={() => setMediaSubMenuOpen(!mediaSubMenuOpen)}
                         className={`px-3 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
