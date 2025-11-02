@@ -73,33 +73,35 @@ const Page = () => {
       />
 
       <section className="flex flex-wrap justify-center mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
-        {/* News Cards */}
-        {galleryInfo?.map((gallery) => (
-          <div
-            key={gallery.categoryId}
-            className="p-6 sm:p-4 w-full sm:w-[90%] md:w-[500px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto sm:h-[500px]"
-          >
-            <Link
-              href={`/media/gallery/${gallery.categoryId}`}
-              className="cursor-pointer"
+        {/* Gallery Cards */}
+        {galleryInfo
+          ?.filter((gallery) => gallery.images.length > 0) // ✅ Only show categories with images
+          .map((gallery) => (
+            <div
+              key={gallery.categoryId}
+              className="p-6 sm:p-4 w-full sm:w-[90%] md:w-[500px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto sm:h-[500px]"
             >
-              <Image
-                src={gallery?.thumbnail}
-                height={500}
-                width={500}
-                alt="news post image"
-                className=" rounded-lg w-full h-56 rounded-tl-[55px] rounded-br-[55px] sm:h-64 md:h-72"
-              />
-            </Link>
+              <Link
+                href={`/media/gallery/${gallery.categoryId}`}
+                className="cursor-pointer"
+              >
+                <Image
+                  src={gallery?.thumbnail}
+                  height={500}
+                  width={500}
+                  alt="news post image"
+                  className=" rounded-lg w-full h-56 rounded-tl-[55px] rounded-br-[55px] sm:h-64 md:h-72"
+                />
+              </Link>
 
-            {/* Text Div */}
-            <div className="mt-2 text-center sm:text-left">
-              <h1 className="mb-2 text-xl text-[#4F3996]  sm:text-4xl font-semibold">
-                {gallery.categoryName}
-              </h1>
+              {/* Text Div */}
+              <div className="mt-2 text-center sm:text-left">
+                <h1 className="mb-2 text-xl text-[#4F3996]  sm:text-4xl font-semibold">
+                  {gallery.categoryName}
+                </h1>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </section>
     </>
   );
