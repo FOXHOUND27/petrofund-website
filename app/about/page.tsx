@@ -12,9 +12,9 @@ const About = () => {
         title="About Us"
         subtitle="Learn more about our team and mission."
       />
-      <AboutLogo />
       <AboutText />
       <Values />
+      <AboutLogo />
     </>
   );
 };

@@ -211,7 +211,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
 
         <div className="mt-12 flex justify-center">
           <motion.a
-            href="https://innovation.muhoko.org/student/login"
+            href="https://esaspetrofund.org/login"
             target="_blank"
             className="bg-primary flex gap-x-4 items-center justify-center text-white my-5 px-8 xl:px-10 py-2.5 rounded-md hover:bg-accent transition-colors duration-300 font-medium shadow-md text-[15px]"
           >

@@ -1,3 +1,4 @@
+import GallerySlider from "@/components/galleryslider";
 import Homeposts from "@/components/homeposts";
 import Homestats from "@/components/homestats";
 import Imagerow from "@/components/imagerow";
@@ -12,7 +13,7 @@ export default function Home() {
       <Story />
       <Homeposts />
       <Homestats />
-      <Imagerow />
+      <GallerySlider />
     </>
   );
 }
