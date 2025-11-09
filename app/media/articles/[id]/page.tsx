@@ -129,7 +129,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     <div className="h-auto bg-background">
       {/* ✅ Animated Article Container */}
       <motion.article
-        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16"
+        className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
