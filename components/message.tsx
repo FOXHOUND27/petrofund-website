@@ -4,28 +4,29 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export interface profileData {
+interface CEOProfile {
   id: number;
-  about_summary: string;
-  executive_summary: string;
-  mandate: string;
-  vision: string;
-  mission: string;
-  core_values: string;
-  updated_at: string;
+  ceo_name: string;
+  ceo_title: string;
+  content: string;
+  portrait_url: string;
+  signature_url: string;
+  is_active: boolean;
+  created_at: Date;
+  updated_at: Date;
 }
 
 const Message = () => {
-  const [profileSummary, setProfileSummary] = useState<profileData | null>(
-    null
-  );
+  const [profileSummary, setProfileSummary] = useState<CEOProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/about-us");
+        const res = await fetch(
+          "https://innovation.muhoko.org/api/ceo-message"
+        );
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -72,7 +73,7 @@ const Message = () => {
         {/* CEO Image */}
         <div className="w-full md:w-[35%] flex-shrink-0">
           <Image
-            src="/SectionImages/CEO.png"
+            src={profileSummary?.portrait_url ?? "/Icons/person.svg"}
             alt="CEO Image"
             width={600}
             height={600}
@@ -90,7 +91,7 @@ const Message = () => {
             <div
               className="text-white text-justify text-sm md:text-base"
               dangerouslySetInnerHTML={{
-                __html: profileSummary?.executive_summary || "",
+                __html: profileSummary?.content || "",
               }}
             ></div>
           </div>
@@ -98,7 +99,11 @@ const Message = () => {
           {/* Footer with CEO name and Logo */}
           <div className="flex flex-col md:flex-row justify-between mt-5 items-center md:items-start">
             <p className="text-white font-semibold text-center md:text-left">
-              Ms. Nillian N. Mulemi,
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: profileSummary?.ceo_name || "",
+                }}
+              ></div>
               <br /> Chief Executive Officer,
               <br /> Petrofund Namibia
             </p>

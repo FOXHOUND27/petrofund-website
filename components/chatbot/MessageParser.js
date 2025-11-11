@@ -11,11 +11,7 @@ class MessageParser {
       this.actionProvider.greet();
 
       // Help
-    } else if (lower.includes("help") || lower.includes("assist")) {
-      this.actionProvider.help();
-
-      // FAQ detection
-    } else if (lower.includes("?") || this.isLikelyFAQ(lower)) {
+    } else if (lower.includes("help") || this.isLikelyFAQ(lower)) {
       this.actionProvider.handleFAQ(message);
 
       // Fallback

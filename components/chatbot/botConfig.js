@@ -6,7 +6,7 @@ const config = {
   botName: "PetroBot",
   initialMessages: [
     createChatBotMessage(
-      "Hello! Type ? to see a list of frequently asked questions about the scholarship process.",
+      "Hello! Type HELP to see a list of frequently asked questions about the scholarship process.",
       {
         className: "chatbot-message",
       }
