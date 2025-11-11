@@ -223,6 +223,20 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      <div className="flex  w-full items-center justify-center my-10">
+        <span>
+          {" "}
+          Powered By{" "}
+          <a
+            className="text-[#F47C20]"
+            href="https://muhoko.org/"
+            target="_blank"
+          >
+            Muhoko Innovation Studio
+          </a>
+        </span>
+      </div>
     </footer>
   );
 };
