@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
 import config from "@/components/chatbot/botConfig";
 import MessageParser from "@/components/chatbot/MessageParser";
 import ActionProvider from "@/components/chatbot/ActionProvider";
-import { Bot } from "lucide-react";
+import { Bot, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ChatbotWidget() {
@@ -14,6 +14,18 @@ export default function ChatbotWidget() {
 
   return (
     <div>
+      {!isOpen && (
+        <a
+          href="https://wa.me/+264814460701?text=Hi,%20I%20need%20help%20with..."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-[88px] right-6 bg-[#25D366] hover:bg-[#20BA5A] text-white p-4 rounded-full shadow-lg z-[9999] transition"
+          aria-label="Contact us on WhatsApp"
+        >
+          <MessageCircle size={28} />
+        </a>
+      )}
+
       {/* Floating button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
