@@ -17,7 +17,7 @@ const Story = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="p-2 md:p-4 relative z-10"
+          className="p-2 md:p-4 relative z-10 ml-0 2xl:ml-30"
         >
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -71,7 +71,7 @@ const Story = () => {
           transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
           src="/SectionImages/OurStoryNew.png"
           alt="Story Image"
-          className="hidden overflow-hidden lg:block object-cover absolute bottom-0 left-[100px] h-[800px] w-auto"
+          className="hidden overflow-hidden lg:block ml-0 2xl:ml-80 object-cover absolute bottom-0 left-[100px] h-[800px] w-auto"
         />
       </motion.div>
     </section>
