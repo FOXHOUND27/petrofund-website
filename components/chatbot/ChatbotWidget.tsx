@@ -16,7 +16,7 @@ export default function ChatbotWidget() {
     <div>
       {!isOpen && (
         <a
-          href="https://wa.me/+264814460701?text=Hi,%20I%20need%20help%20with..."
+          href="https://wa.me/+264811450254?text=Hi,%20I%20need%20help%20with..."
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-[88px] right-6 bg-[#25D366] hover:bg-[#20BA5A] text-white p-4 rounded-full shadow-lg z-[9999] transition"

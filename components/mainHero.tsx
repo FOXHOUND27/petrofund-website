@@ -22,15 +22,11 @@ const MainHero: React.FC<MainHeroProps> = ({ imageSrc, title, subtitle }) => {
       <div className="absolute inset-0 bottom-25">
         <Image
           src={imageSrc}
-          alt={title || "Hero Image"}
+          alt="Large Hero Image"
           fill
-          onLoadingComplete={() => setIsLoaded(true)}
-          className={`object-cover rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px] transition-opacity duration-700 ${
-            isLoaded ? "opacity-100" : "opacity-0"
-          }`}
-          sizes="100vw"
-          priority={false}
-          loading="lazy"
+          priority
+          className="object-cover rounded-bl-[25px] rounded-br-[35px] sm:rounded-bl-[35px] sm:rounded-br-[45px] md:rounded-bl-[45px] md:rounded-br-[55px] lg:rounded-bl-[55px] lg:rounded-br-[65px] animate-in fade-in zoom-in-95 duration-1000"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
         />
       </div>
 
