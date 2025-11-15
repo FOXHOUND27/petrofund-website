@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import sanitizeHtml from "sanitize-html"; // ✅ added sanitizer
+import { base_url } from "@/components/data/data";
 
 interface articleData {
   id: number;
@@ -38,7 +39,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/articles");
+        const res = await fetch(`${base_url}/api/articles`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const data = await res.json();

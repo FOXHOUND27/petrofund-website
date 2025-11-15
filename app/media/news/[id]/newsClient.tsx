@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import sanitizeHtml from "sanitize-html";
+import { base_url } from "@/components/data/data";
 
 interface NewsData {
   id: number;
@@ -40,7 +41,7 @@ export default function NewsClient({
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/news");
+        const res = await fetch(`${base_url}/api/news`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
         setNewsInfo(data.data);

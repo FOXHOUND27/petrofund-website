@@ -7,6 +7,7 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { base_url } from "@/components/data/data";
 
 export interface GalleryImage {
   imageUrl: string;
@@ -35,9 +36,7 @@ export default function GalleryDetailPage() {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch(
-          "https://innovation.muhoko.org/api/gallery-categories"
-        );
+        const res = await fetch(`${base_url}/api/gallery-categories`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const data = await res.json();

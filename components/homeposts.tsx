@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { CircleArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { NewsCard } from "./bulletinCard";
-
+import { base_url } from "@/components/data/data";
 interface NewsData {
   id: number;
   title: string;
@@ -25,7 +25,7 @@ const Homeposts = () => {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/news");
+        const res = await fetch(`${base_url}/api/news`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

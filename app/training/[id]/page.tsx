@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { base_url } from "@/components/data/data";
 
 export interface TrainingProgram {
   id: number;
@@ -58,7 +59,7 @@ export default function TrainingDetailPage({ params }: TrainingPageProps) {
 
     async function fetchTrainings() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/trainings");
+        const res = await fetch(`${base_url}/api/trainings`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
         setTrainingInfo(data.data);

@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { base_url } from "@/components/data/data";
 
 export interface GalleryImage {
   imageUrl: string;
@@ -26,9 +27,7 @@ const Page = () => {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch(
-          "https://innovation.muhoko.org/api/gallery-categories"
-        );
+        const res = await fetch(`${base_url}/api/gallery-categories`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

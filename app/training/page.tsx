@@ -3,6 +3,7 @@ import MainHero from "@/components/mainHero";
 import { TrainingCard } from "@/components/trainingCard";
 import React from "react";
 import { useState, useEffect } from "react";
+import { base_url } from "@/components/data/data";
 
 export interface TrainingProgram {
   id: number;
@@ -25,7 +26,7 @@ const Page = () => {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/trainings");
+        const res = await fetch(`${base_url}/api/trainings`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

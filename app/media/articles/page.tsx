@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CircleArrowRight } from "lucide-react";
+import { base_url } from "@/components/data/data";
 
 interface ArticleData {
   id: number;
@@ -25,7 +26,7 @@ const Page = () => {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/articles");
+        const res = await fetch(`${base_url}/api/articles`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -111,10 +112,12 @@ const Page = () => {
             </div>
           ))
         ) : (
-          <p className="w-full text-center text-lg text-muted-foreground mt-12">
-            There are currently no articles available. Please check back later
-            for updates.
-          </p>
+          <div className="my-10 lg:my-20 flex justify-center items-center h-full w-full">
+            <p className="w-full text-center text-lg text-muted-foreground mt-12">
+              There are currently no articles available. Please check back later
+              for updates.
+            </p>
+          </div>
         )}
       </section>
     </>
