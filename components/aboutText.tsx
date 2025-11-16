@@ -1,24 +1,31 @@
 "use client";
 import { useState, useEffect } from "react";
+import { base_url } from "@/components/data/data";
 
 const AboutText = () => {
-  const [aboutSummary, setAboutSummary] = useState<string>("");
+  const [aboutSummary, setAboutSummary] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchAbout() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/about-us");
+        const res = await fetch(`${base_url}/api/about-us`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
 
         const data = await res.json();
-        setAboutSummary(data.data.about_summary);
+
+        // Validate response structure
+        if (data?.data?.about_summary) {
+          setAboutSummary(data.data.about_summary);
+        } else {
+          setAboutSummary(null); // triggers fallback message
+        }
       } catch (err: any) {
-        setError(err.message);
+        setError(err.message || "Something went wrong.");
       } finally {
         setLoading(false);
       }
@@ -43,7 +50,9 @@ const AboutText = () => {
     );
   }
 
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  if (error) {
+    return <p className="text-red-500 text-center py-10">Error: {error}</p>;
+  }
 
   return (
     <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
@@ -52,10 +61,17 @@ const AboutText = () => {
           About Us
         </h1>
 
-        <div
-          dangerouslySetInnerHTML={{ __html: aboutSummary }}
-          className="space-y-5 sm:space-y-6 md:space-y-8 text-white text-sm sm:text-base md:text-lg leading-relaxed max-w-5xl text-justify"
-        ></div>
+        {aboutSummary ? (
+          <div
+            dangerouslySetInnerHTML={{ __html: aboutSummary }}
+            className="space-y-5 sm:space-y-6 md:space-y-8 text-white text-sm sm:text-base md:text-lg leading-relaxed max-w-5xl text-justify"
+          ></div>
+        ) : (
+          <p className="text-white text-center text-base sm:text-lg md:text-xl max-w-4xl">
+            Our About Us information is currently unavailable. Please check back
+            soon.
+          </p>
+        )}
       </div>
     </section>
   );

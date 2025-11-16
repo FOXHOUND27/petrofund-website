@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
+import { base_url } from "@/components/data/data";
 
 interface Executive {
   id: number;
@@ -34,7 +35,7 @@ export default function ExecutiveDetailPage({ params }: ExecutivePageProps) {
   useEffect(() => {
     async function fetchExecutives() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/management");
+        const res = await fetch(`${base_url}/api/management`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

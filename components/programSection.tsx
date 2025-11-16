@@ -1,6 +1,7 @@
 "use client";
 import { ProgramCard } from "./programCard";
 import { useState, useEffect } from "react";
+import { base_url } from "@/components/data/data";
 
 interface ProgramCardProps {
   id: number;
@@ -18,9 +19,7 @@ export default function ProgramSection() {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch(
-          "https://innovation.muhoko.org/api/scholarships"
-        );
+        const res = await fetch(`${base_url}/api/scholarships`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const data = await res.json();

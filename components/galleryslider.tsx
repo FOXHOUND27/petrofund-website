@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { base_url } from "@/components/data/data";
 
 export interface GalleryImage {
   imageUrl: string;
@@ -31,9 +32,7 @@ const GallerySlider = () => {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch(
-          "https://innovation.muhoko.org/api/gallery-categories"
-        );
+        const res = await fetch(`${base_url}/api/gallery-categories`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

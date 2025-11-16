@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import MiniHero from "@/components/miniHero";
 import { useState, useEffect } from "react";
+import { base_url } from "@/components/data/data";
 
 interface Executive {
   id: number;
@@ -29,7 +30,7 @@ export default function ExecutiveTeamPage() {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/management");
+        const res = await fetch(`${base_url}/api/management`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

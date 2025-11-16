@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ChatbotWidget from "@/components/chatbot/ChatbotWidget";
 import LoadingScreen from "@/components/loadingscreen";
+import Script from "next/script";
 
 const ubuntuSans = Ubuntu_Sans({
   subsets: ["latin"],
@@ -37,6 +38,21 @@ export default function RootLayout({
         </Suspense>
         <SpeedInsights />
         <ChatbotWidget />
+
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );
