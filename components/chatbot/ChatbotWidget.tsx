@@ -43,7 +43,7 @@ export default function ChatbotWidget() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-20 right-6 w-[270px] h-[520px] bg-white rounded-2xl shadow-2xl overflow-hidden z-[9998] border border-gray-200"
+            className="fixed bottom-20 right-6 w-[280px] h-[520px] bg-white rounded-2xl shadow-2xl overflow-hidden z-[9998] border border-gray-200"
           >
             <Chatbot
               config={config}
