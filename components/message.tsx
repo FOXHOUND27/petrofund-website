@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { base_url } from "@/components/data/data";
 
 interface CEOProfile {
   id: number;
@@ -18,22 +18,33 @@ interface CEOProfile {
 
 const Message = () => {
   const [profileSummary, setProfileSummary] = useState<CEOProfile | null>(null);
+  const [helpMessage, setHelpMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch(
-          "https://innovation.muhoko.org/api/ceo-message"
-        );
+        const res = await fetch(`${base_url}/api/ceo-message`);
+
+        // Handle 404 explicitly
+        if (res.status === 404) {
+          setHelpMessage("The CEO message is not available at the moment.");
+          return;
+        }
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
 
         const data = await res.json();
-        setProfileSummary(data.data);
+
+        // If API returned null instead of an object
+        if (!data?.data) {
+          setHelpMessage("The CEO message is not available at the moment.");
+        } else {
+          setProfileSummary(data.data);
+        }
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -44,24 +55,54 @@ const Message = () => {
     fetchSummary();
   }, []);
 
+  // ------------------------
+  //      Loading UI
+  // ------------------------
   if (loading) {
     return (
-      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
-        <div className="flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] min-h-[400px]">
-          <div className="flex flex-col items-center gap-4">
-            <div className="relative w-16 h-16">
-              <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
-              <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
-            </div>
-            <p className="text-lg font-medium text-[#F47C20]">Loading</p>
+      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative">
+        <div className="flex flex-col items-center justify-center p-10">
+          <div className="relative w-16 h-16">
+            <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
           </div>
+          <p className="text-lg font-medium text-[#F47C20] mt-4">Loading</p>
         </div>
       </section>
     );
   }
 
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  // ------------------------
+  //      Error UI
+  // ------------------------
+  if (error) {
+    return <p className="text-red-500">Error: {error}</p>;
+  }
 
+  // ------------------------
+  //   Fallback Message UI
+  // ------------------------
+  if (helpMessage) {
+    return (
+      <section className="relative bottom-40 p-4 md:p-8 lg:p-10 xl:p-12">
+        <motion.div
+          className="bg-[#4F3996] shadow-2xl rounded-tl-[85px] p-10 text-white text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-3xl md:text-4xl font-semibold mb-5">
+            Message from the Chief Executive Officer
+          </h1>
+          <p className="text-lg md:text-xl opacity-90">{helpMessage}</p>
+        </motion.div>
+      </section>
+    );
+  }
+
+  // ------------------------
+  //     Normal Render
+  // ------------------------
   return (
     <section className="relative bottom-40 p-4 md:p-8 lg:p-10 xl:p-12">
       <motion.div
@@ -88,6 +129,7 @@ const Message = () => {
               Message from the <br />
               Chief Executive Officer
             </h1>
+
             <div
               className="text-white text-justify text-sm md:text-base"
               dangerouslySetInnerHTML={{
@@ -96,17 +138,18 @@ const Message = () => {
             ></div>
           </div>
 
-          {/* Footer with CEO name and Logo */}
+          {/* Footer */}
           <div className="flex flex-col md:flex-row justify-between mt-5 items-center md:items-start">
             <p className="text-white font-semibold text-center md:text-left">
-              <div
+              <span
                 dangerouslySetInnerHTML={{
                   __html: profileSummary?.ceo_name || "",
                 }}
-              ></div>
+              />
               <br /> Chief Executive Officer,
               <br /> Petrofund Namibia
             </p>
+
             <Image
               src="/Logo/SecondLogo.png"
               width={300}
