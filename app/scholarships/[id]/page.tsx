@@ -7,6 +7,7 @@ import { Calendar, FileText, ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { base_url } from "@/components/data/data";
 
 export interface Program {
   id: number;
@@ -49,9 +50,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
 
     async function fetchTrainings() {
       try {
-        const res = await fetch(
-          "https://innovation.muhoko.org/api/scholarships"
-        );
+        const res = await fetch(`${base_url}/api/scholarships`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
         setScholarInfo(data.data);
