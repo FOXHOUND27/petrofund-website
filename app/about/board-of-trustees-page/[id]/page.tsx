@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Mail } from "lucide-react";
 import MiniHero from "@/components/miniHero";
 import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
-
+import { base_url } from "@/components/data/data";
 interface Trustee {
   id: number;
   first_name: string;
@@ -35,7 +35,7 @@ export default function TrusteesTeamPage({ params }: TrusteesPageProps) {
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch("https://innovation.muhoko.org/api/trustees");
+        const res = await fetch(`${base_url}/api/trustees`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
