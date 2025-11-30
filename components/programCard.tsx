@@ -27,18 +27,18 @@ export function ProgramCard({ program }: ProgramCardProps) {
           src={program.image_url || "/placeholder.svg"}
           alt={program.title}
           fill
-          className="object-cover"
+          className="object-cover object-top"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <CardHeader>
-        <h2 className="text-2xl font-semibold text-white">{program.title}</h2>
+        <h2 className="text-lg font-semibold text-white">{program.title}</h2>
       </CardHeader>
       <CardContent className="flex-1">
-        <p className="text-white leading-relaxed text-justify">
+        <p className="text-white leading-relaxed text-sm text-justify">
           {program.description_snippet}
         </p>
-        <div className="mt-4 flex items-center gap-2 text-sm text-white">
+        <div className="mt-4 flex items-center gap-1 text-sm text-white">
           <Calendar className="h-4 w-4" />
           <span>
             Deadline: {new Date(program.deadline).toLocaleDateString()}

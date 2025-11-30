@@ -94,12 +94,12 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
       </div>
 
       {/* Hero Section with Image */}
-      <div className="relative h-[400px] w-full">
+      <div className="relative h-[900px] w-full">
         <Image
           src={scholarItem.image_url || "/placeholder.svg"}
           alt={scholarItem.title}
           fill
-          className="object-cover"
+          className="object-cover object-top"
           priority
           unoptimized
         />

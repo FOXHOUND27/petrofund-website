@@ -53,10 +53,10 @@ const ScholarshipsHeader = () => {
         <div className="mx-auto max-w-4xl space-y-6">
           {/* Section 1: Scholarship Opportunities */}
           <section className="rounded-2xl bg-[#4F3996] p-6 shadow-lg sm:p-8">
-            <h1 className="mb-4 text-3xl font-bold text-white sm:text-4xl">
+            <h1 className="mb-4 text-xl font-bold text-white">
               Scholarship Opportunities:
             </h1>
-            <p className="mb-6 text-base leading-relaxed text-white sm:text-lg">
+            <p className="mb-6 text-base leading-relaxed text-white sm:text-sm">
               The following scholarships are open to high-performing, dedicated
               Namibians eager to join the upstream petroleum industry and pursue
               full-time studies in the following fields:
@@ -68,7 +68,7 @@ const ScholarshipsHeader = () => {
                 value="undergraduate"
                 className="rounded-lg border-2 border-purple-200 bg-purple-50 px-4"
               >
-                <AccordionTrigger className="text-left text-xl font-bold text-purple-900 hover:no-underline sm:text-2xl">
+                <AccordionTrigger className="text-left text-lg font-bold text-purple-900 hover:no-underline sm:text-lg">
                   Undergraduate Scholarships in the SADC Region
                 </AccordionTrigger>
                 <AccordionContent>
@@ -121,7 +121,7 @@ const ScholarshipsHeader = () => {
                 value="unam"
                 className="rounded-lg border-2 border-orange-200 bg-orange-50 px-4"
               >
-                <AccordionTrigger className="text-left text-xl font-bold text-orange-700 hover:no-underline sm:text-2xl">
+                <AccordionTrigger className="text-left text-lg font-bold text-orange-700 hover:no-underline sm:text-lg">
                   Postgraduate Scholarships at University of Namibia
                 </AccordionTrigger>
                 <AccordionContent>
@@ -154,7 +154,7 @@ const ScholarshipsHeader = () => {
                 value="overseas"
                 className="rounded-lg border-2 border-purple-200 bg-purple-50 px-4"
               >
-                <AccordionTrigger className="text-left text-xl font-bold text-purple-900 hover:no-underline sm:text-2xl">
+                <AccordionTrigger className="text-left text-lg font-bold text-purple-900 hover:no-underline sm:text-lg">
                   Postgraduate Scholarships at Overseas Universities
                 </AccordionTrigger>
                 <AccordionContent>
@@ -263,7 +263,7 @@ const ScholarshipsHeader = () => {
           {/* Section 2: Requirements */}
           <section className="rounded-2xl bg-white/95 shadow-lg">
             <div className="rounded-t-2xl bg-[#F47C20] px-6 py-4 sm:px-8">
-              <h2 className="text-2xl font-bold text-white sm:text-3xl">
+              <h2 className=" font-bold text-white sm:text-xl">
                 Requirements for All Scholarships
               </h2>
             </div>
@@ -274,7 +274,7 @@ const ScholarshipsHeader = () => {
                   value="eligibility"
                   className="rounded-lg border-2 border-purple-200 bg-purple-50 px-4"
                 >
-                  <AccordionTrigger className="text-left text-lg font-bold text-purple-900 hover:no-underline sm:text-xl">
+                  <AccordionTrigger className="text-left text-lg font-bold text-purple-900 hover:no-underline">
                     Eligibility Requirements
                   </AccordionTrigger>
                   <AccordionContent>
@@ -327,7 +327,7 @@ const ScholarshipsHeader = () => {
                   value="admission"
                   className="rounded-lg border-2 border-orange-200 bg-orange-50 px-4"
                 >
-                  <AccordionTrigger className="text-left text-lg font-bold text-orange-700 hover:no-underline sm:text-xl">
+                  <AccordionTrigger className="text-left text-lg font-bold text-orange-700 hover:no-underline ">
                     Study Commencement & Admission Requirements
                   </AccordionTrigger>
                   <AccordionContent>
@@ -370,7 +370,7 @@ const ScholarshipsHeader = () => {
                   value="application"
                   className="rounded-lg border-2 border-purple-200 bg-purple-50 px-4"
                 >
-                  <AccordionTrigger className="text-left text-lg font-bold text-purple-900 hover:no-underline sm:text-xl">
+                  <AccordionTrigger className="text-left text-lg font-bold text-purple-900 hover:no-underline ">
                     Application Process & Documentation
                   </AccordionTrigger>
                   <AccordionContent>
@@ -423,7 +423,7 @@ const ScholarshipsHeader = () => {
                   value="important"
                   className="rounded-lg border-2 border-orange-200 bg-orange-50 px-4"
                 >
-                  <AccordionTrigger className="text-left text-lg font-bold text-orange-700 hover:no-underline sm:text-xl">
+                  <AccordionTrigger className="text-left text-lg font-bold text-orange-700 hover:no-underline ">
                     Important Information for Applicants
                   </AccordionTrigger>
                   <AccordionContent>
@@ -466,10 +466,10 @@ const ScholarshipsHeader = () => {
               {/* </CHANGE> */}
 
               <div className="mt-6 rounded-lg bg-purple-50 p-4">
-                <h3 className="mb-3 text-xl font-bold text-purple-900">
+                <h3 className="mb-3 text-lg font-bold text-purple-900">
                   Enquiries:
                 </h3>
-                <p className="mb-2 text-gray-700">
+                <p className="mb-2 text-gray-700 text-sm">
                   All enquiries should be directed to Ms. Elizabeth Muundjua or
                   Ms. Loide Ashaadhila at{" "}
                   <a
@@ -490,10 +490,10 @@ const ScholarshipsHeader = () => {
               </div>
 
               <div className="mt-6 rounded-lg border-2 border-orange-500 bg-gradient-to-r from-orange-50 to-orange-100 p-6">
-                <p className="text-center text-lg font-bold text-orange-700 sm:text-xl">
+                <p className="text-center text-lg font-bold text-orange-700 ">
                   Deadline for Submitting all Applications:
                 </p>
-                <p className="mt-2 text-center text-2xl font-bold text-orange-900 sm:text-3xl">
+                <p className="mt-2 text-center text-2xl font-bold text-orange-900 ">
                   Tuesday, 7 October 2025 at 13:00
                 </p>
               </div>

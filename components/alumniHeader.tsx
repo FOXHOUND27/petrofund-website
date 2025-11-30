@@ -19,10 +19,10 @@ const AlumniHeader = () => {
 
           <div className="flex  lg:flex-row mt-10 sm:mt-10 lg:mt-5 relative items-center w-full gap-6 lg:gap-0">
             <div className="w-full ">
-              <h1 className="text-white text-center font-semibold text-xl sm:text-2xl lg:text-2xl">
+              <h1 className="text-white text-center font-semibold text-xl ">
                 PETROFUND ALUMNI ASSOCIATION
               </h1>
-              <p className="text-justify text-white mt-4 text-sm sm:text-base">
+              <p className="text-justify text-white mt-4 text-sm ">
                 The PETROFUND Alumni Association (PAA) is a formal body
                 comprising both current and former beneficiaries of PETROFUND
                 scholarship programmes. Established in 2004 under a Deed of

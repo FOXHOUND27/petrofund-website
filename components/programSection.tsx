@@ -16,6 +16,10 @@ export default function ProgramSection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 6;
+
   useEffect(() => {
     async function fetchSummary() {
       try {
@@ -55,6 +59,16 @@ export default function ProgramSection() {
 
   const hasNoScholarships = !scholarInfo || scholarInfo.length === 0;
 
+  // Pagination logic
+  const totalItems = scholarInfo?.length || 0;
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentItems = scholarInfo?.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
+
   return (
     <main className="min-h-screen bg-background p-6 md:p-12">
       <div className="mx-auto max-w-7xl">
@@ -69,11 +83,38 @@ export default function ProgramSection() {
             </p>
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {scholarInfo.map((program) => (
-              <ProgramCard key={program.id} program={program} />
-            ))}
-          </div>
+          <>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {currentItems?.map((program) => (
+                <ProgramCard key={program.id} program={program} />
+              ))}
+            </div>
+
+            {/* Pagination controls */}
+            <div className="flex items-center justify-center gap-4 mt-10">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded bg-primary text-white disabled:bg-gray-400"
+              >
+                Previous
+              </button>
+
+              <span className="text-sm">
+                Page {currentPage} of {totalPages}
+              </span>
+
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded bg-primary text-white disabled:bg-gray-400"
+              >
+                Next
+              </button>
+            </div>
+          </>
         )}
       </div>
     </main>
