@@ -56,9 +56,9 @@ export function TrainingCard({ training }: TrainingCardProps) {
         />
       </div>
 
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-2">
         <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="text-xl text-white font-semibold leading-tight text-balance">
+          <h3 className="text-base text-white font-semibold leading-tight text-balance">
             {training.title}
           </h3>
           {isDeadlineSoon() && (
@@ -67,12 +67,12 @@ export function TrainingCard({ training }: TrainingCardProps) {
             </Badge>
           )}
         </div>
-        <p className="text-sm text-white leading-relaxed text-justify">
+        <p className="text-xs text-white leading-relaxed text-justify">
           {training.description_snippet}
         </p>
       </CardHeader>
 
-      <CardContent className="flex-1 space-y-3 pb-4">
+      <CardContent className="flex-1 space-y-2 pb-2">
         {/* Application Deadline */}
         <div className="flex items-center gap-2 text-sm">
           <Clock className="h-4 w-4 text-white shrink-0" />

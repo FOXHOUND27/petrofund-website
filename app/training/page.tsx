@@ -1,8 +1,7 @@
 "use client";
 import MainHero from "@/components/mainHero";
 import { TrainingCard } from "@/components/trainingCard";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { base_url } from "@/components/data/data";
 
 export interface TrainingProgram {
@@ -23,14 +22,15 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 6;
+
   useEffect(() => {
     async function fetchSummary() {
       try {
         const res = await fetch(`${base_url}/api/trainings`);
-
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const data = await res.json();
         setTrainingInfo(data.data);
@@ -62,6 +62,13 @@ const Page = () => {
 
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
+  // Pagination Logic
+  const totalItems = trainingInfo?.length || 0;
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+  const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentItems = trainingInfo?.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+
   return (
     <>
       <MainHero
@@ -74,10 +81,10 @@ const Page = () => {
         {/* Header Section */}
         <header className="border-b border-border bg-card">
           <div className="container mx-auto px-4 py-8 md:py-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-balance mb-4">
+            <h1 className="text-2xl font-bold text-balance mb-4">
               Professional Training Programs
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl text-pretty leading-relaxed">
+            <p className="text-base text-muted-foreground max-w-2xl text-pretty leading-relaxed">
               Advance your career with our comprehensive training programs.
               Learn from industry experts and gain practical skills for the
               modern workplace.
@@ -87,12 +94,39 @@ const Page = () => {
 
         {/* Trainings Grid */}
         <main className="container mx-auto px-4 py-12">
-          {trainingInfo && trainingInfo.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {trainingInfo.map((training) => (
-                <TrainingCard key={training.id} training={training} />
-              ))}
-            </div>
+          {currentItems && currentItems.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {currentItems.map((training) => (
+                  <TrainingCard key={training.id} training={training} />
+                ))}
+              </div>
+
+              {/* Pagination Controls */}
+              <div className="flex items-center justify-center gap-4 mt-10">
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 rounded bg-primary text-white disabled:bg-gray-400"
+                >
+                  Previous
+                </button>
+
+                <span className="text-sm">
+                  Page {currentPage} of {totalPages}
+                </span>
+
+                <button
+                  onClick={() =>
+                    setCurrentPage((p) => Math.min(totalPages, p + 1))
+                  }
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 rounded bg-primary text-white disabled:bg-gray-400"
+                >
+                  Next
+                </button>
+              </div>
+            </>
           ) : (
             <p className="text-center text-lg text-muted-foreground">
               No trainings currently available.

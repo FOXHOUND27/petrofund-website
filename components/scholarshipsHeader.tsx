@@ -21,11 +21,11 @@ const ScholarshipsHeader = () => {
 
         <div className="flex flex-col lg:flex-row mt-10 sm:mt-16 lg:mt-20 relative justify-center items-center w-full gap-6 lg:gap-0">
           <div className="w-full lg:w-[45%]">
-            <h1 className="text-white font-semibold text-xl sm:text-2xl lg:text-2xl">
+            <h1 className="text-white font-semibold text-xl">
               SCHOLARSHIPS FOR <br />
               THE 2026 ACADEMIC YEAR
             </h1>
-            <p className="text-justify text-white mt-4 text-sm sm:text-base">
+            <p className="text-justify text-white mt-4 text-sm">
               In recognition of multiple oil and gas discoveries in the Orange
               Basin offshore Namibia and continued exploration activities,
               PETROFUND is intensifying efforts to build a skilled workforce for
