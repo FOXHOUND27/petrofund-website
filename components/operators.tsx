@@ -12,11 +12,11 @@ const Operators = () => {
           width={300}
           height={300}
         />
-        <h1 className="text-2xl mt-5 sm:text-3xl md:text-4xl lg:text-5xl text-white mb-5 sm:mb-6 md:mb-7 text-center font-semibold">
+        <h1 className="text-xl mt-5 text-white mb-2 sm:mb-6 md:mb-7 text-center font-semibold">
           PETROLEUM EXPLORATION COMPANIES
         </h1>
 
-        <p className="text-white text-justify text-sm sm:text-base md:text-lg leading-relaxed">
+        <p className="text-white text-justify text-sm sm:text-base md:text-sm leading-relaxed">
           The Government of the Republic of Namibia through the Petroleum
           (Exploration and Production) Act of 1991 empowered the Minister of
           Industries, Mines and Energy to enter into agreements with individual
@@ -37,11 +37,11 @@ const Operators = () => {
       </div>
       {/* Second Info Section */}
       <div className="bg-[#F47C20] relative bottom-35 md:bottom-20 lg:bottom-0 mb-10 shadow-2xl flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] w-full max-w-[95%] mx-auto">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-5 sm:mb-6 md:mb-7 text-center font-semibold">
+        <h1 className="text-xl text-white mb-5 sm:mb-6 md:mb-7 text-center font-semibold">
           Employment and Training
         </h1>
 
-        <p className="text-white text-justify text-sm sm:text-base md:text-lg leading-relaxed">
+        <p className="text-white text-justify text-sm sm:text-sm md:text-sm leading-relaxed">
           22.3 (a) During each year of the Exploration Licence or any renewal
           thereof, the Company shall spend a sum which is not less than a sum
           equal to (agreed amount) United States Dollars for the purpose of the

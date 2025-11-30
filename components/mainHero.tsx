@@ -13,7 +13,7 @@ const MainHero: React.FC<MainHeroProps> = ({ imageSrc, title, subtitle }) => {
 
   return (
     <section className="relative bottom-25 w-full h-[600px] sm:h-[700px] md:h-[700px] lg:h-[800px] xl:h-[900px] overflow-hidden">
-      {/* Skeleton / Placeholder */}
+      {/* Skeleton */}
       {!isLoaded && (
         <div className="absolute inset-0 bottom-25 bg-gray-300 animate-pulse rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px]" />
       )}
@@ -25,24 +25,22 @@ const MainHero: React.FC<MainHeroProps> = ({ imageSrc, title, subtitle }) => {
           alt="Large Hero Image"
           fill
           priority
-          className="object-cover rounded-bl-[25px] rounded-br-[35px] sm:rounded-bl-[35px] sm:rounded-br-[45px] md:rounded-bl-[45px] md:rounded-br-[55px] lg:rounded-bl-[55px] lg:rounded-br-[65px] animate-in fade-in zoom-in-95 duration-1000"
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
+          className="object-cover object-top rounded-bl-[25px] rounded-br-[35px] sm:rounded-bl-[35px] sm:rounded-br-[45px] md:rounded-bl-[45px] md:rounded-br-[55px] lg:rounded-bl-[55px] lg:rounded-br-[65px] animate-in fade-in zoom-in-95 duration-1000"
+          sizes="100vw"
         />
       </div>
 
       {/* Overlay */}
       <div className="absolute inset-0 bottom-25 bg-black/45 rounded-bl-[25px] rounded-br-[25px] sm:rounded-bl-[35px] sm:rounded-br-[35px] md:rounded-bl-[45px] md:rounded-br-[45px] animate-in fade-in duration-700" />
 
-      {/* Text Content */}
-      <div className="relative z-20 h-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 pt-8 sm:pt-12 md:pt-16">
-        <div className="max-w-4xl animate-in slide-in-from-bottom-8 fade-in duration-1000 delay-300">
-          <h1 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-balance">
-            {title}
-          </h1>
-          <h2 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl mt-2 sm:mt-2 md:mt-6 font-light leading-relaxed text-pretty animate-in slide-in-from-bottom-6 fade-in duration-1000 delay-500">
-            {subtitle}
-          </h2>
-        </div>
+      {/* TEXT — moved to bottom-left + made smaller */}
+      <div className="absolute bottom-55 left-6 sm:left-10 z-20 max-w-3xl animate-in slide-in-from-bottom-8 fade-in duration-1000">
+        <h1 className="text-white text-2xl sm:text-3xl md:text-6xl font-bold leading-tight">
+          {title}
+        </h1>
+        <h2 className="text-white text-sm sm:text-base md:text-xl mt-2 font-light leading-relaxed animate-in slide-in-from-bottom-6 fade-in duration-1000 delay-200">
+          {subtitle}
+        </h2>
       </div>
     </section>
   );
