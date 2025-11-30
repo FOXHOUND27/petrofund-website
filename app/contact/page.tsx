@@ -20,7 +20,7 @@ const Page = () => {
           {/* CEO Image */}
           <div className="w-full md:w-[35%] flex-shrink-0">
             <Image
-              src="/PetrofundContent/contact.jpeg"
+              src="/SectionImages/Contact.jpg"
               alt="Contact Image"
               width={600}
               height={600}
@@ -33,11 +33,11 @@ const Page = () => {
             <div className="flex flex-col sm:flex-row sm:my-2 justify-start items-start sm:items-center gap-y-4 sm:gap-x-5">
               <Image
                 src="/Icons/City Buildings.svg"
-                height={65}
-                width={65}
+                height={25}
+                width={25}
                 alt="City"
               />
-              <h1 className="font-semibold text-white text-base sm:text-lg">
+              <h1 className="font-semibold text-white text-md sm:text-sm">
                 41 Schanzenweg, Eros, Windhoek, Namibia
               </h1>
             </div>
@@ -46,19 +46,19 @@ const Page = () => {
             <div className="flex flex-col sm:flex-row sm:my-2 justify-start items-start sm:items-center gap-y-4 sm:gap-x-5">
               <Image
                 src="/Icons/Rotary Dial Telephone.svg"
-                height={65}
-                width={65}
+                height={25}
+                width={25}
                 alt="Phone"
               />
-              <h1 className="font-semibold text-white text-base sm:text-lg">
+              <h1 className="font-semibold text-white text-md sm:text-sm">
                 Tel: +264 61 400 443
               </h1>
             </div>
 
             {/* Print */}
             <div className="flex flex-col sm:flex-row sm:my-2 justify-start items-start sm:items-center gap-y-4 sm:gap-x-5">
-              <Image src="/Icons/Print.svg" height={65} width={65} alt="Fax" />
-              <h1 className="font-semibold text-white text-base sm:text-lg">
+              <Image src="/Icons/Print.svg" height={25} width={25} alt="Fax" />
+              <h1 className="font-semibold text-white text-md sm:text-sm">
                 Fax: 0886510721
               </h1>
             </div>
@@ -67,11 +67,11 @@ const Page = () => {
             <div className="flex flex-col sm:flex-row justify-start items-start sm:items-center gap-y-4 sm:gap-x-5">
               <Image
                 src="/Icons/Send Email.svg"
-                height={65}
-                width={65}
+                height={25}
+                width={25}
                 alt="Email"
               />
-              <h1 className="font-semibold text-white text-base sm:text-lg">
+              <h1 className="font-semibold text-white text-md sm:text-sm">
                 E-mail: infor@petrofund.org
               </h1>
             </div>

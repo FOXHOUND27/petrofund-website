@@ -233,7 +233,7 @@ const Footer = () => {
             href="https://muhoko.org/"
             target="_blank"
           >
-            Muhoko Innovation Studio
+            Muhoko Technology
           </a>
         </span>
       </div>

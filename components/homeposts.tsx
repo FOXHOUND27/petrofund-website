@@ -65,7 +65,7 @@ const Homeposts = () => {
 
   return (
     <section>
-      <h1 className="text-[#F47C20] text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold">
+      <h1 className="text-[#F47C20] text-center text-xl sm:text-xl md:text-xl lg:text-4xl font-semibold">
         The Petrofund Bulletin
       </h1>
       <div className="h-auto flex flex-col md:flex-row justify-center items-center md:items-stretch p-4 sm:p-6 md:p-10 gap-6 md:gap-x-10">

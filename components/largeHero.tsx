@@ -24,10 +24,10 @@ const LargeHero = () => {
       {/* Hero Text Content */}
       <div className="relative z-20 h-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 pt-8 sm:pt-12 md:pt-16">
         <div className="max-w-4xl animate-in slide-in-from-bottom-8 fade-in duration-1000 delay-300">
-          <h1 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-balance">
+          <h1 className="text-white text-3xl sm:text-xl md:text-2xl lg:text-5xl font-bold leading-tight text-balance">
             Fueling <br /> Namibia's Future
           </h1>
-          <h2 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl mt-3 sm:mt-4 md:mt-6 font-light leading-relaxed text-pretty animate-in slide-in-from-bottom-6 fade-in duration-1000 delay-500">
+          <h2 className="text-white text-md sm:text-xl md:text-lg lg:text-xl mt-3 sm:mt-4 md:mt-6 font-light leading-relaxed text-pretty animate-in slide-in-from-bottom-6 fade-in duration-1000 delay-500">
             Your partner in Building Skills through{" "}
             <br className="hidden sm:block" /> Training and Innovation
             Technology.
@@ -37,28 +37,28 @@ const LargeHero = () => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10 animate-in slide-in-from-bottom-4 fade-in duration-1000 delay-700">
             <Link
               href="/media/news"
-              className="group py-3 px-6 sm:py-3 sm:px-7 md:py-4 md:px-8 bg-[#4F3996] flex items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-lg font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
+              className="group py-2 px-4 sm:py-2 sm:px-4 md:py-2 md:px-4 bg-[#4F3996] flex items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-sm font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               <span>Latest Updates</span>
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover:translate-x-1" />
+              <ChevronRight className="w-1 h-1 sm:w-5 sm:h-5 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
 
             <a
               href="https://innovation.muhoko.org/student/login"
               target="_blank"
-              className="group py-3 px-6 sm:py-3 sm:px-7 md:py-4 md:px-8 bg-[#4F3996] flex items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-lg font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
+              className="group py-2 px-4 sm:py-2 sm:px-4 md:py-4 md:px-4 bg-[#4F3996] flex items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-sm font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               {" "}
               <span>Scholarships Portal</span>
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover:translate-x-1" />
+              <ChevronRight className="w-5 h-5 sm:w-5 sm:h-5 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
 
             <a
               target="_blank"
               href="https://innovation.muhoko.org/student/login"
-              className="flex md:hidden group py-3 px-6 sm:py-3 sm:px-7 bg-[#4F3996] items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-lg font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
+              className="flex md:hidden group py-3 px-6 sm:py-3 sm:px-7 bg-[#4F3996] items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-md font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
             >
-              <span>CV Builder</span>
+              <span>PetroConnect</span>
               <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </div>
@@ -69,10 +69,10 @@ const LargeHero = () => {
       <a
         target="_blank"
         href="https://innovation.muhoko.org/student/login"
-        className="absolute hidden lg:flex cursor-pointer z-20 bottom-120 right-40 w-[150px] h-[150px] bg-[#F47C20] rounded-full text-white text-xl font-semibold flex-col items-center justify-center shadow-lg hover:scale-125 hover:bg-[#4F3996] hover:shadow-2xl transition-transform duration-300"
+        className="absolute hidden lg:flex cursor-pointer z-20 bottom-120 right-40 w-[150px] h-[150px] bg-[#F47C20] rounded-full text-white text-md font-semibold flex-col items-center justify-center shadow-lg hover:scale-125 hover:bg-[#4F3996] hover:shadow-2xl transition-transform duration-300"
       >
         <ArrowUpRight className="w-8 h-8 mt-2" />
-        <span>CV Builder</span>
+        <span>PetroConnect</span>
       </a>
     </section>
   );

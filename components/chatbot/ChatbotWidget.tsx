@@ -6,8 +6,9 @@ import "react-chatbot-kit/build/main.css";
 import config from "@/components/chatbot/botConfig";
 import MessageParser from "@/components/chatbot/MessageParser";
 import ActionProvider from "@/components/chatbot/ActionProvider";
-import { Bot, MessageCircle } from "lucide-react";
+import { Bot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,14 +20,19 @@ export default function ChatbotWidget() {
           href="https://wa.me/+264811450254?text=Hi,%20I%20need%20help%20with..."
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-[88px] right-6 bg-[#25D366] hover:bg-[#20BA5A] text-white p-4 rounded-full shadow-lg z-[9999] transition"
+          className="fixed bottom-3 left-3 text-white rounded-full shadow-lg z-[9999] transition"
           aria-label="Contact us on WhatsApp"
         >
-          <MessageCircle size={28} />
+          <Image
+            src="/Icons/Whatsapp.png"
+            height={80}
+            width={80}
+            alt="WhatsApp"
+          />
         </a>
       )}
 
-      {/* Floating button */}
+      {/* Floating chatbot button (right side) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 bg-[#4F3996] hover:bg-[#F47C20] text-white p-4 rounded-full shadow-lg z-[9999] transition"
@@ -35,7 +41,7 @@ export default function ChatbotWidget() {
         <Bot size={28} />
       </button>
 
-      {/* Chatbot popup */}
+      {/* Chatbot popup (right side) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

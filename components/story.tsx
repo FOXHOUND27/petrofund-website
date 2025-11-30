@@ -24,7 +24,7 @@ const Story = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-            className="text-white text-center lg:text-left md:text-left text-2xl md:text-3xl lg:text-4xl font-bold w-full md:w-[80%] lg:w-[50%] mb-4 md:mb-6"
+            className="text-white text-center lg:text-left md:text-left text-xl md:text-xl lg:text-xl font-bold w-full md:w-[80%] lg:w-[50%] mb-4 md:mb-2"
           >
             Story Title
           </motion.h2>
@@ -33,7 +33,7 @@ const Story = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            className="text-white text-justify w-full md:w-[100%] lg:w-[640px] space-y-3 md:space-y-4 text-sm md:text-base leading-relaxed"
+            className="text-white text-justify w-full md:w-[100%] lg:w-[640px] space-y-3 md:space-y-4 text-sm md:text-xs leading-relaxed"
           >
             <p>
               Established in 1993, the Petroleum Training and Education Fund
