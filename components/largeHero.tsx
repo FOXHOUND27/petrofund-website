@@ -40,7 +40,7 @@ const LargeHero = () => {
               className="group py-2 px-4 sm:py-2 sm:px-4 md:py-2 md:px-4 bg-[#4F3996] flex items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-sm font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               <span>Latest Updates</span>
-              <ChevronRight className="w-1 h-1 sm:w-5 sm:h-5 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1" />
+              <ChevronRight className="w-5 h-5 sm:w-5 sm:h-5 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
 
             <a
