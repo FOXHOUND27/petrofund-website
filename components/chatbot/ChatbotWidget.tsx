@@ -24,7 +24,7 @@ export default function ChatbotWidget() {
           aria-label="Contact us on WhatsApp"
         >
           <Image
-            src="/icons/Whatsapp.png"
+            src="/icons/whatsapp.png"
             height={80}
             width={80}
             alt="WhatsApp"
