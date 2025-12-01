@@ -87,17 +87,17 @@ export default function ExecutiveTeamPage() {
                     <img
                       src={executive.profile_image_url || "/placeholder.svg"}
                       alt={executive.full_name}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-2xl font-bold text-foreground">
+                    <h3 className="text-lg font-bold text-foreground">
                       {executive.first_name} {executive.last_name}
                     </h3>
                     <p className="mt-2 text-sm font-medium text-accent">
                       {executive.position}
                     </p>
-                    <p className="mt-4 text-muted-foreground leading-relaxed text-justify">
+                    <p className="mt-4 text-sm text-muted-foreground leading-relaxed text-justify">
                       {executive.bio_snippet}
                     </p>
                     <Link href={`/about/our-management-team/${executive.id}`}>

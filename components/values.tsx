@@ -11,7 +11,7 @@ const Values = () => {
                       flex flex-col items-center justify-center"
       >
         {/* Title */}
-        <h1 className="text-white font-semibold text-2xl sm:text-3xl md:text-4xl text-center mb-8 sm:mb-10 mt-6">
+        <h1 className="text-white font-semibold text-4xl text-center mb-8 sm:mb-10 mt-6">
           Our Values
         </h1>
 

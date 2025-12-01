@@ -125,13 +125,13 @@ const Message = () => {
         {/* Content */}
         <div className="w-full md:w-[65%] p-6 flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl md:text-5xl text-white font-semibold mb-5">
+            <h1 className="text-xl text-white font-semibold mb-5">
               Message from the <br />
               Chief Executive Officer
             </h1>
 
             <div
-              className="text-white text-justify text-sm md:text-base"
+              className="text-white text-justify text-sm"
               dangerouslySetInnerHTML={{
                 __html: profileSummary?.content || "",
               }}
@@ -140,7 +140,7 @@ const Message = () => {
 
           {/* Footer */}
           <div className="flex flex-col md:flex-row justify-between mt-5 items-center md:items-start">
-            <p className="text-white font-semibold text-center md:text-left">
+            <p className="text-white font-semibold text-sm text-center md:text-left">
               <span
                 dangerouslySetInnerHTML={{
                   __html: profileSummary?.ceo_name || "",
@@ -152,8 +152,8 @@ const Message = () => {
 
             <Image
               src="/Logo/SecondLogo.png"
-              width={300}
-              height={300}
+              width={200}
+              height={200}
               alt="Petrofund Logo"
               className="mt-4 md:mt-0"
             />

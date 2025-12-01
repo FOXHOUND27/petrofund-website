@@ -20,11 +20,11 @@ export default function ChatbotWidget() {
           href="https://wa.me/+264811450254?text=Hi,%20I%20need%20help%20with..."
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-3 left-3 text-white rounded-full shadow-lg z-[9999] transition"
+          className="fixed bottom-3 left-3 text-white rounded-full z-[9999] transition"
           aria-label="Contact us on WhatsApp"
         >
           <Image
-            src="/Icons/Whatsapp.png"
+            src="/icons/Whatsapp.png"
             height={80}
             width={80}
             alt="WhatsApp"

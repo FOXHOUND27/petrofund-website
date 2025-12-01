@@ -41,16 +41,14 @@ const Vision = () => {
           throw new Error(`About-us error: ${summaryRes.status}`);
 
         const summaryData = await summaryRes.json();
-
-        // If no data is returned, set profileSummary to null
         setProfileSummary(summaryData?.data || null);
 
-        // Fetch Company Profile PDF
+        // Fetch Company Profile PDF (NO ERROR THROWING)
         const companyRes = await fetch(`${base_url}/api/company-profile`);
-        if (!companyRes.ok) throw new Error(`Company profile error`);
-
-        const companyData = await companyRes.json();
-        setCompanyProfile(companyData?.data || null);
+        if (companyRes.ok) {
+          const companyData = await companyRes.json();
+          setCompanyProfile(companyData?.data || null);
+        }
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -78,9 +76,7 @@ const Vision = () => {
 
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
-  // ===========================================
-  // FALLBACK when profileSummary has no data
-  // ===========================================
+  // Fallback if no summary
   if (!profileSummary) {
     return (
       <section className="p-4 md:p-8 lg:p-10 xl:p-12">
@@ -97,7 +93,7 @@ const Vision = () => {
     );
   }
 
-  // MAIN UI
+  // Main UI
   return (
     <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-35 space-y-10">
       {/* Vision Section */}
@@ -107,11 +103,13 @@ const Vision = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h1 className="text-4xl text-white mb-6 text-center font-semibold">
+        <h1 className="text-xl text-white mb-4 text-center font-semibold">
           Vision
         </h1>
+
+        {/* WHITE TEXT + REMOVE BORDERS */}
         <div
-          className="text-white text-justify text-lg leading-relaxed"
+          className="text-white text-justify text-sm leading-relaxed "
           dangerouslySetInnerHTML={{ __html: profileSummary.vision || "" }}
         ></div>
       </motion.div>
@@ -123,15 +121,17 @@ const Vision = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <h1 className="text-4xl text-white mb-6 text-center font-semibold">
+        <h1 className="text-xl text-white mb-4 text-center font-semibold">
           Mandate
         </h1>
+
+        {/* WHITE TEXT + REMOVE BORDERS */}
         <div
-          className="text-white text-justify text-lg leading-relaxed"
+          className="text-white text-justify text-sm leading-relaxed "
           dangerouslySetInnerHTML={{ __html: profileSummary.mandate || "" }}
         ></div>
 
-        {/* Company Profile Button */}
+        {/* Company Profile Button (HIDDEN IF NO PDF) */}
         {companyProfile?.company_profile_path ? (
           <Link
             href={companyProfile.company_profile_path}
@@ -146,11 +146,7 @@ const Vision = () => {
               Download Company Profile
             </motion.button>
           </Link>
-        ) : (
-          <p className="text-white mt-5 italic">
-            Company profile is not available at the moment.
-          </p>
-        )}
+        ) : null}
       </motion.div>
     </section>
   );

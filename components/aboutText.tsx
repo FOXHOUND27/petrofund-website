@@ -57,14 +57,14 @@ const AboutText = () => {
   return (
     <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
       <div className="bg-[#4F3996] shadow-2xl flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px]">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-5 sm:mb-6 md:mb-7 text-center">
+        <h1 className="text-xl text-white mb-3 sm:mb-4 md:mb-2 text-center font-semibold">
           About Us
         </h1>
 
         {aboutSummary ? (
           <div
             dangerouslySetInnerHTML={{ __html: aboutSummary }}
-            className="space-y-5 sm:space-y-6 md:space-y-8 text-white text-sm sm:text-base md:text-lg leading-relaxed max-w-5xl text-justify"
+            className="space-y-5 sm:space-y-6 md:space-y-8 text-white text-sm leading-relaxed max-w-5xl text-justify"
           ></div>
         ) : (
           <p className="text-white text-center text-base sm:text-lg md:text-xl max-w-4xl">

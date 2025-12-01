@@ -23,15 +23,17 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; // Number of news items per page
+
   useEffect(() => {
     async function fetchSummary() {
       try {
         const res = await fetch(`${base_url}/api/news`);
-
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-
         const data = await res.json();
         setNewsInfo(data.data);
       } catch (err: any) {
@@ -62,6 +64,12 @@ const Page = () => {
 
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
+  // Pagination calculations
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentNews = newsInfo?.slice(indexOfFirstItem, indexOfLastItem) || [];
+  const totalPages = newsInfo ? Math.ceil(newsInfo.length / itemsPerPage) : 0;
+
   return (
     <>
       <MiniHero
@@ -72,8 +80,8 @@ const Page = () => {
 
       {/* News Posts Section */}
       <section className="flex flex-wrap justify-center gap-8 items-center mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
-        {newsInfo && newsInfo.length > 0 ? (
-          newsInfo.map((news, index) => (
+        {currentNews && currentNews.length > 0 ? (
+          currentNews.map((news, index) => (
             <motion.div
               key={news.id}
               className="p-6 sm:p-8 shadow-2xl bg-[#4F3996] w-full sm:w-[90%] md:w-[350px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto lg:h-auto sm:h-[500px]"
@@ -90,12 +98,8 @@ const Page = () => {
               />
 
               <div className="mt-6 text-white text-center sm:text-left">
-                <h1 className="mb-2 text-lg sm:text-xl font-semibold">
-                  {news.title}
-                </h1>
-                <p className="text-sm sm:text-base text-justify">
-                  {news.content_snippet}
-                </p>
+                <h1 className="mb-2 text-md font-semibold">{news.title}</h1>
+                <p className="text-xs text-justify">{news.content_snippet}</p>
 
                 <div className="flex justify-center sm:justify-start">
                   <Link href={`/media/news/${news.id}`}>
@@ -119,6 +123,25 @@ const Page = () => {
           </p>
         )}
       </section>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-3 mb-10">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`px-4 py-2 rounded-md font-medium ${
+                currentPage === page
+                  ? "bg-primary text-white"
+                  : "bg-gray-300 text-gray-700"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+      )}
     </>
   );
 };

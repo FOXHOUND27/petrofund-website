@@ -85,17 +85,17 @@ export default function TrusteesTeamPage() {
                     <img
                       src={trustee.profile_image_url || "/Icons/person.svg"}
                       alt={trustee.full_name}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-2xl font-bold text-foreground">
+                    <h3 className="text-xl font-bold text-foreground">
                       {trustee.full_name}
                     </h3>
                     <p className="mt-2 text-sm font-medium text-accent">
                       {trustee.position}
                     </p>
-                    <p className="mt-4 text-muted-foreground leading-relaxed">
+                    <p className="mt-4 text-muted-foreground leading-relaxed text-sm">
                       {trustee.bio_snippet}
                     </p>
                     <Link href={`/about/board-of-trustees-page/${trustee.id}`}>
