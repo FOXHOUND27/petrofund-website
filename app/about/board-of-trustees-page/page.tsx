@@ -105,10 +105,10 @@ export default function TrusteesTeamPage() {
                   {/* Content Section */}
                   <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
                     <div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-[#4F3996] mb-2">
+                      <h3 className="text-lg md:text-3xl font-bold text-[#4F3996] mb-2">
                         {trustee.full_name}
                       </h3>
-                      <p className="text-lg font-medium text-[#4F3996] mb-4">
+                      <p className="text-md font-medium text-[#4F3996] mb-4">
                         {trustee.position}
                       </p>
 
@@ -130,7 +130,7 @@ export default function TrusteesTeamPage() {
                         </a>
                       </div>
 
-                      <p className="text-gray-700 leading-relaxed text-justify mb-6">
+                      <p className="text-gray-700 text-sm leading-relaxed text-justify mb-6">
                         {trustee.bio_snippet}
                       </p>
                     </div>
@@ -143,10 +143,10 @@ export default function TrusteesTeamPage() {
                         <motion.button
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className="bg-[#F47C20] text-white px-8 py-3 rounded-full font-medium hover:bg-[#4F3996] transition-colors duration-300 flex items-center gap-2 shadow-md"
+                          className="bg-[#F47C20] text-white px-8 py-1 rounded-full font-medium hover:bg-[#4F3996] transition-colors duration-300 flex items-center gap-2 shadow-md"
                         >
                           Read More
-                          <ArrowRight size={18} />
+                          <ArrowRight size={15} />
                         </motion.button>
                       </Link>
                     </div>
