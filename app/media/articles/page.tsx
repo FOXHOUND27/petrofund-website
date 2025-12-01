@@ -23,6 +23,10 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
   useEffect(() => {
     async function fetchSummary() {
       try {
@@ -62,6 +66,12 @@ const Page = () => {
 
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
+  // pagination slicing
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const displayedArticles =
+    articlesInfo?.slice(startIndex, startIndex + itemsPerPage) || [];
+  const totalPages = Math.ceil((articlesInfo?.length || 0) / itemsPerPage);
+
   return (
     <>
       <MiniHero
@@ -72,27 +82,25 @@ const Page = () => {
 
       {/* Articles Section */}
       <section className="flex flex-wrap justify-center gap-8 items-center mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
-        {articlesInfo && articlesInfo.length > 0 ? (
-          articlesInfo.map((post) => (
+        {displayedArticles && displayedArticles.length > 0 ? (
+          displayedArticles.map((post) => (
             <div
               key={post.id}
               className="p-6 sm:p-8 lg:h-auto bg-[#4F3996] w-full sm:w-[90%] md:w-[350px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto sm:h-[500px] shadow-lg"
             >
               <Image
                 src={post.image_url || "/placeholder.svg"}
-                height={350}
-                width={350}
+                height={300}
+                width={300}
                 alt="article image"
-                className="object-cover rounded-lg w-full h-56 sm:h-64 md:h-72"
+                className="object-cover object-center rounded-lg w-full h-40 sm:h-40 md:h-40"
               />
 
               {/* Text Div */}
               <div className="mt-6 text-white text-center sm:text-left">
-                <h1 className="mb-2 text-lg sm:text-xl font-semibold">
-                  {post.title}
-                </h1>
+                <h1 className="mb-2 text-md font-semibold">{post.title}</h1>
                 <div
-                  className="text-sm sm:text-base text-justify"
+                  className="text-sm text-justify"
                   dangerouslySetInnerHTML={{ __html: post.content_snippet }}
                 ></div>
 
@@ -120,6 +128,25 @@ const Page = () => {
           </div>
         )}
       </section>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-3 mb-10">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`px-4 py-2 rounded-md font-medium ${
+                currentPage === page
+                  ? "bg-primary text-white"
+                  : "bg-gray-300 text-gray-700"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+      )}
     </>
   );
 };

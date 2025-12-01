@@ -94,7 +94,7 @@ const Page = () => {
                 height={300}
                 width={300}
                 alt="news post image"
-                className="object-cover rounded-lg w-full h-56 sm:h-64 md:h-72"
+                className="object-cover object-top rounded-lg w-full h-56 sm:h-64 md:h-72"
               />
 
               <div className="mt-6 text-white text-center sm:text-left">

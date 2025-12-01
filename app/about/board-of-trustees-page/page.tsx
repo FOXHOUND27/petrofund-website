@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail, Linkedin } from "lucide-react";
 import MiniHero from "@/components/miniHero";
 import { useState, useEffect } from "react";
 import { base_url } from "@/components/data/data";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import ManagementHeader from "@/components/boardheader";
 
 interface Trustee {
   id: number;
@@ -72,40 +73,85 @@ export default function TrusteesTeamPage() {
         subtitle="Guiding the Vision and Governance of Petrofund"
       />
 
+      <ManagementHeader
+        title="Our Board Of Trustees"
+        subtitle="Provide strategic oversight and governance for PetroFunds, ensuring accountability, transparency, and alignment with the organization’s mission. Guide policy decisions, monitor financial performance, and safeguard the long-term sustainability of the fund’s investments."
+      />
+
       <div className="min-h-screen bg-background">
         <section className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 max-w-5xl mx-auto">
             {trustees && trustees.length > 0 ? (
-              trustees.map((trustee) => (
-                <Card
+              trustees.map((trustee, index) => (
+                <motion.div
                   key={trustee.id}
-                  className="group overflow-hidden bg-[#E6E7E8] transition-all hover:shadow-lg"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition-shadow duration-300"
                 >
-                  <div className="aspect-square overflow-hidden bg-muted">
-                    <img
-                      src={trustee.profile_image_url || "/Icons/person.svg"}
-                      alt={trustee.full_name}
-                      className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                    />
+                  {/* Image Section */}
+                  <div className="md:w-64 lg:w-72 flex-shrink-0">
+                    <div className="relative h-64 md:h-full w-full">
+                      <Image
+                        src={trustee.profile_image_url || "/Icons/person.svg"}
+                        alt={trustee.full_name}
+                        fill
+                        className="object-cover object-top"
+                      />
+                    </div>
                   </div>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-foreground">
-                      {trustee.full_name}
-                    </h3>
-                    <p className="mt-2 text-sm font-medium text-accent">
-                      {trustee.position}
-                    </p>
-                    <p className="mt-4 text-muted-foreground leading-relaxed text-sm">
-                      {trustee.bio_snippet}
-                    </p>
-                    <Link href={`/about/board-of-trustees-page/${trustee.id}`}>
-                      <Button className="mt-6 w-full bg-[#4F3996] text-white font-medium rounded-lg py-2 transition-all duration-300 ease-in-out hover:bg-[#F47C20] hover:scale-[1.02] hover:shadow-lg">
-                        View More Information
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
+
+                  {/* Content Section */}
+                  <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-2xl md:text-3xl font-bold text-[#4F3996] mb-2">
+                        {trustee.full_name}
+                      </h3>
+                      <p className="text-lg font-medium text-[#4F3996] mb-4">
+                        {trustee.position}
+                      </p>
+
+                      {/* Social Icons */}
+                      <div className="flex gap-3 mb-6">
+                        {trustee.email && (
+                          <a
+                            href={`mailto:${trustee.email}`}
+                            className="w-10 h-10 bg-[#4F3996] text-white rounded flex items-center justify-center hover:bg-[#F47C20] transition-colors duration-300"
+                          >
+                            <Mail size={20} />
+                          </a>
+                        )}
+                        <a
+                          href="#"
+                          className="w-10 h-10 bg-[#4F3996] text-white rounded flex items-center justify-center hover:bg-[#F47C20] transition-colors duration-300"
+                        >
+                          <Linkedin size={20} />
+                        </a>
+                      </div>
+
+                      <p className="text-gray-700 leading-relaxed text-justify mb-6">
+                        {trustee.bio_snippet}
+                      </p>
+                    </div>
+
+                    {/* Read More Button */}
+                    <div>
+                      <Link
+                        href={`/about/board-of-trustees-page/${trustee.id}`}
+                      >
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="bg-[#F47C20] text-white px-8 py-3 rounded-full font-medium hover:bg-[#4F3996] transition-colors duration-300 flex items-center gap-2 shadow-md"
+                        >
+                          Read More
+                          <ArrowRight size={18} />
+                        </motion.button>
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
               ))
             ) : (
               <div className="col-span-full flex justify-center">

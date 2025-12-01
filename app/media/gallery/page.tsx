@@ -86,16 +86,16 @@ const Page = () => {
               >
                 <Image
                   src={gallery?.thumbnail}
-                  height={500}
-                  width={500}
+                  height={300}
+                  width={300}
                   alt="news post image"
-                  className=" rounded-lg w-full h-56 rounded-tl-[55px] rounded-br-[55px] sm:h-64 md:h-72"
+                  className=" rounded-lg w-full h-30 rounded-tl-[55px] rounded-br-[55px] sm:h-64 md:h-50"
                 />
               </Link>
 
               {/* Text Div */}
               <div className="mt-2 text-center sm:text-left">
-                <h1 className="mb-2 text-xl text-[#4F3996]  sm:text-4xl font-semibold">
+                <h1 className="mb-2 text-xl text-[#4F3996]  sm:text-2xl font-semibold">
                   {gallery.categoryName}
                 </h1>
               </div>

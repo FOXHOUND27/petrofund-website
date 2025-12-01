@@ -143,7 +143,7 @@ export default function NewsClient({
       >
         {/* 🖼️ Hero Image */}
         <motion.div
-          className="relative w-full aspect-[21/10] rounded-2xl overflow-hidden mb-8"
+          className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden mb-8"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
@@ -152,7 +152,7 @@ export default function NewsClient({
             src={post.image_url || "/placeholder.svg"}
             alt={post.title}
             fill
-            className="object-cover"
+            className="object-cover h-full object-top"
             priority
           />
         </motion.div>
@@ -164,9 +164,9 @@ export default function NewsClient({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+          <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
           <p
-            className="text-lg text-muted-foreground"
+            className="text-md text-muted-foreground"
             dangerouslySetInnerHTML={{ __html: cleanSnippet }}
           ></p>
           <p className="my-2 font-medium text-sm text-gray-500">
@@ -187,7 +187,7 @@ export default function NewsClient({
         >
           <div
             dangerouslySetInnerHTML={{ __html: cleanFullContent }}
-            className="text-foreground/90 leading-relaxed text-justify"
+            className="text-foreground/90 leading-relaxed text-justify text-sm"
           ></div>
         </motion.div>
 

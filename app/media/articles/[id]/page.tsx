@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import sanitizeHtml from "sanitize-html"; // ✅ added sanitizer
+import sanitizeHtml from "sanitize-html";
 import { base_url } from "@/components/data/data";
 
 interface articleData {
@@ -28,14 +28,14 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const [error, setError] = useState<string | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // ✅ Handle scroll-to-top visibility
+  // Scroll-to-top visibility
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Fetch articles
+  // Fetch articles
   useEffect(() => {
     async function fetchSummary() {
       try {
@@ -53,7 +53,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     fetchSummary();
   }, []);
 
-  // ✅ Loading state
   if (loading) {
     return (
       <section className="p-8 flex justify-center items-center min-h-screen">
@@ -83,10 +82,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     (news) => news.id === Number(id)
   );
   const post = (articlesInfo || [])[currentIndex];
-  const prevPost =
-    currentIndex > 0 && articlesInfo?.[currentIndex - 1]
-      ? articlesInfo[currentIndex - 1]
-      : null;
+  const prevPost = currentIndex > 0 ? articlesInfo?.[currentIndex - 1] : null;
   const nextPost =
     articlesInfo && currentIndex < articlesInfo.length - 1
       ? articlesInfo[currentIndex + 1]
@@ -107,7 +103,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     );
   }
 
-  // ✅ Sanitize and fix backend HTML before rendering
+  // Sanitize article content
   const cleanContent = sanitizeHtml(post.full_content_html, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat([
       "img",
@@ -128,16 +124,15 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div className="h-auto bg-background">
-      {/* ✅ Animated Article Container */}
       <motion.article
         className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* ✅ Hero Image */}
+        {/* Hero Image */}
         <motion.div
-          className="relative w-full aspect-[21/9] sm:aspect-[2/1] rounded-2xl overflow-hidden mb-8 sm:mb-12"
+          className="relative w-full aspect-[21/10] rounded-2xl overflow-hidden mb-8 sm:mb-12"
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
@@ -146,24 +141,24 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             src={post.image_url || "/placeholder.svg"}
             alt={post.title}
             fill
-            className="object-cover"
+            className="object-cover object-top"
             priority
           />
         </motion.div>
 
-        {/* ✅ Header */}
+        {/* Header */}
         <motion.header
           className="mb-8 sm:mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6 leading-tight text-balance">
+          <h1 className="text-2xl lg:text-2xl font-bold text-foreground mb-4 sm:mb-6 leading-tight text-balance">
             {post.title}
           </h1>
           <div
             dangerouslySetInnerHTML={{ __html: post.content_snippet }}
-            className="text-lg sm:text-xl text-muted-foreground leading-relaxed text-pretty"
+            className="text-md text-muted-foreground leading-relaxed text-pretty"
           ></div>
 
           <p className="my-2 font-medium text-sm text-gray-500">
@@ -175,7 +170,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           </p>
         </motion.header>
 
-        {/* ✅ Main Article Content */}
+        {/* Main Article Content */}
         <motion.div
           className="prose prose-lg max-w-none mb-12 sm:mb-16 
           prose-img:rounded-xl prose-img:mx-auto 
@@ -190,11 +185,11 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         >
           <div
             dangerouslySetInnerHTML={{ __html: cleanContent }}
-            className="text-foreground/90 leading-relaxed text-justify text-base sm:text-lg break-words"
+            className="text-foreground/90 leading-relaxed text-justify text-sm break-words"
           ></div>
         </motion.div>
 
-        {/* ✅ Navigation Buttons */}
+        {/* Navigation Buttons */}
         <motion.nav
           className="border-t border-border pt-8 sm:pt-12"
           initial={{ opacity: 0 }}
@@ -202,68 +197,50 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           transition={{ delay: 0.6, duration: 0.6 }}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            {/* Previous Post */}
             <div>
-              {prevPost ? (
+              {prevPost && (
                 <Link href={`/media/articles/${prevPost.id}`}>
                   <Button
                     variant="outline"
-                    className="w-full bg-transparent h-auto py-4 px-6 flex flex-col items-start gap-2 hover:bg-accent transition-colors group"
+                    className="w-full h-auto py-4 px-4 flex flex-col items-start gap-2 hover:bg-accent transition-colors group bg-transparent"
                   >
                     <span className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                       <ArrowLeft className="w-4 h-4" />
                       Previous
                     </span>
-                    <span className="text-left font-semibold text-foreground line-clamp-2">
+                    <span className="text-left text-xs font-semibold text-foreground break-words">
                       {prevPost.title}
                     </span>
                   </Button>
                 </Link>
-              ) : (
-                <div className="w-full h-full opacity-0 pointer-events-none">
-                  <Button
-                    variant="outline"
-                    disabled
-                    className="w-full bg-transparent"
-                  >
-                    No previous post
-                  </Button>
-                </div>
               )}
             </div>
 
+            {/* Next Post */}
             <div>
-              {nextPost ? (
+              {nextPost && (
                 <Link href={`/media/articles/${nextPost.id}`}>
                   <Button
                     variant="outline"
-                    className="w-full h-auto py-4 px-6 flex flex-col items-end gap-2 hover:bg-accent transition-colors group bg-transparent"
+                    className="w-full h-auto py-4 px-4 flex flex-col items-end gap-2 hover:bg-accent transition-colors group bg-transparent"
                   >
                     <span className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                       Next
                       <ArrowRight className="w-4 h-4" />
                     </span>
-                    <span className="text-right font-semibold text-foreground line-clamp-2">
+                    <span className="text-right text-xs font-semibold text-foreground break-words">
                       {nextPost.title}
                     </span>
                   </Button>
                 </Link>
-              ) : (
-                <div className="w-full h-full opacity-0 pointer-events-none">
-                  <Button
-                    variant="outline"
-                    disabled
-                    className="w-full bg-transparent"
-                  >
-                    No next post
-                  </Button>
-                </div>
               )}
             </div>
           </div>
         </motion.nav>
       </motion.article>
 
-      {/* ✅ Scroll-to-top */}
+      {/* Scroll-to-top */}
       {showScrollTop && (
         <motion.button
           onClick={scrollToTop}

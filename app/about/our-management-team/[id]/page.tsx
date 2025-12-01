@@ -116,22 +116,6 @@ export default function ExecutiveDetailPage({ params }: ExecutivePageProps) {
                 <p className="mt-2 text-lg font-medium text-accent">
                   {executive.position}
                 </p>
-
-                {/* Contact Information */}
-                <div className="mt-8 space-y-4">
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                    Contact
-                  </h3>
-                  <div className="space-y-3">
-                    <a
-                      href={`mailto:${executive.email}`}
-                      className="flex items-center gap-3 text-foreground hover:text-primary transition-colors"
-                    >
-                      <Mail className="h-5 w-5" />
-                      <span className="text-sm">{executive.email}</span>
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
