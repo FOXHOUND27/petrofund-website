@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -12,7 +11,6 @@ export default function Navbar() {
   const [aboutSubMenuOpen, setAboutSubMenuOpen] = useState(false);
   const [mediaSubMenuOpen, setMediaSubMenuOpen] = useState(false);
   const pathname = usePathname();
-
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -36,7 +34,6 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       // Always show navbar at the top of the page
       if (currentScrollY < 10) {
         setIsVisible(true);
@@ -47,7 +44,6 @@ export default function Navbar() {
       } else {
         setIsVisible(true);
       }
-
       setLastScrollY(currentScrollY);
     };
 
@@ -69,10 +65,9 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/pel-operators", label: "Pel Operators" },
-    { href: "/training", label: "Training" },
     { href: "/scholarships", label: "Scholarships" },
+    { href: "/training", label: "Training" },
+    { href: "/pel-operators", label: "Pel Operators" },
     { href: "/alumni", label: "Alumni" },
   ];
 
@@ -86,6 +81,7 @@ export default function Navbar() {
     { href: "/about/message-from-ceo", label: "Message from CEO" },
     { href: "/about/company-profile", label: "Company Profile" },
     { href: "/about/our-management-team", label: "Our Management Team" },
+    { href: "/about/our-staff", label: "Our Staff Members" },
     { href: "/about/board-of-trustees-page", label: "Board of Trustees" },
   ];
 
@@ -118,32 +114,27 @@ export default function Navbar() {
           </Link>
 
           <ul className="hidden lg:flex justify-center items-center gap-4 xl:gap-8 py-4 text-[15px] xl:text-[16px] font-medium absolute left-1/2 -translate-x-1/2">
-            {navLinks.map((link, index) => {
-              if (link.label === "About") return null;
+            {/* Home */}
+            <motion.li
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0 * 0.1, duration: 0.4 }}
+              className="relative group font-semibold"
+            >
+              <Link
+                href="/"
+                className={`transition-colors duration-300 relative whitespace-nowrap ${
+                  pathname === "/"
+                    ? "text-[#F47C20]"
+                    : "text-[#4F3996] hover:text-[#F47C20]"
+                }`}
+              >
+                Home
+                <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
+              </Link>
+            </motion.li>
 
-              return (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.4 }}
-                  className="relative group font-semibold"
-                >
-                  <Link
-                    href={link.href}
-                    className={`transition-colors duration-300 relative whitespace-nowrap ${
-                      pathname === link.href
-                        ? "text-[#F47C20]"
-                        : "text-[#4F3996] hover:text-[#F47C20]"
-                    }`}
-                  >
-                    {link.label}
-                    <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
-                  </Link>
-                </motion.li>
-              );
-            })}
-
+            {/* About with dropdown */}
             <motion.li
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -192,7 +183,6 @@ export default function Navbar() {
                   </motion.svg>
                 </button>
               </div>
-
               <AnimatePresence>
                 {aboutSubMenuOpen && (
                   <motion.div
@@ -220,10 +210,91 @@ export default function Navbar() {
               </AnimatePresence>
             </motion.li>
 
+            {/* Scholarships */}
             <motion.li
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: navLinks.length * 0.1, duration: 0.4 }}
+              transition={{ delay: 2 * 0.1, duration: 0.4 }}
+              className="relative group font-semibold"
+            >
+              <Link
+                href="/scholarships"
+                className={`transition-colors duration-300 relative whitespace-nowrap ${
+                  pathname === "/scholarships"
+                    ? "text-[#F47C20]"
+                    : "text-[#4F3996] hover:text-[#F47C20]"
+                }`}
+              >
+                Scholarships
+                <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
+              </Link>
+            </motion.li>
+
+            {/* Training */}
+            <motion.li
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 3 * 0.1, duration: 0.4 }}
+              className="relative group font-semibold"
+            >
+              <Link
+                href="/training"
+                className={`transition-colors duration-300 relative whitespace-nowrap ${
+                  pathname === "/training"
+                    ? "text-[#F47C20]"
+                    : "text-[#4F3996] hover:text-[#F47C20]"
+                }`}
+              >
+                Training
+                <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
+              </Link>
+            </motion.li>
+
+            {/* Pel Operators */}
+            <motion.li
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 4 * 0.1, duration: 0.4 }}
+              className="relative group font-semibold"
+            >
+              <Link
+                href="/pel-operators"
+                className={`transition-colors duration-300 relative whitespace-nowrap ${
+                  pathname === "/pel-operators"
+                    ? "text-[#F47C20]"
+                    : "text-[#4F3996] hover:text-[#F47C20]"
+                }`}
+              >
+                Pel Operators
+                <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
+              </Link>
+            </motion.li>
+
+            {/* Alumni */}
+            <motion.li
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 5 * 0.1, duration: 0.4 }}
+              className="relative group font-semibold"
+            >
+              <Link
+                href="/alumni"
+                className={`transition-colors duration-300 relative whitespace-nowrap ${
+                  pathname === "/alumni"
+                    ? "text-[#F47C20]"
+                    : "text-[#4F3996] hover:text-[#F47C20]"
+                }`}
+              >
+                Alumni
+                <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
+              </Link>
+            </motion.li>
+
+            {/* Media with dropdown */}
+            <motion.li
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 6 * 0.1, duration: 0.4 }}
               className="relative font-semibold group"
             >
               <div className="flex items-center gap-1">
@@ -259,7 +330,6 @@ export default function Navbar() {
                   </motion.svg>
                 </button>
               </div>
-
               <AnimatePresence>
                 {mediaSubMenuOpen && (
                   <motion.div
@@ -287,10 +357,11 @@ export default function Navbar() {
               </AnimatePresence>
             </motion.li>
 
+            {/* Contact Us */}
             <motion.li
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: (navLinks.length + 1) * 0.1, duration: 0.4 }}
+              transition={{ delay: 7 * 0.1, duration: 0.4 }}
               className="relative group"
             >
               <Link
@@ -351,7 +422,6 @@ export default function Navbar() {
               className="fixed inset-0 bg-black/50 z-40 lg:hidden"
               onClick={() => setMenuOpen(false)}
             />
-
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -370,32 +440,26 @@ export default function Navbar() {
                     <X size={28} />
                   </motion.button>
                 </div>
-
                 <ul className="flex flex-col gap-2">
-                  {navLinks.map((link, index) => {
-                    if (link.label === "About") return null;
+                  {/* Home */}
+                  <motion.li
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0 * 0.05, duration: 0.3 }}
+                  >
+                    <Link
+                      href="/"
+                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                        pathname === "/"
+                          ? "bg-[#F47C20] text-white"
+                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                      }`}
+                    >
+                      Home
+                    </Link>
+                  </motion.li>
 
-                    return (
-                      <motion.li
-                        key={link.href}
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05, duration: 0.3 }}
-                      >
-                        <Link
-                          href={link.href}
-                          className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
-                            pathname === link.href
-                              ? "bg-[#F47C20] text-white"
-                              : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
-                          }`}
-                        >
-                          {link.label}
-                        </Link>
-                      </motion.li>
-                    );
-                  })}
-
+                  {/* About with submenu */}
                   <motion.li
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -440,7 +504,6 @@ export default function Navbar() {
                         </motion.svg>
                       </button>
                     </div>
-
                     <AnimatePresence>
                       {aboutSubMenuOpen && (
                         <motion.div
@@ -474,17 +537,90 @@ export default function Navbar() {
                     </AnimatePresence>
                   </motion.li>
 
+                  {/* Scholarships */}
+                  <motion.li
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 2 * 0.05, duration: 0.3 }}
+                  >
+                    <Link
+                      href="/scholarships"
+                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                        pathname === "/scholarships"
+                          ? "bg-[#F47C20] text-white"
+                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                      }`}
+                    >
+                      Scholarships
+                    </Link>
+                  </motion.li>
+
+                  {/* Training */}
+                  <motion.li
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 3 * 0.05, duration: 0.3 }}
+                  >
+                    <Link
+                      href="/training"
+                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                        pathname === "/training"
+                          ? "bg-[#F47C20] text-white"
+                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                      }`}
+                    >
+                      Training
+                    </Link>
+                  </motion.li>
+
+                  {/* Pel Operators */}
+                  <motion.li
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 4 * 0.05, duration: 0.3 }}
+                  >
+                    <Link
+                      href="/pel-operators"
+                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                        pathname === "/pel-operators"
+                          ? "bg-[#F47C20] text-white"
+                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                      }`}
+                    >
+                      Pel Operators
+                    </Link>
+                  </motion.li>
+
+                  {/* Alumni */}
+                  <motion.li
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 5 * 0.05, duration: 0.3 }}
+                  >
+                    <Link
+                      href="/alumni"
+                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
+                        pathname === "/alumni"
+                          ? "bg-[#F47C20] text-white"
+                          : "text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
+                      }`}
+                    >
+                      Alumni
+                    </Link>
+                  </motion.li>
+
+                  {/* Media with submenu */}
                   <motion.li
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
-                      delay: navLinks.length * 0.05,
+                      delay: 6 * 0.05,
                       duration: 0.3,
                     }}
                   >
                     <div className="flex items-center gap-2">
                       <p
-                        className={`flex-1 px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 
+                        className={`flex-1 px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200
                           text-[#4F3996] hover:bg-[#F47C20] hover:text-white"
                         `}
                       >
@@ -515,7 +651,6 @@ export default function Navbar() {
                         </motion.svg>
                       </button>
                     </div>
-
                     <AnimatePresence>
                       {mediaSubMenuOpen && (
                         <motion.div
@@ -549,11 +684,12 @@ export default function Navbar() {
                     </AnimatePresence>
                   </motion.li>
 
+                  {/* Contact Us */}
                   <motion.li
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
-                      delay: (navLinks.length + 1) * 0.05,
+                      delay: 7 * 0.05,
                       duration: 0.3,
                     }}
                   >

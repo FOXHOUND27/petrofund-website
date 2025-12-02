@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { base_url } from "@/components/data/data";
 import ManagementHeader from "@/components/boardheader";
 
-interface Executive {
+interface Staff {
   id: number;
   first_name: string;
   last_name: string;
@@ -25,21 +25,21 @@ interface Executive {
 }
 
 export default function ExecutiveTeamPage() {
-  const [executives, setExecutives] = useState<Executive[] | null>([]);
+  const [staff, setStaff] = useState<Staff[] | null>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchSummary() {
       try {
-        const res = await fetch(`${base_url}/api/management`);
+        const res = await fetch(`${base_url}/api/staff-members`);
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
 
         const data = await res.json();
-        setExecutives(data.data);
+        setStaff(data.data);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -72,30 +72,30 @@ export default function ExecutiveTeamPage() {
     <>
       <MiniHero
         imageSrc="/SectionImages/DesertHero.jpg"
-        title="Meet Our Executive Team"
+        title="Meet Our Team"
         subtitle="Visionary leaders driving innovation, excellence, and sustainable growth across every facet of our organization."
       />
 
       <ManagementHeader
-        title="Our Management team"
+        title="Our team"
         subtitle="Manage PetroFunds’ strategic operations, oversee fund allocation, monitor investment performance, and ensure compliance with regulatory standards. Enable informed decision-making to maximize returns, mitigate risks, and drive sustainable growth across all petroleum-related investments."
       />
 
       <div className="min-h-screen bg-background">
         <section className="container mx-auto px-4 py-16 md:py-24">
-          {executives && executives.length > 0 ? (
+          {staff && staff.length > 0 ? (
             <div className="grid gap-8 lg:grid-cols-1 xl:grid-cols-2">
-              {executives.map((executive) => (
+              {staff.map((staff) => (
                 <Card
-                  key={executive.id}
+                  key={staff.id}
                   className="group overflow-hidden bg-white border border-gray-200 shadow-lg transition-all hover:shadow-xl"
                 >
                   <div className="flex flex-col md:flex-row">
                     {/* Image Section */}
                     <div className="w-full md:w-[240px] lg:w-[280px] flex-shrink-0 bg-gray-100">
                       <img
-                        src={executive.profile_image_url || "/placeholder.svg"}
-                        alt={executive.full_name}
+                        src={staff.profile_image_url || "/placeholder.svg"}
+                        alt={staff.full_name}
                         className="h-full mx-4 w-full object-cover object-top transition-transform duration-300 group-hover:scale-105 min-h-[300px] md:min-h-[400px]"
                       />
                     </div>
@@ -104,21 +104,21 @@ export default function ExecutiveTeamPage() {
                     <CardContent className="flex-1 p-6 lg:p-8 flex flex-col">
                       {/* Name */}
                       <h3 className="text-xl lg:text-2xl font-bold text-[#4F3996]">
-                        Mr. {executive.first_name} {executive.last_name}
+                        {staff.first_name} {staff.last_name}
                       </h3>
 
                       {/* Position */}
                       <p className="mt-2 text-base font-medium text-[#4F3996]">
-                        {executive.position}
+                        {staff.position}
                       </p>
 
                       {/* Social Icons */}
                       <div className="flex gap-3 mt-4">
                         <a
-                          href={executive.linkedin}
-                          target="_blank"
+                          href={staff.linkedin}
                           className="w-9 h-9 bg-[#4F3996] rounded flex items-center justify-center hover:bg-[#F47C20] transition-colors"
                           aria-label="LinkedIn"
+                          target="_blank"
                         >
                           <Linkedin className="w-5 h-5 text-white" />
                         </a>
@@ -126,12 +126,12 @@ export default function ExecutiveTeamPage() {
 
                       {/* Bio */}
                       <p className="mt-6 text-sm text-gray-700 leading-relaxed text-justify flex-1">
-                        {executive.bio_snippet}
+                        {staff.bio_snippet}
                       </p>
 
                       {/* Read More Button */}
                       <Link
-                        href={`/about/our-management-team/${executive.id}`}
+                        href={`/about/our-staff/${staff.id}`}
                         className="mt-6"
                       >
                         <Button className="w-full bg-[#F47C20] text-white font-semibold rounded-md py-3 transition-all duration-300 ease-in-out hover:bg-[#4F3996] hover:scale-[1.02] hover:shadow-lg flex items-center justify-center gap-2">
@@ -146,8 +146,8 @@ export default function ExecutiveTeamPage() {
             </div>
           ) : (
             <p className="w-full text-center text-lg text-muted-foreground mt-12">
-              There is currently no executives information available. Please
-              check back later for updates.
+              There is currently no staff information available. Please check
+              back later for updates.
             </p>
           )}
         </section>
