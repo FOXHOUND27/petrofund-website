@@ -18,13 +18,13 @@ export default function ChatbotWidget() {
           href="https://wa.me/+264811450254?text=Hi,%20I%20need%20help%20with..."
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-3 left-3 bg-[#25D366] hover:bg-[#1eb655] text-white rounded-full p-4 shadow-lg z-[9999] transition"
+          className="fixed bottom-6 left-6 bg-[#25D366] hover:bg-[#1eb655] text-white rounded-full p-4 shadow-lg z-[9999] transition"
           aria-label="Contact us on WhatsApp"
         >
           {/* WhatsApp SVG Icon */}
           <svg
-            width="35"
-            height="35"
+            width="30"
+            height="30"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
