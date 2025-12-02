@@ -17,7 +17,7 @@ const config = {
       backgroundColor: "#4F3996",
     },
     chatButton: {
-      backgroundColor: "#4F3996",
+      backgroundColor: "#F47C20",
     },
   },
   widgets: [
