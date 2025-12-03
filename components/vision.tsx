@@ -30,18 +30,16 @@ const Vision = () => {
     useState<CompanyProfileData | null>(null);
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch About Summary
+        // Fetch About Summary (NO ERROR THROWING)
         const summaryRes = await fetch(`${base_url}/api/about-us`);
-        if (!summaryRes.ok)
-          throw new Error(`About-us error: ${summaryRes.status}`);
-
-        const summaryData = await summaryRes.json();
-        setProfileSummary(summaryData?.data || null);
+        if (summaryRes.ok) {
+          const summaryData = await summaryRes.json();
+          setProfileSummary(summaryData?.data || null);
+        }
 
         // Fetch Company Profile PDF (NO ERROR THROWING)
         const companyRes = await fetch(`${base_url}/api/company-profile`);
@@ -49,8 +47,6 @@ const Vision = () => {
           const companyData = await companyRes.json();
           setCompanyProfile(companyData?.data || null);
         }
-      } catch (err: any) {
-        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -74,12 +70,10 @@ const Vision = () => {
     );
   }
 
-  if (error) return <p className="text-red-500">Error: {error}</p>;
-
   // Fallback if no summary
   if (!profileSummary) {
     return (
-      <section className="p-4 md:p-8 lg:p-10 xl:p-12">
+      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-25">
         <div className="bg-[#4F3996] shadow-2xl p-10 rounded-2xl text-center max-w-[95%] mx-auto">
           <h1 className="text-3xl text-white font-semibold mb-4">
             Company Information Unavailable
@@ -107,9 +101,8 @@ const Vision = () => {
           Vision
         </h1>
 
-        {/* WHITE TEXT + REMOVE BORDERS */}
         <div
-          className="text-white text-justify text-sm leading-relaxed "
+          className="text-white text-justify text-sm leading-relaxed"
           dangerouslySetInnerHTML={{ __html: profileSummary.vision || "" }}
         ></div>
       </motion.div>
@@ -125,13 +118,12 @@ const Vision = () => {
           Mandate
         </h1>
 
-        {/* WHITE TEXT + REMOVE BORDERS */}
         <div
-          className="text-white text-justify text-sm leading-relaxed "
+          className="text-white text-justify text-sm leading-relaxed"
           dangerouslySetInnerHTML={{ __html: profileSummary.mandate || "" }}
         ></div>
 
-        {/* Company Profile Button (HIDDEN IF NO PDF) */}
+        {/* PDF Button (only if available) */}
         {companyProfile?.company_profile_path ? (
           <Link
             href={companyProfile.company_profile_path}

@@ -66,6 +66,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/scholarships", label: "Scholarships" },
+    { href: "", label: "PetroConnect" },
     { href: "/training", label: "Training" },
     { href: "/pel-operators", label: "Pel Operators" },
     { href: "/alumni", label: "Alumni" },
@@ -228,6 +229,27 @@ export default function Navbar() {
                 Scholarships
                 <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
               </Link>
+            </motion.li>
+
+            {/* PetroConnect */}
+            <motion.li
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2 * 0.1, duration: 0.4 }}
+              className="relative group font-semibold"
+            >
+              <a
+                href="https://petroconnect.com.na/"
+                target="_blank"
+                className={`transition-colors duration-300 relative whitespace-nowrap ${
+                  pathname === "/scholarships"
+                    ? "text-[#F47C20]"
+                    : "text-[#4F3996] hover:text-[#F47C20]"
+                }`}
+              >
+                PetroConnect
+                <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F47C20] group-hover:w-full transition-all duration-300" />
+              </a>
             </motion.li>
 
             {/* Training */}
