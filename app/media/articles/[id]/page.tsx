@@ -209,9 +209,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                       <ArrowLeft className="w-4 h-4" />
                       Previous
                     </span>
-                    <span className="text-left text-xs font-semibold text-foreground break-words">
-                      {prevPost.title}
-                    </span>
                   </Button>
                 </Link>
               )}
@@ -228,9 +225,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                     <span className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                       Next
                       <ArrowRight className="w-4 h-4" />
-                    </span>
-                    <span className="text-right text-xs font-semibold text-foreground break-words">
-                      {nextPost.title}
                     </span>
                   </Button>
                 </Link>

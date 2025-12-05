@@ -204,7 +204,8 @@ export default function NewsClient({
                 variant="outline"
                 className="w-full flex items-center gap-2"
               >
-                <ArrowLeft size={18} /> {prevPost.title}
+                <ArrowLeft size={18} />
+                <span>Previous Post</span>
               </Button>
             </Link>
           ) : (
@@ -217,7 +218,7 @@ export default function NewsClient({
                 variant="outline"
                 className="w-full flex items-center justify-end gap-2"
               >
-                {nextPost.title} <ArrowRight size={18} />
+                <span>Next Post</span> <ArrowRight size={18} />
               </Button>
             </Link>
           ) : (

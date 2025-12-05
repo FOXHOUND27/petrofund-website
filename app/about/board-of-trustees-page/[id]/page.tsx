@@ -16,6 +16,7 @@ interface Trustee {
   email: string;
   phone: string;
   full_bio_html: string;
+  linkedin: string;
   bio_snippet: string;
   profile_image_url: string;
   is_active: boolean;

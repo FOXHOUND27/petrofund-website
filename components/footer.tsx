@@ -158,7 +158,7 @@ const Footer = () => {
             </h1>
 
             {/* Social Media Links */}
-            <div className="flex justify-center items-center gap-4 md:gap-6">
+            <div className="flex justify-center items-center gap-4 md:gap-2">
               <a
                 href="https://www.facebook.com/petrofund/"
                 target="_blank"
@@ -168,8 +168,8 @@ const Footer = () => {
                 <div className="absolute inset-0 bg-[#F47C20] rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
                 <Image
                   src="/Icons/Facebook Circled.png"
-                  width={45}
-                  height={45}
+                  width={25}
+                  height={25}
                   alt="Facebook Icon"
                   className="relative w-10 h-10 md:w-12 md:h-12 transition-all duration-300 group-hover:brightness-110"
                 />
@@ -183,8 +183,8 @@ const Footer = () => {
                 <div className="absolute inset-0 bg-[#F47C20] rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
                 <Image
                   src="/Icons/X.png"
-                  width={45}
-                  height={45}
+                  width={25}
+                  height={25}
                   alt="X Icon"
                   className="relative w-10 h-10 md:w-12 md:h-12 transition-all duration-300 group-hover:brightness-110"
                 />
@@ -198,8 +198,8 @@ const Footer = () => {
                 <div className="absolute inset-0 bg-[#F47C20] rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
                 <Image
                   src="/Icons/LinkedIn.png"
-                  width={45}
-                  height={45}
+                  width={25}
+                  height={25}
                   alt="LinkedIn Icon"
                   className="relative w-10 h-10 md:w-12 md:h-12 transition-all duration-300 group-hover:brightness-110"
                 />
@@ -213,8 +213,8 @@ const Footer = () => {
                 <div className="absolute inset-0 bg-[#F47C20] rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
                 <Image
                   src="/Icons/Instagram.png"
-                  width={45}
-                  height={45}
+                  width={25}
+                  height={25}
                   alt="Instagram Icon"
                   className="relative w-10 h-10 md:w-12 md:h-12 transition-all duration-300 group-hover:brightness-110"
                 />

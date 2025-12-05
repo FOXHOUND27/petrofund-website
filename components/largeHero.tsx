@@ -55,7 +55,7 @@ const LargeHero = () => {
 
             <a
               target="_blank"
-              href="https://innovation.muhoko.org/student/login"
+              href="https://petroconnect.com.na/"
               className="flex md:hidden group py-3 px-6 sm:py-3 sm:px-7 bg-[#4F3996] items-center justify-center gap-x-2 text-white rounded-full text-base sm:text-md font-medium hover:bg-[#F47C20] transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               <span>PetroConnect</span>
@@ -68,7 +68,7 @@ const LargeHero = () => {
       {/* CV Builder Floating Button */}
       <a
         target="_blank"
-        href="https://innovation.muhoko.org/student/login"
+        href="https://petroconnect.com.na/"
         className="absolute hidden lg:flex cursor-pointer z-20 bottom-120 right-40 w-[150px] h-[150px] bg-[#F47C20] rounded-full text-white text-md font-semibold flex-col items-center justify-center shadow-lg hover:scale-125 hover:bg-[#4F3996] hover:shadow-2xl transition-transform duration-300"
       >
         <ArrowUpRight className="w-8 h-8 mt-2" />

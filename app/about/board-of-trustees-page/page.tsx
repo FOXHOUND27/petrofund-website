@@ -28,6 +28,16 @@ export default function TrusteesTeamPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+
+  const totalPages = Math.ceil((trustees?.length || 0) / itemsPerPage);
+
+  const paginatedTrustees = trustees?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   useEffect(() => {
     async function fetchSummary() {
       try {
@@ -81,8 +91,8 @@ export default function TrusteesTeamPage() {
       <div className="min-h-screen bg-background">
         <section className="container mx-auto px-4 py-16 md:py-24">
           <div className="grid gap-8 max-w-5xl mx-auto">
-            {trustees && trustees.length > 0 ? (
-              trustees.map((trustee, index) => (
+            {paginatedTrustees && paginatedTrustees.length > 0 ? (
+              paginatedTrustees.map((trustee, index) => (
                 <motion.div
                   key={trustee.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -90,7 +100,6 @@ export default function TrusteesTeamPage() {
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition-shadow duration-300"
                 >
-                  {/* Image Section */}
                   <div className="md:w-64 lg:w-72 flex-shrink-0">
                     <div className="relative h-64 md:h-full w-full">
                       <Image
@@ -102,7 +111,6 @@ export default function TrusteesTeamPage() {
                     </div>
                   </div>
 
-                  {/* Content Section */}
                   <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
                     <div>
                       <h3 className="text-lg md:text-3xl font-bold text-[#4F3996] mb-2">
@@ -112,7 +120,6 @@ export default function TrusteesTeamPage() {
                         {trustee.position}
                       </p>
 
-                      {/* Social Icons */}
                       <div className="flex gap-3 mb-6">
                         {trustee.email && (
                           <a
@@ -135,7 +142,6 @@ export default function TrusteesTeamPage() {
                       </p>
                     </div>
 
-                    {/* Read More Button */}
                     <div>
                       <Link
                         href={`/about/board-of-trustees-page/${trustee.id}`}
@@ -162,6 +168,32 @@ export default function TrusteesTeamPage() {
               </div>
             )}
           </div>
+
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-10 gap-4">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-[#4F3996] text-white rounded disabled:opacity-50"
+              >
+                Previous
+              </button>
+
+              <span className="text-lg font-medium">
+                Page {currentPage} of {totalPages}
+              </span>
+
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(p + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-[#4F3996] text-white rounded disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
+          )}
         </section>
       </div>
     </>

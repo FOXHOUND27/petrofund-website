@@ -90,15 +90,15 @@ const GallerySlider = () => {
                     >
                       <Image
                         src={gallery?.thumbnail || "/placeholder.svg"}
-                        height={500}
-                        width={500}
+                        height={300}
+                        width={300}
                         alt="news post image"
                         className="rounded-lg w-full h-56 rounded-tl-[55px] rounded-br-[55px] sm:h-64 md:h-72 object-cover"
                       />
                     </Link>
 
                     <div className="mt-2 text-center w-full">
-                      <h1 className="mb-2 text-xl text-[#4F3996] sm:text-4xl font-semibold">
+                      <h1 className="mb-2 text-lg text-[#4F3996] sm:text-lg font-semibold">
                         {gallery.categoryName}
                       </h1>
                     </div>

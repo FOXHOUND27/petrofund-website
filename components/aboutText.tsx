@@ -2,8 +2,19 @@
 import { useState, useEffect } from "react";
 import { base_url } from "@/components/data/data";
 
+interface AboutUsResponse {
+  id: number;
+  about_summary: string;
+  executive_summary: string;
+  mandate: string;
+  vision: string;
+  mission: string;
+  core_values: string;
+  updated_at: string;
+}
+
 const AboutText = () => {
-  const [aboutSummary, setAboutSummary] = useState<string | null>(null);
+  const [aboutData, setAboutData] = useState<AboutUsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,11 +29,10 @@ const AboutText = () => {
 
         const data = await res.json();
 
-        // Validate response structure
-        if (data?.data?.about_summary) {
-          setAboutSummary(data.data.about_summary);
+        if (data?.data) {
+          setAboutData(data.data as AboutUsResponse);
         } else {
-          setAboutSummary(null); // triggers fallback message
+          setAboutData(null);
         }
       } catch (err: any) {
         setError(err.message || "Something went wrong.");
@@ -57,13 +67,15 @@ const AboutText = () => {
   return (
     <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
       <div className="bg-[#4F3996] shadow-2xl flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px]">
-        <h1 className="text-xl text-white mb-3 sm:mb-4 md:mb-2 text-center font-semibold">
+        {/* --- Title --- */}
+        <h1 className="text-xl text-white mb-4 text-center font-semibold">
           About Us
         </h1>
 
-        {aboutSummary ? (
+        {/* --- ABOUT SUMMARY --- */}
+        {aboutData?.about_summary ? (
           <div
-            dangerouslySetInnerHTML={{ __html: aboutSummary }}
+            dangerouslySetInnerHTML={{ __html: aboutData.about_summary }}
             className="space-y-5 sm:space-y-6 md:space-y-8 text-white text-sm leading-relaxed max-w-5xl text-justify"
           ></div>
         ) : (
@@ -72,6 +84,24 @@ const AboutText = () => {
             soon.
           </p>
         )}
+
+        {/* --- EXECUTIVE SUMMARY (same styling) --- */}
+        <div className="mt-10 w-full flex flex-col items-center">
+          <h2 className="text-lg text-white font-semibold mb-3">
+            Executive Summary
+          </h2>
+
+          {aboutData?.executive_summary ? (
+            <div
+              dangerouslySetInnerHTML={{ __html: aboutData.executive_summary }}
+              className="space-y-5 sm:space-y-6 md:space-y-8 text-white text-sm leading-relaxed max-w-5xl text-justify"
+            ></div>
+          ) : (
+            <p className="text-white text-center text-base sm:text-lg md:text-xl max-w-4xl">
+              Executive summary information is currently unavailable.
+            </p>
+          )}
+        </div>
       </div>
     </section>
   );
