@@ -16,6 +16,7 @@ interface NewsData {
   content_snippet: string;
   image_url: string;
   published_at: string;
+  attachment_path?: string;
 }
 
 const Page = () => {
@@ -23,17 +24,14 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // Number of news items per page
+  const itemsPerPage = 6;
 
   useEffect(() => {
     async function fetchSummary() {
       try {
         const res = await fetch(`${base_url}/api/news`);
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
         setNewsInfo(data.data);
       } catch (err: any) {
@@ -42,7 +40,6 @@ const Page = () => {
         setLoading(false);
       }
     }
-
     fetchSummary();
   }, []);
 
@@ -64,7 +61,6 @@ const Page = () => {
 
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
-  // Pagination calculations
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentNews = newsInfo?.slice(indexOfFirstItem, indexOfLastItem) || [];
@@ -79,39 +75,74 @@ const Page = () => {
       />
 
       {/* News Posts Section */}
-      <section className="flex flex-wrap justify-center gap-8 items-center mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
+      <section className="flex flex-wrap justify-center gap-8 items-stretch mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
         {currentNews && currentNews.length > 0 ? (
           currentNews.map((news, index) => (
             <motion.div
               key={news.id}
-              className="p-6 sm:p-8 shadow-2xl bg-[#4F3996] w-full sm:w-[90%] md:w-[350px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto lg:h-auto sm:h-[500px]"
+              className="p-6 sm:p-8 shadow-2xl bg-[#4F3996] w-full sm:w-[90%] md:w-[350px] flex flex-col rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.15, duration: 0.5 }}
             >
-              <Image
-                src={news.image_url || "/placeholder.svg"}
-                height={300}
-                width={300}
-                alt="news post image"
-                className="object-cover object-top rounded-lg w-full h-56 sm:h-64 md:h-72"
-              />
+              {/* Image */}
+              <div className="w-full h-48 sm:h-56 md:h-64 overflow-hidden rounded-lg mb-4">
+                <Image
+                  src={news.image_url || "/placeholder.svg"}
+                  height={256}
+                  width={350}
+                  alt="news post image"
+                  className="object-cover object-center w-full h-full"
+                />
+              </div>
 
-              <div className="mt-6 text-white text-center sm:text-left">
-                <h1 className="mb-2 text-md font-semibold">{news.title}</h1>
-                <p className="text-xs text-justify">{news.content_snippet}</p>
+              {/* Text & Buttons */}
+              <div className="flex flex-col flex-grow">
+                <div className="mb-4">
+                  <h1 className="mb-1 text-md font-semibold text-white">
+                    {news.title}
+                  </h1>
+                  {news.category_name && (
+                    <p className="mb-2 text-xs font-medium text-[#FFD700]">
+                      {news.category_name}
+                    </p>
+                  )}
+                  <p className="text-xs text-white text-justify">
+                    {news.content_snippet}
+                  </p>
+                </div>
 
-                <div className="flex justify-center sm:justify-start">
-                  <Link href={`/media/news/${news.id}`}>
+                <div className="flex flex-col sm:flex-row gap-3 mt-auto">
+                  <Link
+                    href={`/media/news/${news.id}`}
+                    className="w-full sm:w-auto"
+                  >
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="bg-primary flex items-center gap-x-2 sm:gap-x-4 text-white my-5 px-6 sm:px-8 xl:px-10 py-2 sm:py-2.5 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-sm sm:text-[15px]"
+                      className="w-full bg-primary flex items-center justify-center gap-x-2 sm:gap-x-4 text-white px-6 py-2 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-sm sm:text-[15px]"
                     >
                       Read More
                       <CircleArrowRight size={18} />
                     </motion.button>
                   </Link>
+
+                  {news.attachment_path && (
+                    <a
+                      href={news.attachment_path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full sm:w-auto"
+                    >
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-full bg-accent flex items-center justify-center text-white px-6 py-2 rounded-full hover:bg-primary transition-colors duration-300 font-medium shadow-md text-sm sm:text-[15px]"
+                      >
+                        Download Attachment
+                      </motion.button>
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>

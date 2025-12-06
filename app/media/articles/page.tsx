@@ -1,7 +1,6 @@
 "use client";
 import MiniHero from "@/components/miniHero";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CircleArrowRight } from "lucide-react";
@@ -15,6 +14,7 @@ interface ArticleData {
   full_content_html: string;
   content_snippet: string;
   image_url: string;
+  attachment_path?: string | null;
   published_at: string;
 }
 
@@ -31,11 +31,9 @@ const Page = () => {
     async function fetchSummary() {
       try {
         const res = await fetch(`${base_url}/api/articles`);
-
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-
         const data = await res.json();
         setArticlesInfo(data.data);
       } catch (err: any) {
@@ -81,40 +79,53 @@ const Page = () => {
       />
 
       {/* Articles Section */}
-      <section className="flex flex-wrap justify-center gap-8 items-center mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
+      <section className="flex flex-wrap justify-center gap-8 items-start mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
         {displayedArticles && displayedArticles.length > 0 ? (
           displayedArticles.map((post) => (
             <div
               key={post.id}
-              className="p-6 sm:p-8 lg:h-auto bg-[#4F3996] w-full sm:w-[90%] md:w-[350px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto sm:h-[500px] shadow-lg"
+              className="p-6 sm:p-8 bg-[#4F3996] w-full sm:w-[90%] md:w-[350px] flex flex-col justify-between rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] min-h-[280px] shadow-lg"
             >
-              <Image
-                src={post.image_url || "/placeholder.svg"}
-                height={300}
-                width={300}
-                alt="article image"
-                className="object-cover object-center rounded-lg w-full h-40 sm:h-40 md:h-40"
-              />
-
               {/* Text Div */}
-              <div className="mt-6 text-white text-center sm:text-left">
-                <h1 className="mb-2 text-md font-semibold">{post.title}</h1>
-                <div
-                  className="text-sm text-justify"
-                  dangerouslySetInnerHTML={{ __html: post.content_snippet }}
-                ></div>
+              <div className="text-white text-center sm:text-left w-full flex flex-col justify-between h-full">
+                <div>
+                  {post.category_name && (
+                    <div className="mb-3">
+                      <span className="inline-block bg-white/20 text-white text-xs font-medium px-3 py-1 rounded-full">
+                        {post.category_name}
+                      </span>
+                    </div>
+                  )}
+                  <h1 className="mb-2 text-md font-semibold">{post.title}</h1>
+                  <div
+                    className="text-sm text-justify mb-4"
+                    dangerouslySetInnerHTML={{ __html: post.content_snippet }}
+                  ></div>
+                </div>
 
-                <div className="flex justify-center sm:justify-start">
+                <div className="flex flex-col gap-2 mt-2">
                   <Link href={`/media/articles/${post.id}`}>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="bg-primary flex items-center gap-x-2 sm:gap-x-4 text-white my-5 px-6 sm:px-8 xl:px-10 py-2 sm:py-2.5 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-sm sm:text-[15px]"
+                      className="w-full bg-primary flex items-center justify-center gap-x-2 sm:gap-x-4 text-white px-6 py-2 rounded-full hover:bg-accent transition-colors duration-300 font-medium shadow-md text-sm sm:text-[15px]"
                     >
                       Read More
                       <CircleArrowRight size={18} />
                     </motion.button>
                   </Link>
+
+                  {post.attachment_path && (
+                    <a
+                      href={post.attachment_path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download
+                      className="w-full bg-white text-[#4F3996] font-medium px-6 py-2 rounded-full shadow-md hover:bg-gray-200 transition-colors duration-300 text-sm text-center"
+                    >
+                      Download Attachment
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

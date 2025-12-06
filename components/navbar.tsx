@@ -96,7 +96,7 @@ export default function Navbar() {
             opacity: isVisible ? 1 : 0,
           }}
           transition={{ duration: 0.3, ease: "easeOut" }} // Faster transition for better UX
-          className="bg-white shadow-xl rounded-full px-4 md:px-8 w-[95%] flex justify-between items-center relative"
+          className="bg-[#dddddd] shadow-xl rounded-full px-4 md:px-8 w-[95%] flex justify-between items-center relative"
         >
           <Link href="/" className="flex-shrink-0">
             <motion.div
@@ -105,7 +105,7 @@ export default function Navbar() {
             >
               <div className="w-[100px] h-[80px] md:w-[150px] md:h-[100px] flex items-center justify-center">
                 <Image
-                  src="/Logo/PetroLogo.png"
+                  src="/Logo/newlogo.png"
                   width={300}
                   height={60}
                   alt="Petrofund Logo"

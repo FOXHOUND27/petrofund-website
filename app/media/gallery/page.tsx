@@ -96,7 +96,7 @@ const Page = () => {
           {currentData.map((gallery) => (
             <div
               key={gallery.categoryId}
-              className="p-2 sm:p-1 w-full sm:w-[90%] md:w-[400px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto sm:h-[380px]"
+              className="p-2 sm:p-1 sm:gap-y-5 w-full sm:w-[90%] md:w-[400px] flex flex-col items-center rounded-tl-[45px] rounded-br-[45px] sm:rounded-tl-[55px] sm:rounded-br-[55px] h-auto sm:h-[380px]"
             >
               <Link
                 href={`/media/gallery/${gallery.categoryId}`}

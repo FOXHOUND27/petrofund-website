@@ -46,7 +46,7 @@ const AboutText = () => {
 
   if (loading) {
     return (
-      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
+      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45">
         <div className="bg-[#4F3996] shadow-2xl flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] min-h-[400px]">
           <div className="flex flex-col items-center gap-4">
             <div className="relative w-16 h-16">
@@ -65,43 +65,41 @@ const AboutText = () => {
   }
 
   return (
-    <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
-      <div className="bg-[#4F3996] shadow-2xl flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px]">
-        {/* --- Title --- */}
+    <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45">
+      {/* --- ABOUT US CARD --- */}
+      <div className="bg-[#4F3996] shadow-2xl flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] mb-10">
         <h1 className="text-xl text-white mb-4 text-center font-semibold">
           About Us
         </h1>
 
-        {/* --- ABOUT SUMMARY --- */}
         {aboutData?.about_summary ? (
           <div
             dangerouslySetInnerHTML={{ __html: aboutData.about_summary }}
             className="space-y-5 sm:space-y-6 md:space-y-8 text-white text-sm leading-relaxed max-w-5xl text-justify"
           ></div>
         ) : (
-          <p className="text-white text-center text-base sm:text-lg md:text-xl max-w-4xl">
-            Our About Us information is currently unavailable. Please check back
-            soon.
+          <p className="text-white text-center text-lg max-w-4xl">
+            Our About Us information is currently unavailable.
           </p>
         )}
+      </div>
 
-        {/* --- EXECUTIVE SUMMARY (same styling) --- */}
-        <div className="mt-10 w-full flex flex-col items-center">
-          <h2 className="text-lg text-white font-semibold mb-3">
-            Executive Summary
-          </h2>
+      {/* --- EXECUTIVE SUMMARY CARD (ITS OWN CARD) --- */}
+      <div className="bg-[#4F3996] shadow-2xl flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px]">
+        <h2 className="text-lg text-white font-semibold mb-3">
+          Executive Summary
+        </h2>
 
-          {aboutData?.executive_summary ? (
-            <div
-              dangerouslySetInnerHTML={{ __html: aboutData.executive_summary }}
-              className="space-y-5 sm:space-y-6 md:space-y-8 text-white text-sm leading-relaxed max-w-5xl text-justify"
-            ></div>
-          ) : (
-            <p className="text-white text-center text-base sm:text-lg md:text-xl max-w-4xl">
-              Executive summary information is currently unavailable.
-            </p>
-          )}
-        </div>
+        {aboutData?.executive_summary ? (
+          <div
+            dangerouslySetInnerHTML={{ __html: aboutData.executive_summary }}
+            className="space-y-5 sm:space-y-6 md:space-y-8 text-white text-sm leading-relaxed max-w-5xl text-justify"
+          ></div>
+        ) : (
+          <p className="text-white text-center text-lg max-w-4xl">
+            Executive summary information is currently unavailable.
+          </p>
+        )}
       </div>
     </section>
   );

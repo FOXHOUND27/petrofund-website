@@ -538,6 +538,16 @@ const ScholarshipsHeader = () => {
                 </svg>
                 <span className="text-white">+264 61 400 443</span>
               </div>
+              <span className="text-white hover:text-[#4F3996] transition-all duration-300">
+                Visit{" "}
+                <a
+                  href="https://esaspetrofund.org/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ESAS Petrofund
+                </a>
+              </span>
             </div>
           </footer>
         </div>

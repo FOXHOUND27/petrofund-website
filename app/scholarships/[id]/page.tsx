@@ -3,10 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Calendar, FileText, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { base_url } from "@/components/data/data";
 
 export interface Program {
@@ -123,7 +122,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
               </CardHeader>
               <CardContent>
                 <div
-                  className="prose prose-sm max-w-none text-foreground text-justify"
+                  className="rich-text-content"
                   dangerouslySetInnerHTML={{
                     __html: scholarItem.full_description_html,
                   }}
@@ -137,7 +136,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
               </CardHeader>
               <CardContent>
                 <div
-                  className="prose prose-sm max-w-none text-foreground text-justify"
+                  className="rich-text-content"
                   dangerouslySetInnerHTML={{ __html: scholarItem.eligibility }}
                 />
               </CardContent>
@@ -149,7 +148,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
               </CardHeader>
               <CardContent>
                 <div
-                  className="prose prose-sm max-w-none text-foreground text-justify"
+                  className="rich-text-content"
                   dangerouslySetInnerHTML={{
                     __html: scholarItem.requirements,
                   }}
@@ -163,7 +162,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
               </CardHeader>
               <CardContent>
                 <div
-                  className="prose prose-sm max-w-none text-foreground text-justify"
+                  className="rich-text-content"
                   dangerouslySetInnerHTML={{
                     __html: scholarItem.application_process,
                   }}
@@ -179,7 +178,7 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
               </CardHeader>
               <CardContent>
                 <div
-                  className="prose text-justify prose-sm max-w-none text-foreground"
+                  className="rich-text-content"
                   dangerouslySetInnerHTML={{
                     __html: scholarItem.important_information,
                   }}
@@ -193,75 +192,10 @@ export default function ProgramDetailPage({ params }: ScholarPageProps) {
               </CardHeader>
               <CardContent>
                 <div
-                  className="prose text-justify prose-sm max-w-none text-foreground"
+                  className="rich-text-content"
                   dangerouslySetInnerHTML={{ __html: scholarItem.enquiries }}
                 />
               </CardContent>
-            </Card>
-          </div>
-
-          {/* Right Column with scholarship details card */}
-          <div className="space-y-6">
-            <Card className="p-6 sticky top-4">
-              <h3 className="text-xl font-bold mb-6">Scholarship Details</h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Calendar className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm font-medium">Application Deadline</p>
-                    <p className="text-sm text-muted-foreground">
-                      {new Date(scholarItem.deadline).toLocaleDateString(
-                        "en-US",
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        }
-                      )}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-6 border-t border-border space-y-3">
-                <motion.a
-                  href="https://esaspetrofund.org/login"
-                  target="_blank"
-                  className="bg-primary flex gap-x-4 items-center justify-center text-white my-5 px-8 xl:px-10 py-2.5 rounded-md hover:bg-accent transition-colors duration-300 font-medium shadow-md text-[15px]"
-                  rel="noreferrer"
-                >
-                  <p>Apply Now</p>
-                </motion.a>
-                {scholarItem.attachment_url && (
-                  <Button
-                    variant="outline"
-                    className="w-full gap-2 bg-transparent"
-                    asChild
-                  >
-                    <a
-                      href={scholarItem.attachment_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FileText className="h-4 w-4" />
-                      Download Attachment
-                    </a>
-                  </Button>
-                )}
-              </div>
-            </Card>
-
-            <Card className="p-6 bg-muted/50">
-              <div className="flex items-start gap-3">
-                <FileText className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium mb-1">Need Help?</p>
-                  <p className="text-sm text-muted-foreground">
-                    Contact our admissions team for more information about this
-                    scholarship program.
-                  </p>
-                </div>
-              </div>
             </Card>
           </div>
         </div>

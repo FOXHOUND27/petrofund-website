@@ -7,10 +7,10 @@ const Operators = () => {
       {" "}
       <div className="bg-[#4F3996] relative bottom-35 md:bottom-20 lg:bottom-0 mb-10 shadow-2xl flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] w-full max-w-[95%] mx-auto">
         <Image
-          src="/Logo/SecondLogo.png"
+          src="/Logo/newlogo2.png"
           alt="Second Logo"
-          width={300}
-          height={300}
+          width={400}
+          height={400}
         />
         <h1 className="text-xl mt-5 text-white mb-2 sm:mb-6 md:mb-7 text-center font-semibold">
           PETROLEUM EXPLORATION COMPANIES

@@ -130,22 +130,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* Hero Image */}
-        <motion.div
-          className="relative w-full aspect-[21/10] rounded-2xl overflow-hidden mb-8 sm:mb-12"
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
-        >
-          <Image
-            src={post.image_url || "/placeholder.svg"}
-            alt={post.title}
-            fill
-            className="object-cover object-top"
-            priority
-          />
-        </motion.div>
-
         {/* Header */}
         <motion.header
           className="mb-8 sm:mb-12"
