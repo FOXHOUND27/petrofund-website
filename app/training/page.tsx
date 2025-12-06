@@ -15,6 +15,15 @@ export interface TrainingProgram {
   image_url: string;
 }
 
+interface HeroImage {
+  id: number;
+  image_url: string;
+  title: string;
+  subtitle: string;
+  page: string;
+  created_at: string;
+}
+
 const Page = () => {
   const [trainingInfo, setTrainingInfo] = useState<TrainingProgram[] | null>(
     []
@@ -22,7 +31,10 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Pagination state
+  const [heroImage, setHeroImage] = useState<HeroImage | null>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
+  const [heroError, setHeroError] = useState<string | null>(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 6;
 
@@ -31,7 +43,6 @@ const Page = () => {
       try {
         const res = await fetch(`${base_url}/api/trainings`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
         const data = await res.json();
         setTrainingInfo(data.data);
       } catch (err: any) {
@@ -41,41 +52,56 @@ const Page = () => {
       }
     }
 
+    async function fetchHero() {
+      try {
+        const res = await fetch(`${base_url}/api/hero-images`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        const trainingHero = data?.data?.find(
+          (img: HeroImage) => img.page === "Training"
+        );
+        setHeroImage(trainingHero || null);
+      } catch (err: any) {
+        setHeroError(err.message);
+      } finally {
+        setHeroLoading(false);
+      }
+    }
+
     fetchSummary();
+    fetchHero();
   }, []);
 
-  if (loading) {
-    return (
-      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
-        <div className="flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] min-h-[400px]">
-          <div className="flex flex-col items-center gap-4">
-            <div className="relative w-16 h-16">
-              <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
-              <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
-            </div>
-            <p className="text-lg font-medium text-[#F47C20]">Loading</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  const heroHeight = "h-[400px] sm:h-[500px] md:h-[600px] w-full relative";
 
   // Pagination Logic
   const totalItems = trainingInfo?.length || 0;
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentItems = trainingInfo?.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
   return (
     <>
-      <MainHero
-        imageSrc="/PetrofundContent/Training.jpeg"
-        title="Training"
-        subtitle="Empower Your Skills, Elevate Your Potential"
-      />
+      {/* Dynamic MainHero */}
+      {heroLoading ? (
+        <div className={`${heroHeight} bg-gray-300 animate-pulse`} />
+      ) : heroError ? (
+        <div
+          className={`${heroHeight} flex items-center justify-center bg-gray-200 text-red-600`}
+        >
+          Failed to load hero image
+        </div>
+      ) : (
+        <MainHero
+          imageSrc={
+            heroImage?.image_url || "/public/SectionImages/DesertHero.jpg"
+          }
+          title={heroImage?.title || "Training"}
+          subtitle={
+            heroImage?.subtitle || "Empower Your Skills, Elevate Your Potential"
+          }
+        />
+      )}
 
       <div className="min-h-screen relative bottom-45 md:bottom-40 lg:bottom-40 bg-background">
         {/* Header Section */}

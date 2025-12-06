@@ -19,8 +19,18 @@ interface NewsData {
   attachment_path?: string;
 }
 
+interface HeroImage {
+  id: number;
+  image_url: string;
+  title: string;
+  subtitle: string;
+  page: string;
+  created_at: string;
+}
+
 const Page = () => {
   const [newsInfo, setNewsInfo] = useState<NewsData[] | null>([]);
+  const [heroImage, setHeroImage] = useState<HeroImage | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,55 +38,66 @@ const Page = () => {
   const itemsPerPage = 6;
 
   useEffect(() => {
-    async function fetchSummary() {
+    async function fetchData() {
       try {
-        const res = await fetch(`${base_url}/api/news`);
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        const data = await res.json();
-        setNewsInfo(data.data);
+        // Fetch news posts
+        const newsRes = await fetch(`${base_url}/api/news`);
+        if (!newsRes.ok)
+          throw new Error(`HTTP error! status: ${newsRes.status}`);
+        const newsData = await newsRes.json();
+        setNewsInfo(newsData.data ?? []);
+
+        // Fetch hero image for "News & Updates"
+        const heroRes = await fetch(`${base_url}/api/hero-images`);
+        if (!heroRes.ok)
+          throw new Error(`HTTP error! status: ${heroRes.status}`);
+        const heroData = await heroRes.json();
+        const newsHero = heroData?.data?.find(
+          (img: HeroImage) => img.page === "News & Updates"
+        );
+        setHeroImage(newsHero ?? null);
       } catch (err: any) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     }
-    fetchSummary();
+
+    fetchData();
   }, []);
 
   if (loading) {
     return (
-      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
-        <div className="flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] min-h-[400px]">
-          <div className="flex flex-col items-center gap-4">
-            <div className="relative w-16 h-16">
-              <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
-              <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
-            </div>
-            <p className="text-lg font-medium text-[#F47C20]">Loading</p>
-          </div>
-        </div>
+      <section className="p-4 md:p-8 lg:p-10 xl:p-12">
+        <div className="flex flex-col items-center justify-center min-h-[400px] bg-gray-300 animate-pulse" />
       </section>
     );
   }
 
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  if (error) return <p className="text-red-500 text-center">Error: {error}</p>;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentNews = newsInfo?.slice(indexOfFirstItem, indexOfLastItem) || [];
   const totalPages = newsInfo ? Math.ceil(newsInfo.length / itemsPerPage) : 0;
 
+  const heroHeight = "h-[400px] sm:h-[500px] md:h-[600px] w-full relative";
+
   return (
     <>
-      <MiniHero
-        imageSrc="/SectionImages/DesertHero.jpg"
-        title="Latest News"
-        subtitle="View and read our latest updates"
-      />
+      {heroImage ? (
+        <MiniHero
+          imageSrc={heroImage.image_url || "/SectionImages/DesertHero.jpg"}
+          title={heroImage.title || "Latest News"}
+          subtitle={heroImage.subtitle || "View and read our latest updates"}
+        />
+      ) : (
+        <div className={`${heroHeight} bg-gray-300`} />
+      )}
 
       {/* News Posts Section */}
       <section className="flex flex-wrap justify-center gap-8 items-stretch mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
-        {currentNews && currentNews.length > 0 ? (
+        {currentNews.length > 0 ? (
           currentNews.map((news, index) => (
             <motion.div
               key={news.id}
@@ -85,7 +106,6 @@ const Page = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.15, duration: 0.5 }}
             >
-              {/* Image */}
               <div className="w-full h-48 sm:h-56 md:h-64 overflow-hidden rounded-lg mb-4">
                 <Image
                   src={news.image_url || "/placeholder.svg"}
@@ -96,7 +116,6 @@ const Page = () => {
                 />
               </div>
 
-              {/* Text & Buttons */}
               <div className="flex flex-col flex-grow">
                 <div className="mb-4">
                   <h1 className="mb-1 text-md font-semibold text-white">

@@ -1,9 +1,8 @@
 "use client";
 import MiniHero from "@/components/miniHero";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { base_url } from "@/components/data/data";
 
 export interface GalleryImage {
@@ -23,21 +22,46 @@ const ITEMS_PER_PAGE = 6;
 
 const Page = () => {
   const [galleryInfo, setGalleryInfo] = useState<GalleryCategory[] | null>([]);
+  const [heroInfo, setHeroInfo] = useState<{
+    imageSrc: string;
+    title: string;
+    subtitle: string;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    async function fetchSummary() {
+    async function fetchData() {
       try {
+        // Fetch gallery categories
         const res = await fetch(`${base_url}/api/gallery-categories`);
-
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
-        setGalleryInfo(data.data);
+        const galleries = data.data ?? [];
+        setGalleryInfo(galleries);
+
+        // Fetch hero image for "Gallery"
+        const heroRes = await fetch(`${base_url}/api/hero-images`);
+        if (!heroRes.ok)
+          throw new Error(`HTTP error! status: ${heroRes.status}`);
+        const heroData = await heroRes.json();
+        const galleryHero = heroData?.data?.find(
+          (img: any) => img.page === "Gallery"
+        );
+        setHeroInfo(
+          galleryHero
+            ? {
+                imageSrc: galleryHero.image_url,
+                title: galleryHero.title,
+                subtitle: galleryHero.subtitle,
+              }
+            : {
+                imageSrc: "/SectionImages/DesertHero.jpg",
+                title: "Our Gallery",
+                subtitle: "View images from our latest events and activities",
+              }
+        );
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -45,13 +69,11 @@ const Page = () => {
       }
     }
 
-    fetchSummary();
+    fetchData();
   }, []);
 
   const filtered = galleryInfo?.filter((g) => g.images.length > 0) || [];
-
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-
   const currentData = filtered.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
@@ -60,39 +82,31 @@ const Page = () => {
   if (loading) {
     return (
       <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45">
-        <div className="flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 rounded-tl-[45px] sm:rounded-tl-[65px] md:rounded-tl-[75px] lg:rounded-tl-[85px] rounded-br-[45px] sm:rounded-br-[65px] md:rounded-br-[75px] lg:rounded-br-[85px] min-h-[400px]">
-          <div className="flex flex-col items-center gap-4">
-            <div className="relative w-16 h-16">
-              <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
-              <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
-            </div>
-            <p className="text-lg font-medium text-[#F47C20]">Loading</p>
-          </div>
-        </div>
+        <div className="flex flex-col items-center justify-center min-h-[400px] bg-gray-300 animate-pulse" />
       </section>
     );
   }
 
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  if (error) return <p className="text-red-500 text-center">Error: {error}</p>;
 
   return (
     <>
-      <MiniHero
-        imageSrc="/SectionImages/DesertHero.jpg"
-        title="Our Gallery"
-        subtitle="View images from our latest events and activities"
-      />
+      {heroInfo && (
+        <MiniHero
+          imageSrc={heroInfo.imageSrc || "/SectionImages/DesertHero.jpg"}
+          title={heroInfo.title}
+          subtitle={heroInfo.subtitle}
+        />
+      )}
 
-      {/* If no galleries exist */}
       {filtered.length === 0 && (
         <p className="w-full text-center text-xl text-muted-foreground mt-20 mb-20">
           No galleries available at the moment. Please check back later.
         </p>
       )}
 
-      {/* Gallery grid */}
       {filtered.length > 0 && (
-        <section className="flex flex-wrap justify-center mb-2 px-1 sm:px-2 md:px-3 lg:px-4 ">
+        <section className="flex flex-wrap justify-center mb-2 px-1 sm:px-2 md:px-3 lg:px-4">
           {currentData.map((gallery) => (
             <div
               key={gallery.categoryId}
@@ -121,7 +135,6 @@ const Page = () => {
         </section>
       )}
 
-      {/* Pagination */}
       {filtered.length > 0 && totalPages > 1 && (
         <div className="flex justify-center gap-3 pb-16">
           <button

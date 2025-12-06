@@ -24,19 +24,30 @@ interface Executive {
   updated_at: string;
 }
 
+interface HeroImage {
+  id: number;
+  image_url: string;
+  title: string;
+  subtitle: string;
+  page: string;
+  created_at: string;
+}
+
 export default function ExecutiveTeamPage() {
   const [executives, setExecutives] = useState<Executive[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [heroImage, setHeroImage] = useState<HeroImage | null>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
+  const [heroError, setHeroError] = useState<string | null>(null);
+
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
-
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
   const currentItems = executives.slice(indexOfFirst, indexOfLast);
-
   const totalPages = Math.ceil(executives.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {
@@ -44,12 +55,11 @@ export default function ExecutiveTeamPage() {
   };
 
   useEffect(() => {
-    async function fetchSummary() {
+    // Fetch executives
+    async function fetchExecutives() {
       try {
         const res = await fetch(`${base_url}/api/management`);
-
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
         const data = await res.json();
         setExecutives(data.data ?? []);
       } catch (err: any) {
@@ -59,32 +69,51 @@ export default function ExecutiveTeamPage() {
       }
     }
 
-    fetchSummary();
+    // Fetch MiniHero image for "Our Management Team"
+    async function fetchHero() {
+      try {
+        const res = await fetch(`${base_url}/api/hero-images`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        const teamHero = data?.data?.find(
+          (img: HeroImage) => img.page === "Our Management Team"
+        );
+        setHeroImage(teamHero || null);
+      } catch (err: any) {
+        setHeroError(err.message);
+      } finally {
+        setHeroLoading(false);
+      }
+    }
+
+    fetchExecutives();
+    fetchHero();
   }, []);
 
-  if (loading) {
-    return (
-      <section className="p-4 md:p-8 lg:p-10 xl:p-12">
-        <div className="flex flex-col items-center justify-center min-h-[400px]">
-          <div className="relative w-16 h-16">
-            <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
-            <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
-          </div>
-          <p className="text-lg font-medium text-[#F47C20] mt-4">Loading...</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  // MiniHero height (match your MiniHero styling)
+  const heroHeight = "h-[400px] sm:h-[500px] md:h-[600px] w-full relative";
 
   return (
     <>
-      <MiniHero
-        imageSrc="/SectionImages/DesertHero.jpg"
-        title="Meet Our Executive Team"
-        subtitle="Visionary leaders driving innovation, excellence, and sustainable growth across the organization."
-      />
+      {/* Dynamic MiniHero */}
+      {heroLoading ? (
+        <div className={`${heroHeight} bg-gray-300 animate-pulse`} />
+      ) : heroError ? (
+        <div
+          className={`${heroHeight} flex items-center justify-center bg-gray-200 text-red-600`}
+        >
+          Failed to load hero image
+        </div>
+      ) : (
+        <MiniHero
+          imageSrc={heroImage?.image_url || "/SectionImages/DesertHero.jpg"}
+          title={heroImage?.title || "Meet Our Executive Team"}
+          subtitle={
+            heroImage?.subtitle ||
+            "Visionary leaders driving innovation, excellence, and sustainable growth across the organization."
+          }
+        />
+      )}
 
       <ManagementHeader
         title="Our Management Team"
@@ -93,7 +122,19 @@ export default function ExecutiveTeamPage() {
 
       <div className="min-h-screen bg-background">
         <section className="container mx-auto px-4 py-16 md:py-24">
-          {currentItems.length > 0 ? (
+          {loading ? (
+            <div className="flex flex-col items-center justify-center min-h-[400px]">
+              <div className="relative w-16 h-16">
+                <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+                <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
+              </div>
+              <p className="text-lg font-medium text-[#F47C20] mt-4">
+                Loading...
+              </p>
+            </div>
+          ) : error ? (
+            <p className="text-red-500">Error: {error}</p>
+          ) : currentItems.length > 0 ? (
             <div className="grid gap-8 lg:grid-cols-1 xl:grid-cols-2">
               {currentItems.map((executive) => (
                 <Card

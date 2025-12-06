@@ -23,30 +23,37 @@ interface Trustee {
   updated_at: string;
 }
 
+interface HeroImage {
+  id: number;
+  image_url: string;
+  title: string;
+  subtitle: string;
+  page: string;
+  created_at: string;
+}
+
 export default function TrusteesTeamPage() {
   const [trustees, setTrustees] = useState<Trustee[] | null>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [heroImage, setHeroImage] = useState<HeroImage | null>(null);
+  const [heroLoading, setHeroLoading] = useState(true);
+  const [heroError, setHeroError] = useState<string | null>(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
-
   const totalPages = Math.ceil((trustees?.length || 0) / itemsPerPage);
-
   const paginatedTrustees = trustees?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
   useEffect(() => {
-    async function fetchSummary() {
+    async function fetchTrustees() {
       try {
         const res = await fetch(`${base_url}/api/trustees`);
-
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
         setTrustees(data.data ?? []);
       } catch (err: any) {
@@ -56,32 +63,49 @@ export default function TrusteesTeamPage() {
       }
     }
 
-    fetchSummary();
+    async function fetchHero() {
+      try {
+        const res = await fetch(`${base_url}/api/hero-images`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        const boardHero = data?.data?.find(
+          (img: HeroImage) => img.page === "Board Of Trustees"
+        );
+        setHeroImage(boardHero || null);
+      } catch (err: any) {
+        setHeroError(err.message);
+      } finally {
+        setHeroLoading(false);
+      }
+    }
+
+    fetchTrustees();
+    fetchHero();
   }, []);
 
-  if (loading) {
-    return (
-      <section className="p-4 md:p-8 lg:p-10 xl:p-12 relative bottom-45 md:bottom-45 lg:bottom-45">
-        <div className="flex flex-col items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 min-h-[400px]">
-          <div className="relative w-16 h-16">
-            <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
-            <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
-          </div>
-          <p className="text-lg font-medium text-[#F47C20] mt-4">Loading...</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) return <p className="text-red-500 text-center">Error: {error}</p>;
+  const heroHeight = "h-[400px] sm:h-[500px] md:h-[600px] w-full relative";
 
   return (
     <>
-      <MiniHero
-        imageSrc="/SectionImages/DesertHero.jpg"
-        title="Board of Trustees"
-        subtitle="Guiding the Vision and Governance of Petrofund"
-      />
+      {/* Dynamic MiniHero */}
+      {heroLoading ? (
+        <div className={`${heroHeight} bg-gray-300 animate-pulse`} />
+      ) : heroError ? (
+        <div
+          className={`${heroHeight} flex items-center justify-center bg-gray-200 text-red-600`}
+        >
+          Failed to load hero image
+        </div>
+      ) : (
+        <MiniHero
+          imageSrc={heroImage?.image_url || "/SectionImages/DesertHero.jpg"}
+          title={heroImage?.title || "Board of Trustees"}
+          subtitle={
+            heroImage?.subtitle ||
+            "Guiding the Vision and Governance of Petrofund"
+          }
+        />
+      )}
 
       <ManagementHeader
         title="Our Board Of Trustees"
@@ -90,9 +114,21 @@ export default function TrusteesTeamPage() {
 
       <div className="min-h-screen bg-background">
         <section className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid gap-8 max-w-5xl mx-auto">
-            {paginatedTrustees && paginatedTrustees.length > 0 ? (
-              paginatedTrustees.map((trustee, index) => (
+          {loading ? (
+            <div className="flex flex-col items-center justify-center min-h-[400px]">
+              <div className="relative w-16 h-16">
+                <div className="absolute inset-0 border-4 border-white/20 rounded-full"></div>
+                <div className="absolute inset-0 border-4 border-transparent border-t-[#F47C20] rounded-full animate-spin"></div>
+              </div>
+              <p className="text-lg font-medium text-[#F47C20] mt-4">
+                Loading...
+              </p>
+            </div>
+          ) : error ? (
+            <p className="text-red-500 text-center">Error: {error}</p>
+          ) : paginatedTrustees && paginatedTrustees.length > 0 ? (
+            <div className="grid gap-8 max-w-5xl mx-auto">
+              {paginatedTrustees.map((trustee, index) => (
                 <motion.div
                   key={trustee.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -158,16 +194,16 @@ export default function TrusteesTeamPage() {
                     </div>
                   </div>
                 </motion.div>
-              ))
-            ) : (
-              <div className="col-span-full flex justify-center">
-                <p className="w-full text-center text-lg text-muted-foreground mt-12">
-                  No trustee information is currently available. Please check
-                  back later.
-                </p>
-              </div>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="col-span-full flex justify-center">
+              <p className="w-full text-center text-lg text-muted-foreground mt-12">
+                No trustee information is currently available. Please check back
+                later.
+              </p>
+            </div>
+          )}
 
           {totalPages > 1 && (
             <div className="flex justify-center mt-10 gap-4">
