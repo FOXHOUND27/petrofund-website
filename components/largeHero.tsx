@@ -3,6 +3,15 @@ import Image from "next/image";
 import { ArrowUpRight, ChevronRight, MoveUpRight } from "lucide-react";
 import Link from "next/link";
 
+interface HeroImage {
+  id: number;
+  image_url: string;
+  title: string;
+  subtitle: string;
+  page: string;
+  created_at: string;
+}
+
 const LargeHero = () => {
   return (
     <section className="relative bottom-25  w-full h-[600px] sm:h-[700px] md:h-[700px] lg:h-[800px] xl:h-[900px] overflow-hidden">
