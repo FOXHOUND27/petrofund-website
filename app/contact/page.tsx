@@ -1,20 +1,60 @@
 "use client";
 import MiniHero from "@/components/miniHero";
 import { CircleArrowRight, Contact } from "lucide-react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ContactSection from "@/components/contactSection";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { base_url } from "@/components/data/data";
 
 const Page = () => {
+  const [heroInfo, setHeroInfo] = useState<{
+    imageSrc: string;
+    title: string;
+    subtitle: string;
+  } | null>(null);
+
+  useEffect(() => {
+    async function fetchHero() {
+      try {
+        const res = await fetch(`${base_url}/api/hero-images`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        const contactHero = data?.data?.find(
+          (img: any) => img.page === "Contact Page"
+        );
+        setHeroInfo(
+          contactHero
+            ? {
+                imageSrc: contactHero.image_url,
+                title: contactHero.title,
+                subtitle: contactHero.subtitle,
+              }
+            : {
+                imageSrc: "/SectionImages/DesertHero.jpg",
+                title: "Contact Us",
+                subtitle: "Get in touch with us for any inquiries",
+              }
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchHero();
+  }, []);
+
   return (
     <>
-      <MiniHero
-        imageSrc="/SectionImages/DesertHero.jpg"
-        title="Contact Us"
-        subtitle="Get in touch with us for any inquiries"
-      />
+      {heroInfo && (
+        <MiniHero
+          imageSrc={heroInfo.imageSrc}
+          title={heroInfo.title}
+          subtitle={heroInfo.subtitle}
+        />
+      )}
+
       <section className="relative mb-5 sm:mb:10 md:mb-20 lg:mb-30 bottom-5 p-4 md:p-8 lg:p-10 xl:p-12">
         <div className="bg-[#4F3996] shadow-2xl rounded-tl-[85px] flex flex-col md:flex-row overflow-hidden">
           {/* CEO Image */}

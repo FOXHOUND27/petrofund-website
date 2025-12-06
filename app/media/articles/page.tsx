@@ -23,19 +23,46 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [heroInfo, setHeroInfo] = useState<{
+    imageSrc: string;
+    title: string;
+    subtitle: string;
+  } | null>(null);
+
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
   useEffect(() => {
-    async function fetchSummary() {
+    async function fetchData() {
       try {
+        // Fetch articles
         const res = await fetch(`${base_url}/api/articles`);
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
         setArticlesInfo(data.data);
+
+        // Fetch hero image for "Articles"
+        const heroRes = await fetch(`${base_url}/api/hero-images`);
+        if (!heroRes.ok)
+          throw new Error(`HTTP error! status: ${heroRes.status}`);
+        const heroData = await heroRes.json();
+        const articlesHero = heroData?.data?.find(
+          (img: any) => img.page === "Articles"
+        );
+        setHeroInfo(
+          articlesHero
+            ? {
+                imageSrc: articlesHero.image_url,
+                title: articlesHero.title,
+                subtitle: articlesHero.subtitle,
+              }
+            : {
+                imageSrc: "/SectionImages/DesertHero.jpg",
+                title: "Latest Articles",
+                subtitle: "Explore our latest insights and updates",
+              }
+        );
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -43,7 +70,7 @@ const Page = () => {
       }
     }
 
-    fetchSummary();
+    fetchData();
   }, []);
 
   if (loading) {
@@ -72,11 +99,13 @@ const Page = () => {
 
   return (
     <>
-      <MiniHero
-        imageSrc="/SectionImages/DesertHero.jpg"
-        title="Latest Articles"
-        subtitle="Explore our latest insights and updates"
-      />
+      {heroInfo && (
+        <MiniHero
+          imageSrc={heroInfo.imageSrc || "/SectionImages/DesertHero.jpg"}
+          title={heroInfo.title}
+          subtitle={heroInfo.subtitle}
+        />
+      )}
 
       {/* Articles Section */}
       <section className="flex flex-wrap justify-center gap-8 items-start mb-10 px-4 sm:px-6 md:px-8 lg:px-12">
